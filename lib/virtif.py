@@ -191,7 +191,7 @@ def analyze_stat(spa_obj, options):
    elif options['compare'] == 'Custom' and size > 1:
         print(tmp[['Events', 'Alias', 'Runs', 'Names', 'Values', 'RelVar%']])
    elif size == 1:
-        print(stat_data[['Runs', 'Events', 'Alias', 'Values', 'Values_list']])
+        print(stat_data[['Events', 'Alias', 'Runs',  'Names', 'Values', 'Values_list']])
    else:
         print('NO DATA FOUND')
         exit()
