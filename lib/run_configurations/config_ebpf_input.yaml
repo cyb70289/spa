@@ -1,0 +1,18 @@
+
+ebpf:
+        type: All
+        input: skylake_short.json
+        regex: All
+        list: ''
+        sens: Max
+        factor: 1
+        counters: ''
+        path: "lmbench/lmbench3/bin/x86_64-linux-gnu/lat_syscall"
+        nooptimize: false
+        verbosity: High 
+        obfile: ''
+        compare: Current 
+
+
+
+

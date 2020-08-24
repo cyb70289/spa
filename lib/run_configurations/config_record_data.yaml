@@ -1,0 +1,15 @@
+
+record:
+        type: All
+        extra_args: -a
+        createflamegraph: true
+        counters: ""   #not teted
+        input: ""      #nott tested
+        callgraph: true
+        filter: ""
+        compare: Current
+        verbosity: Low
+        Flevel: 10
+        thorough: False # not in use currently
+
+

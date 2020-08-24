@@ -1,0 +1,16 @@
+
+stat:
+        type: All
+        input: counter_files/skylake_short.json
+        filter: ''
+        applyalias: false
+        base: NoName
+        verbosity: Low
+        compare: All
+        name: NoName
+        style: Normal
+        regex: ""
+        repeat: 1
+        interval: ''
+        key: 'Runs'
+

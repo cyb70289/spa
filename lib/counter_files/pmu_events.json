@@ -1,0 +1,2108 @@
+[
+  {
+    "Perf-Code": "r0",
+    "EventName": "PERF_COUNT_HW_CPU_CYCLES",
+    "Description": "PERF_COUNT_HW_CPU_CYCLES",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "CYCLES",
+    "Description": "PERF_COUNT_HW_CPU_CYCLES",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "CPU-CYCLES",
+    "Description": "PERF_COUNT_HW_CPU_CYCLES",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r1",
+    "EventName": "PERF_COUNT_HW_INSTRUCTIONS",
+    "Description": "PERF_COUNT_HW_INSTRUCTIONS",
+    "Code": "0x1"
+  },
+  {
+    "Perf-Code": "r1",
+    "EventName": "INSTRUCTIONS",
+    "Description": "PERF_COUNT_HW_INSTRUCTIONS",
+    "Code": "0x1"
+  },
+  {
+    "Perf-Code": "r2",
+    "EventName": "PERF_COUNT_HW_CACHE_REFERENCES",
+    "Description": "PERF_COUNT_HW_CACHE_REFERENCES",
+    "Code": "0x2"
+  },
+  {
+    "Perf-Code": "r2",
+    "EventName": "CACHE-REFERENCES",
+    "Description": "PERF_COUNT_HW_CACHE_REFERENCES",
+    "Code": "0x2"
+  },
+  {
+    "Perf-Code": "r3",
+    "EventName": "PERF_COUNT_HW_CACHE_MISSES",
+    "Description": "PERF_COUNT_HW_CACHE_MISSES",
+    "Code": "0x3"
+  },
+  {
+    "Perf-Code": "r3",
+    "EventName": "CACHE-MISSES",
+    "Description": "PERF_COUNT_HW_CACHE_MISSES",
+    "Code": "0x3"
+  },
+  {
+    "Perf-Code": "r4",
+    "EventName": "PERF_COUNT_HW_BRANCH_INSTRUCTIONS",
+    "Description": "PERF_COUNT_HW_BRANCH_INSTRUCTIONS",
+    "Code": "0x4"
+  },
+  {
+    "Perf-Code": "r4",
+    "EventName": "BRANCH-INSTRUCTIONS",
+    "Description": "PERF_COUNT_HW_BRANCH_INSTRUCTIONS",
+    "Code": "0x4"
+  },
+  {
+    "Perf-Code": "r4",
+    "EventName": "BRANCHES",
+    "Description": "PERF_COUNT_HW_BRANCH_INSTRUCTIONS",
+    "Code": "0x4"
+  },
+  {
+    "Perf-Code": "r5",
+    "EventName": "PERF_COUNT_HW_BRANCH_MISSES",
+    "Description": "PERF_COUNT_HW_BRANCH_MISSES",
+    "Code": "0x5"
+  },
+  {
+    "Perf-Code": "r5",
+    "EventName": "BRANCH-MISSES",
+    "Description": "PERF_COUNT_HW_BRANCH_MISSES",
+    "Code": "0x5"
+  },
+  {
+    "Perf-Code": "r6",
+    "EventName": "PERF_COUNT_HW_BUS_CYCLES",
+    "Description": "PERF_COUNT_HW_BUS_CYCLES",
+    "Code": "0x6"
+  },
+  {
+    "Perf-Code": "r6",
+    "EventName": "BUS-CYCLES",
+    "Description": "PERF_COUNT_HW_BUS_CYCLES",
+    "Code": "0x6"
+  },
+  {
+    "Perf-Code": "r7",
+    "EventName": "PERF_COUNT_HW_STALLED_CYCLES_FRONTEND",
+    "Description": "PERF_COUNT_HW_STALLED_CYCLES_FRONTEND",
+    "Code": "0x7"
+  },
+  {
+    "Perf-Code": "r7",
+    "EventName": "STALLED-CYCLES-FRONTEND",
+    "Description": "PERF_COUNT_HW_STALLED_CYCLES_FRONTEND",
+    "Code": "0x7"
+  },
+  {
+    "Perf-Code": "r7",
+    "EventName": "IDLE-CYCLES-FRONTEND",
+    "Description": "PERF_COUNT_HW_STALLED_CYCLES_FRONTEND",
+    "Code": "0x7"
+  },
+  {
+    "Perf-Code": "r8",
+    "EventName": "PERF_COUNT_HW_STALLED_CYCLES_BACKEND",
+    "Description": "PERF_COUNT_HW_STALLED_CYCLES_BACKEND",
+    "Code": "0x8"
+  },
+  {
+    "Perf-Code": "r8",
+    "EventName": "STALLED-CYCLES-BACKEND",
+    "Description": "PERF_COUNT_HW_STALLED_CYCLES_BACKEND",
+    "Code": "0x8"
+  },
+  {
+    "Perf-Code": "r8",
+    "EventName": "IDLE-CYCLES-BACKEND",
+    "Description": "PERF_COUNT_HW_STALLED_CYCLES_BACKEND",
+    "Code": "0x8"
+  },
+  {
+    "Perf-Code": "r9",
+    "EventName": "PERF_COUNT_HW_REF_CPU_CYCLES",
+    "Description": "PERF_COUNT_HW_REF_CPU_CYCLES",
+    "Code": "0x9"
+  },
+  {
+    "Perf-Code": "r9",
+    "EventName": "REF-CYCLES",
+    "Description": "PERF_COUNT_HW_REF_CPU_CYCLES",
+    "Code": "0x9"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "PERF_COUNT_SW_CPU_CLOCK",
+    "Description": "PERF_COUNT_SW_CPU_CLOCK",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "CPU-CLOCK",
+    "Description": "PERF_COUNT_SW_CPU_CLOCK",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r1",
+    "EventName": "PERF_COUNT_SW_TASK_CLOCK",
+    "Description": "PERF_COUNT_SW_TASK_CLOCK",
+    "Code": "0x1"
+  },
+  {
+    "Perf-Code": "r1",
+    "EventName": "TASK-CLOCK",
+    "Description": "PERF_COUNT_SW_TASK_CLOCK",
+    "Code": "0x1"
+  },
+  {
+    "Perf-Code": "r2",
+    "EventName": "PERF_COUNT_SW_PAGE_FAULTS",
+    "Description": "PERF_COUNT_SW_PAGE_FAULTS",
+    "Code": "0x2"
+  },
+  {
+    "Perf-Code": "r2",
+    "EventName": "PAGE-FAULTS",
+    "Description": "PERF_COUNT_SW_PAGE_FAULTS",
+    "Code": "0x2"
+  },
+  {
+    "Perf-Code": "r2",
+    "EventName": "FAULTS",
+    "Description": "PERF_COUNT_SW_PAGE_FAULTS",
+    "Code": "0x2"
+  },
+  {
+    "Perf-Code": "r3",
+    "EventName": "PERF_COUNT_SW_CONTEXT_SWITCHES",
+    "Description": "PERF_COUNT_SW_CONTEXT_SWITCHES",
+    "Code": "0x3"
+  },
+  {
+    "Perf-Code": "r3",
+    "EventName": "CONTEXT-SWITCHES",
+    "Description": "PERF_COUNT_SW_CONTEXT_SWITCHES",
+    "Code": "0x3"
+  },
+  {
+    "Perf-Code": "r3",
+    "EventName": "CS",
+    "Description": "PERF_COUNT_SW_CONTEXT_SWITCHES",
+    "Code": "0x3"
+  },
+  {
+    "Perf-Code": "r4",
+    "EventName": "PERF_COUNT_SW_CPU_MIGRATIONS",
+    "Description": "PERF_COUNT_SW_CPU_MIGRATIONS",
+    "Code": "0x4"
+  },
+  {
+    "Perf-Code": "r4",
+    "EventName": "CPU-MIGRATIONS",
+    "Description": "PERF_COUNT_SW_CPU_MIGRATIONS",
+    "Code": "0x4"
+  },
+  {
+    "Perf-Code": "r4",
+    "EventName": "MIGRATIONS",
+    "Description": "PERF_COUNT_SW_CPU_MIGRATIONS",
+    "Code": "0x4"
+  },
+  {
+    "Perf-Code": "r5",
+    "EventName": "PERF_COUNT_SW_PAGE_FAULTS_MIN",
+    "Description": "PERF_COUNT_SW_PAGE_FAULTS_MIN",
+    "Code": "0x5"
+  },
+  {
+    "Perf-Code": "r5",
+    "EventName": "MINOR-FAULTS",
+    "Description": "PERF_COUNT_SW_PAGE_FAULTS_MIN",
+    "Code": "0x5"
+  },
+  {
+    "Perf-Code": "r6",
+    "EventName": "PERF_COUNT_SW_PAGE_FAULTS_MAJ",
+    "Description": "PERF_COUNT_SW_PAGE_FAULTS_MAJ",
+    "Code": "0x6"
+  },
+  {
+    "Perf-Code": "r6",
+    "EventName": "MAJOR-FAULTS",
+    "Description": "PERF_COUNT_SW_PAGE_FAULTS_MAJ",
+    "Code": "0x6"
+  },
+  {
+    "Perf-Code": "r10000",
+    "EventName": "PERF_COUNT_HW_CACHE_L1D",
+    "Description": "L1 data cache",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "L1-DCACHE-LOADS",
+    "Description": "L1 cache load accesses",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r10000",
+    "EventName": "L1-DCACHE-LOAD-MISSES",
+    "Description": "L1 cache load misses",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r100",
+    "EventName": "L1-DCACHE-STORES",
+    "Description": "L1 cache store accesses",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r10100",
+    "EventName": "L1-DCACHE-STORE-MISSES",
+    "Description": "L1 cache store misses",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r200",
+    "EventName": "L1-DCACHE-PREFETCHES",
+    "Description": "L1 cache prefetch accesses",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r10200",
+    "EventName": "L1-DCACHE-PREFETCH-MISSES",
+    "Description": "L1 cache prefetch misses",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r10001",
+    "EventName": "PERF_COUNT_HW_CACHE_L1I",
+    "Description": "L1 instruction cache",
+    "Code": "0x1"
+  },
+  {
+    "Perf-Code": "r1",
+    "EventName": "L1-ICACHE-LOADS",
+    "Description": "L1I cache load accesses",
+    "Code": "0x1"
+  },
+  {
+    "Perf-Code": "r10001",
+    "EventName": "L1-ICACHE-LOAD-MISSES",
+    "Description": "L1I cache load misses",
+    "Code": "0x1"
+  },
+  {
+    "Perf-Code": "r201",
+    "EventName": "L1-ICACHE-PREFETCHES",
+    "Description": "L1I cache prefetch accesses",
+    "Code": "0x1"
+  },
+  {
+    "Perf-Code": "r10201",
+    "EventName": "L1-ICACHE-PREFETCH-MISSES",
+    "Description": "L1I cache prefetch misses",
+    "Code": "0x1"
+  },
+  {
+    "Perf-Code": "r10002",
+    "EventName": "PERF_COUNT_HW_CACHE_LL",
+    "Description": "Last level cache",
+    "Code": "0x2"
+  },
+  {
+    "Perf-Code": "r2",
+    "EventName": "LLC-LOADS",
+    "Description": "Last level cache load accesses",
+    "Code": "0x2"
+  },
+  {
+    "Perf-Code": "r10002",
+    "EventName": "LLC-LOAD-MISSES",
+    "Description": "Last level cache load misses",
+    "Code": "0x2"
+  },
+  {
+    "Perf-Code": "r102",
+    "EventName": "LLC-STORES",
+    "Description": "Last level cache store accesses",
+    "Code": "0x2"
+  },
+  {
+    "Perf-Code": "r10102",
+    "EventName": "LLC-STORE-MISSES",
+    "Description": "Last level cache store misses",
+    "Code": "0x2"
+  },
+  {
+    "Perf-Code": "r202",
+    "EventName": "LLC-PREFETCHES",
+    "Description": "Last level cache prefetch accesses",
+    "Code": "0x2"
+  },
+  {
+    "Perf-Code": "r10202",
+    "EventName": "LLC-PREFETCH-MISSES",
+    "Description": "Last level cache prefetch misses",
+    "Code": "0x2"
+  },
+  {
+    "Perf-Code": "r10003",
+    "EventName": "PERF_COUNT_HW_CACHE_DTLB",
+    "Description": "Data Translation Lookaside Buffer",
+    "Code": "0x3"
+  },
+  {
+    "Perf-Code": "r3",
+    "EventName": "DTLB-LOADS",
+    "Description": "Data TLB load accesses",
+    "Code": "0x3"
+  },
+  {
+    "Perf-Code": "r10003",
+    "EventName": "DTLB-LOAD-MISSES",
+    "Description": "Data TLB load misses",
+    "Code": "0x3"
+  },
+  {
+    "Perf-Code": "r103",
+    "EventName": "DTLB-STORES",
+    "Description": "Data TLB store accesses",
+    "Code": "0x3"
+  },
+  {
+    "Perf-Code": "r10103",
+    "EventName": "DTLB-STORE-MISSES",
+    "Description": "Data TLB store misses",
+    "Code": "0x3"
+  },
+  {
+    "Perf-Code": "r203",
+    "EventName": "DTLB-PREFETCHES",
+    "Description": "Data TLB prefetch accesses",
+    "Code": "0x3"
+  },
+  {
+    "Perf-Code": "r10203",
+    "EventName": "DTLB-PREFETCH-MISSES",
+    "Description": "Data TLB prefetch misses",
+    "Code": "0x3"
+  },
+  {
+    "Perf-Code": "r10004",
+    "EventName": "PERF_COUNT_HW_CACHE_ITLB",
+    "Description": "Instruction Translation Lookaside Buffer",
+    "Code": "0x4"
+  },
+  {
+    "Perf-Code": "r4",
+    "EventName": "ITLB-LOADS",
+    "Description": "Instruction TLB load accesses",
+    "Code": "0x4"
+  },
+  {
+    "Perf-Code": "r10004",
+    "EventName": "ITLB-LOAD-MISSES",
+    "Description": "Instruction TLB load misses",
+    "Code": "0x4"
+  },
+  {
+    "Perf-Code": "r10005",
+    "EventName": "PERF_COUNT_HW_CACHE_BPU",
+    "Description": "Branch Prediction Unit",
+    "Code": "0x5"
+  },
+  {
+    "Perf-Code": "r5",
+    "EventName": "BRANCH-LOADS",
+    "Description": "Branch  load accesses",
+    "Code": "0x5"
+  },
+  {
+    "Perf-Code": "r10005",
+    "EventName": "BRANCH-LOAD-MISSES",
+    "Description": "Branch  load misses",
+    "Code": "0x5"
+  },
+  {
+    "Perf-Code": "r10006",
+    "EventName": "PERF_COUNT_HW_CACHE_NODE",
+    "Description": "Node memory access",
+    "Code": "0x6"
+  },
+  {
+    "Perf-Code": "r6",
+    "EventName": "NODE-LOADS",
+    "Description": "Node  load accesses",
+    "Code": "0x6"
+  },
+  {
+    "Perf-Code": "r10006",
+    "EventName": "NODE-LOAD-MISSES",
+    "Description": "Node  load misses",
+    "Code": "0x6"
+  },
+  {
+    "Perf-Code": "r106",
+    "EventName": "NODE-STORES",
+    "Description": "Node  store accesses",
+    "Code": "0x6"
+  },
+  {
+    "Perf-Code": "r10106",
+    "EventName": "NODE-STORE-MISSES",
+    "Description": "Node  store misses",
+    "Code": "0x6"
+  },
+  {
+    "Perf-Code": "r206",
+    "EventName": "NODE-PREFETCHES",
+    "Description": "Node  prefetch accesses",
+    "Code": "0x6"
+  },
+  {
+    "Perf-Code": "r10206",
+    "EventName": "NODE-PREFETCH-MISSES",
+    "Description": "Node  prefetch misses",
+    "Code": "0x6"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "iscsi",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "btrfs",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "ib_mad",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "mlx5",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "drm",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "fib6",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "bpf_test_run",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "devlink",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "skb",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "net",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "napi",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "sock",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "udp",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "tcp",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "fib",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "qdisc",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "bridge",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "page_pool",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "neigh",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "ras",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "devfreq",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "cros_ec",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "mmc",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "thermal_power_allocator",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "thermal",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "hwmon",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "smbus",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "i2c",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "rtc",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "xhci-hcd",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "mdio",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "spi",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "libata",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "scsi",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "sync_trace",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "dma_fence",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "regmap",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "iommu",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "random",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "regulator",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "rpmh",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "clk",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "gpio",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "wbt",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "block",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "jbd2",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "ext4",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "filelock",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "fs_dax",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "writeback",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "fs",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "cma",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "page_isolation",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "huge_memory",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "migrate",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "compaction",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "kmem",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "percpu",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "vmscan",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "pagemap",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "oom",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "filemap",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "rseq",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "xdp",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "rpm",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "power",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "ftrace",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "cgroup",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "module",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "alarmtimer",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "timer",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "swiotlb",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "rcu",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "printk",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "sched",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "workqueue",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "signal",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "irq",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "cpuhp",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "task",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "kvm",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "emulation",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "ipi",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "syscalls",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "raw_syscalls",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "initcall",
+    "Description": "tracepoint",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r0",
+    "EventName": "r0000",
+    "Description": "perf_events raw event syntax",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r8000000",
+    "EventName": "SW_INCR",
+    "Description": "Instruction architecturally executed",
+    "Code": "0x0"
+  },
+  {
+    "Perf-Code": "r8000001",
+    "EventName": "L1I_CACHE_REFILL",
+    "Description": "Level 1 instruction cache refill",
+    "Code": "0x1"
+  },
+  {
+    "Perf-Code": "r8000002",
+    "EventName": "L1I_TLB_REFILL",
+    "Description": "Level 1 instruction TLB refill",
+    "Code": "0x2"
+  },
+  {
+    "Perf-Code": "r8000003",
+    "EventName": "L1D_CACHE_REFILL",
+    "Description": "Level 1 data cache refill",
+    "Code": "0x3"
+  },
+  {
+    "Perf-Code": "r8000004",
+    "EventName": "L1D_CACHE",
+    "Description": "Level 1 data cache access",
+    "Code": "0x4"
+  },
+  {
+    "Perf-Code": "r8000005",
+    "EventName": "L1D_TLB_REFILL",
+    "Description": "Level 1 data TLB refill",
+    "Code": "0x5"
+  },
+  {
+    "Perf-Code": "r8000006",
+    "EventName": "LD_RETIRED",
+    "Description": "Instruction architecturally executed",
+    "Code": "0x6"
+  },
+  {
+    "Perf-Code": "r8000007",
+    "EventName": "ST_RETIRED",
+    "Description": "Instruction architecturally executed",
+    "Code": "0x7"
+  },
+  {
+    "Perf-Code": "r8000008",
+    "EventName": "INST_RETIRED",
+    "Description": "Instruction architecturally executed",
+    "Code": "0x8"
+  },
+  {
+    "Perf-Code": "r8000009",
+    "EventName": "EXC_TAKEN",
+    "Description": "Exception taken",
+    "Code": "0x9"
+  },
+  {
+    "Perf-Code": "r800000a",
+    "EventName": "EXC_RETURN",
+    "Description": "Instruction architecturally executed",
+    "Code": "0xa"
+  },
+  {
+    "Perf-Code": "r800000b",
+    "EventName": "CID_WRITE_RETIRED",
+    "Description": "Instruction architecturally executed",
+    "Code": "0xb"
+  },
+  {
+    "Perf-Code": "r800000d",
+    "EventName": "BR_IMMED_RETIRED",
+    "Description": "Instruction architecturally executed",
+    "Code": "0xd"
+  },
+  {
+    "Perf-Code": "r800000e",
+    "EventName": "BR_RETURN_RETIRED",
+    "Description": "Instruction architecturally executed",
+    "Code": "0xe"
+  },
+  {
+    "Perf-Code": "r800000f",
+    "EventName": "UNALIGNED_LDST_RETIRED",
+    "Description": "Instruction architecturally executed",
+    "Code": "0xf"
+  },
+  {
+    "Perf-Code": "r8000010",
+    "EventName": "BR_MIS_PRED",
+    "Description": "Mispredicted or not predicted branch speculatively executed",
+    "Code": "0x10"
+  },
+  {
+    "Perf-Code": "r8000011",
+    "EventName": "CPU_CYCLES",
+    "Description": "Cycles",
+    "Code": "0x11"
+  },
+  {
+    "Perf-Code": "r8000012",
+    "EventName": "BR_PRED",
+    "Description": "Predictable branch speculatively executed",
+    "Code": "0x12"
+  },
+  {
+    "Perf-Code": "r8000013",
+    "EventName": "MEM_ACCESS",
+    "Description": "Data memory access",
+    "Code": "0x13"
+  },
+  {
+    "Perf-Code": "r8000014",
+    "EventName": "L1I_CACHE",
+    "Description": "Level 1 instruction cache access",
+    "Code": "0x14"
+  },
+  {
+    "Perf-Code": "r8000015",
+    "EventName": "L1D_CACHE_WB",
+    "Description": "Level 1 data cache write-back",
+    "Code": "0x15"
+  },
+  {
+    "Perf-Code": "r8000016",
+    "EventName": "L2D_CACHE",
+    "Description": "Level 2 data cache access",
+    "Code": "0x16"
+  },
+  {
+    "Perf-Code": "r8000017",
+    "EventName": "L2D_CACHE_REFILL",
+    "Description": "Level 2 data cache refill",
+    "Code": "0x17"
+  },
+  {
+    "Perf-Code": "r8000018",
+    "EventName": "L2D_CACHE_WB",
+    "Description": "Level 2 data cache write-back",
+    "Code": "0x18"
+  },
+  {
+    "Perf-Code": "r8000019",
+    "EventName": "BUS_ACCESS",
+    "Description": "Bus access",
+    "Code": "0x19"
+  },
+  {
+    "Perf-Code": "r800001b",
+    "EventName": "INST_SPEC",
+    "Description": "Instruction speculatively executed",
+    "Code": "0x1b"
+  },
+  {
+    "Perf-Code": "r800001c",
+    "EventName": "TTBR_WRITE_RETIRED",
+    "Description": "Instruction architecturally executed",
+    "Code": "0x1c"
+  },
+  {
+    "Perf-Code": "r800001e",
+    "EventName": "CHAIN",
+    "Description": "For odd-numbered counters",
+    "Code": "0x1e"
+  },
+  {
+    "Perf-Code": "r800001f",
+    "EventName": "L1D_CACHE_ALLOCATE",
+    "Description": "Level 1 data cache allocation without refill",
+    "Code": "0x1f"
+  },
+  {
+    "Perf-Code": "r8000020",
+    "EventName": "L2D_CACHE_ALLOCATE",
+    "Description": "Level 2 data",
+    "Code": "0x20"
+  },
+  {
+    "Perf-Code": "r8000021",
+    "EventName": "BR_RETIRED",
+    "Description": "Counts all branches on the architecturally executed path that would incur cost if mispredicted",
+    "Code": "0x21"
+  },
+  {
+    "Perf-Code": "r8000022",
+    "EventName": "BR_MIS_PRED_RETIRED",
+    "Description": "Instructions executed",
+    "Code": "0x22"
+  },
+  {
+    "Perf-Code": "r8000023",
+    "EventName": "STALL_FRONTEND",
+    "Description": "Cycle on which no operation issued because there were no operations to issue",
+    "Code": "0x23"
+  },
+  {
+    "Perf-Code": "r8000024",
+    "EventName": "STALL_BACKEND",
+    "Description": "Cycle on which no operation issued due to back-end resources being unavailable",
+    "Code": "0x24"
+  },
+  {
+    "Perf-Code": "r8000025",
+    "EventName": "L1D_TLB",
+    "Description": "Level 1 data TLB access",
+    "Code": "0x25"
+  },
+  {
+    "Perf-Code": "r8000026",
+    "EventName": "L1I_TLB",
+    "Description": "Instruction TLB access",
+    "Code": "0x26"
+  },
+  {
+    "Perf-Code": "r800002d",
+    "EventName": "L2D_TLB_REFILL",
+    "Description": "Attributable memory-read or attributable memory-write operation that causes a TLB refill",
+    "Code": "0x2d"
+  },
+  {
+    "Perf-Code": "r800002e",
+    "EventName": "L2I_TLB_REFILL",
+    "Description": "Attributable instruction memory access that causes a TLB refill",
+    "Code": "0x2e"
+  },
+  {
+    "Perf-Code": "r800002f",
+    "EventName": "L2D_TLB",
+    "Description": "Attributable memory read operation or attributable memory write operation that causes a TLB access",
+    "Code": "0x2f"
+  },
+  {
+    "Perf-Code": "r8000030",
+    "EventName": "L2I_TLB",
+    "Description": "Attributable memory read operation or attributable memory write operation that causes a TLB access",
+    "Code": "0x30"
+  },
+  {
+    "Perf-Code": "r8000040",
+    "EventName": "L1D_CACHE_RD",
+    "Description": "Level 1 data cache access",
+    "Code": "0x40"
+  },
+  {
+    "Perf-Code": "r8000041",
+    "EventName": "L1D_CACHE_WR",
+    "Description": "Level 1 data cache access",
+    "Code": "0x41"
+  },
+  {
+    "Perf-Code": "r8000042",
+    "EventName": "L1D_CACHE_REFILL_RD",
+    "Description": "Level 1 data cache refill",
+    "Code": "0x42"
+  },
+  {
+    "Perf-Code": "r8000043",
+    "EventName": "L1D_CACHE_REFILL_WR",
+    "Description": "Level 1 data cache refill",
+    "Code": "0x43"
+  },
+  {
+    "Perf-Code": "r8000044",
+    "EventName": "L1D_CACHE_REFILL_INNER",
+    "Description": "Level 1 data cache refill",
+    "Code": "0x44"
+  },
+  {
+    "Perf-Code": "r8000045",
+    "EventName": "L1D_CACHE_REFILL_OUTER",
+    "Description": "Level 1 data cache refill",
+    "Code": "0x45"
+  },
+  {
+    "Perf-Code": "r8000046",
+    "EventName": "L1D_CACHE_WB_VICTIM",
+    "Description": "Level 1 data cache write-back",
+    "Code": "0x46"
+  },
+  {
+    "Perf-Code": "r8000047",
+    "EventName": "L1D_CACHE_WB_CLEAN",
+    "Description": "Level 1 data cache write-back",
+    "Code": "0x47"
+  },
+  {
+    "Perf-Code": "r8000048",
+    "EventName": "L1D_CACHE_INVAL",
+    "Description": "Level 1 data cache invalidate",
+    "Code": "0x48"
+  },
+  {
+    "Perf-Code": "r800004c",
+    "EventName": "L1D_TLB_REFILL_RD",
+    "Description": "Level 1 data TLB read refill",
+    "Code": "0x4c"
+  },
+  {
+    "Perf-Code": "r800004d",
+    "EventName": "L1D_TLB_REFILL_WR",
+    "Description": "Level 1 data TLB write refill",
+    "Code": "0x4d"
+  },
+  {
+    "Perf-Code": "r800004e",
+    "EventName": "L1D_TLB_RD",
+    "Description": "Level 1 data TLB access",
+    "Code": "0x4e"
+  },
+  {
+    "Perf-Code": "r800004f",
+    "EventName": "L1D_TLB_WR",
+    "Description": "Level 1 data TLB access",
+    "Code": "0x4f"
+  },
+  {
+    "Perf-Code": "r8000050",
+    "EventName": "L2D_CACHE_RD",
+    "Description": "Level 2 data cache access",
+    "Code": "0x50"
+  },
+  {
+    "Perf-Code": "r8000051",
+    "EventName": "L2D_CACHE_WR",
+    "Description": "Level 2 data cache access",
+    "Code": "0x51"
+  },
+  {
+    "Perf-Code": "r8000052",
+    "EventName": "L2D_CACHE_REFILL_RD",
+    "Description": "Level 2 data cache refill",
+    "Code": "0x52"
+  },
+  {
+    "Perf-Code": "r8000053",
+    "EventName": "L2D_CACHE_REFILL_WR",
+    "Description": "Level 2 data cache refill",
+    "Code": "0x53"
+  },
+  {
+    "Perf-Code": "r8000056",
+    "EventName": "L2D_CACHE_WB_VICTIM",
+    "Description": "Level 2 data cache write-back",
+    "Code": "0x56"
+  },
+  {
+    "Perf-Code": "r8000057",
+    "EventName": "L2D_CACHE_WB_CLEAN",
+    "Description": "Level 2 data cache write-back",
+    "Code": "0x57"
+  },
+  {
+    "Perf-Code": "r8000058",
+    "EventName": "L2D_CACHE_INVAL",
+    "Description": "Level 2 data cache invalidate",
+    "Code": "0x58"
+  },
+  {
+    "Perf-Code": "r800005c",
+    "EventName": "L2D_TLB_REFILL_RD",
+    "Description": "Level 2 data",
+    "Code": "0x5c"
+  },
+  {
+    "Perf-Code": "r800005d",
+    "EventName": "L2D_TLB_REFILL_WR",
+    "Description": "Level 2 data",
+    "Code": "0x5d"
+  },
+  {
+    "Perf-Code": "r800005e",
+    "EventName": "L2D_TLB_RD",
+    "Description": "Level 2 data",
+    "Code": "0x5e"
+  },
+  {
+    "Perf-Code": "r800005f",
+    "EventName": "L2D_TLB_WR",
+    "Description": "Level 2 data",
+    "Code": "0x5f"
+  },
+  {
+    "Perf-Code": "r8000060",
+    "EventName": "BUS_ACCESS_RD",
+    "Description": "Bus access",
+    "Code": "0x60"
+  },
+  {
+    "Perf-Code": "r8000061",
+    "EventName": "BUS_ACCESS_WR",
+    "Description": "Bus access",
+    "Code": "0x61"
+  },
+  {
+    "Perf-Code": "r8000062",
+    "EventName": "BUS_ACCESS_SHARED",
+    "Description": "Bus access",
+    "Code": "0x62"
+  },
+  {
+    "Perf-Code": "r8000063",
+    "EventName": "BUS_ACCESS_NOT_SHARED",
+    "Description": "Bus not normal access",
+    "Code": "0x63"
+  },
+  {
+    "Perf-Code": "r8000064",
+    "EventName": "BUS_ACCESS_NORMAL",
+    "Description": "Bus access",
+    "Code": "0x64"
+  },
+  {
+    "Perf-Code": "r8000065",
+    "EventName": "BUS_ACCESS_PERIPH",
+    "Description": "Bus access",
+    "Code": "0x65"
+  },
+  {
+    "Perf-Code": "r8000066",
+    "EventName": "MEM_ACCESS_RD",
+    "Description": "Data memory access",
+    "Code": "0x66"
+  },
+  {
+    "Perf-Code": "r8000067",
+    "EventName": "MEM_ACCESS_WR",
+    "Description": "Data memory access",
+    "Code": "0x67"
+  },
+  {
+    "Perf-Code": "r8000068",
+    "EventName": "UNALIGNED_LD_SPEC",
+    "Description": "Unaligned access",
+    "Code": "0x68"
+  },
+  {
+    "Perf-Code": "r8000069",
+    "EventName": "UNALIGNED_ST_SPEC",
+    "Description": "Unaligned access",
+    "Code": "0x69"
+  },
+  {
+    "Perf-Code": "r800006a",
+    "EventName": "UNALIGNED_LDST_SPEC",
+    "Description": "Unaligned access",
+    "Code": "0x6a"
+  },
+  {
+    "Perf-Code": "r800006c",
+    "EventName": "LDREX_SPEC",
+    "Description": "Exclusive operation speculatively executed - LDREX or LDX",
+    "Code": "0x6c"
+  },
+  {
+    "Perf-Code": "r800006d",
+    "EventName": "STREX_PASS_SPEC",
+    "Description": "Exclusive operation speculative executed - STREX or STX pass",
+    "Code": "0x6d"
+  },
+  {
+    "Perf-Code": "r800006e",
+    "EventName": "STREX_FAIL_SPEC",
+    "Description": "Exclusive operation speculative executed - STREX or STX fail",
+    "Code": "0x6e"
+  },
+  {
+    "Perf-Code": "r800006f",
+    "EventName": "STREX_SPEC",
+    "Description": "Exclusive operation speculatively executed - STREX or STX",
+    "Code": "0x6f"
+  },
+  {
+    "Perf-Code": "r8000070",
+    "EventName": "LD_SPEC",
+    "Description": "Operation speculatively executed",
+    "Code": "0x70"
+  },
+  {
+    "Perf-Code": "r8000071",
+    "EventName": "ST_SPEC",
+    "Description": "Operation speculatively executed",
+    "Code": "0x71"
+  },
+  {
+    "Perf-Code": "r8000072",
+    "EventName": "LDST_SPEC",
+    "Description": "Operation speculatively executed",
+    "Code": "0x72"
+  },
+  {
+    "Perf-Code": "r8000073",
+    "EventName": "DP_SPEC",
+    "Description": "Operation speculatively executed",
+    "Code": "0x73"
+  },
+  {
+    "Perf-Code": "r8000074",
+    "EventName": "ASE_SPEC",
+    "Description": "Operation speculatively executed",
+    "Code": "0x74"
+  },
+  {
+    "Perf-Code": "r8000075",
+    "EventName": "VFP_SPEC",
+    "Description": "Operation speculatively executed",
+    "Code": "0x75"
+  },
+  {
+    "Perf-Code": "r8000077",
+    "EventName": "CRYPTO_SPEC",
+    "Description": "Operation speculatively executed",
+    "Code": "0x77"
+  },
+  {
+    "Perf-Code": "r8000078",
+    "EventName": "BR_IMMED_SPEC",
+    "Description": "Branch speculatively executed",
+    "Code": "0x78"
+  },
+  {
+    "Perf-Code": "r8000079",
+    "EventName": "BR_RETURN_SPEC",
+    "Description": "Branch speculatively executed",
+    "Code": "0x79"
+  },
+  {
+    "Perf-Code": "r800007a",
+    "EventName": "BR_INDIRECT_SPEC",
+    "Description": "Branch speculatively executed",
+    "Code": "0x7a"
+  },
+  {
+    "Perf-Code": "r800007c",
+    "EventName": "ISB_SPEC",
+    "Description": "Barrier speculatively executed",
+    "Code": "0x7c"
+  },
+  {
+    "Perf-Code": "r800007d",
+    "EventName": "DSB_SPEC",
+    "Description": "barrier speculatively executed",
+    "Code": "0x7d"
+  },
+  {
+    "Perf-Code": "r800007e",
+    "EventName": "DMB_SPEC",
+    "Description": "Barrier speculatively executed",
+    "Code": "0x7e"
+  },
+  {
+    "Perf-Code": "r8000081",
+    "EventName": "EXC_UNDEF",
+    "Description": "Exception taken",
+    "Code": "0x81"
+  },
+  {
+    "Perf-Code": "r8000082",
+    "EventName": "EXC_SVC",
+    "Description": "Exception taken",
+    "Code": "0x82"
+  },
+  {
+    "Perf-Code": "r8000083",
+    "EventName": "EXC_PABORT",
+    "Description": "Exception taken",
+    "Code": "0x83"
+  },
+  {
+    "Perf-Code": "r8000084",
+    "EventName": "EXC_DABORT",
+    "Description": "Exception taken",
+    "Code": "0x84"
+  },
+  {
+    "Perf-Code": "r8000086",
+    "EventName": "EXC_IRQ",
+    "Description": "Exception taken",
+    "Code": "0x86"
+  },
+  {
+    "Perf-Code": "r8000087",
+    "EventName": "EXC_FIQ",
+    "Description": "Exception taken",
+    "Code": "0x87"
+  },
+  {
+    "Perf-Code": "r8000088",
+    "EventName": "EXC_SMC",
+    "Description": "Exception taken",
+    "Code": "0x88"
+  },
+  {
+    "Perf-Code": "r800008a",
+    "EventName": "EXC_HVC",
+    "Description": "Exception taken",
+    "Code": "0x8a"
+  },
+  {
+    "Perf-Code": "r800008b",
+    "EventName": "EXC_TRAP_PABORT",
+    "Description": "Exception taken",
+    "Code": "0x8b"
+  },
+  {
+    "Perf-Code": "r800008c",
+    "EventName": "EXC_TRAP_DABORT",
+    "Description": "Exception taken",
+    "Code": "0x8c"
+  },
+  {
+    "Perf-Code": "r800008d",
+    "EventName": "EXC_TRAP_OTHER",
+    "Description": "Exception taken",
+    "Code": "0x8d"
+  },
+  {
+    "Perf-Code": "r800008e",
+    "EventName": "EXC_TRAP_IRQ",
+    "Description": "Exception taken",
+    "Code": "0x8e"
+  },
+  {
+    "Perf-Code": "r800008f",
+    "EventName": "EXC_TRAP_FIQ",
+    "Description": "Exception taken",
+    "Code": "0x8f"
+  },
+  {
+    "Perf-Code": "r8000090",
+    "EventName": "RC_LD_SPEC",
+    "Description": "Release consistency instruction speculatively executed",
+    "Code": "0x90"
+  },
+  {
+    "Perf-Code": "r8000091",
+    "EventName": "RC_ST_SPEC",
+    "Description": "Release consistency instruction speculatively executed",
+    "Code": "0x91"
+  },
+  {
+    "Perf-Code": "r80000c1",
+    "EventName": "L1D_LHS_VANOTP",
+    "Description": "A Load hit store retry",
+    "Code": "0xc1"
+  },
+  {
+    "Perf-Code": "r80000c2",
+    "EventName": "L1D_LHS_OVRLAP",
+    "Description": "A Load hit store retry",
+    "Code": "0xc2"
+  },
+  {
+    "Perf-Code": "r80000c3",
+    "EventName": "L1D_LHS_VANOSD",
+    "Description": "A Load hit store retry",
+    "Code": "0xc3"
+  },
+  {
+    "Perf-Code": "r80000c4",
+    "EventName": "L1D_LHS_FWD",
+    "Description": "A Load hit store forwarding",
+    "Code": "0xc4"
+  },
+  {
+    "Perf-Code": "r80000c6",
+    "EventName": "L1D_BNKCFL",
+    "Description": "Bank conflict load retry",
+    "Code": "0xc6"
+  },
+  {
+    "Perf-Code": "r80000c7",
+    "EventName": "L1D_LSMQ_FULL",
+    "Description": "LSMQ retry",
+    "Code": "0xc7"
+  },
+  {
+    "Perf-Code": "r80000c8",
+    "EventName": "L1D_LSMQ_HIT",
+    "Description": "LSMQ hit retry",
+    "Code": "0xc8"
+  },
+  {
+    "Perf-Code": "r80000c9",
+    "EventName": "L1D_EXPB_MISS",
+    "Description": "An external probe missed the L1",
+    "Code": "0xc9"
+  },
+  {
+    "Perf-Code": "r80000ca",
+    "EventName": "L1D_L2EV_MISS",
+    "Description": "An L2 evict operation missed the L1",
+    "Code": "0xca"
+  },
+  {
+    "Perf-Code": "r80000cb",
+    "EventName": "L1D_EXPB_HITM",
+    "Description": "An external probe hit a modified line in the L1",
+    "Code": "0xcb"
+  },
+  {
+    "Perf-Code": "r80000cc",
+    "EventName": "L1D_L2EV_HITM",
+    "Description": "An L2 evict operation hit a modified line in the L1",
+    "Code": "0xcc"
+  },
+  {
+    "Perf-Code": "r80000cd",
+    "EventName": "L1D_EXPB_HIT",
+    "Description": "An external probe hit in the L1",
+    "Code": "0xcd"
+  },
+  {
+    "Perf-Code": "r80000ce",
+    "EventName": "L1D_L2EV_HIT",
+    "Description": "An L2 evict operation hit in the L1",
+    "Code": "0xce"
+  },
+  {
+    "Perf-Code": "r80000cf",
+    "EventName": "L1D_EXPB_RETRY",
+    "Description": "An external probe hit was retried",
+    "Code": "0xcf"
+  },
+  {
+    "Perf-Code": "r80000d0",
+    "EventName": "L1D_L2EV_RETRY",
+    "Description": "An L2 evict operation was retried",
+    "Code": "0xd0"
+  },
+  {
+    "Perf-Code": "r80000d1",
+    "EventName": "L1D_ST_RMW",
+    "Description": "A read modify write store was drained and updated the L1",
+    "Code": "0xd1"
+  },
+  {
+    "Perf-Code": "r80000d2",
+    "EventName": "L1D_LSMQ00_LDREQ",
+    "Description": "A load has allocated LSMQ entry 0",
+    "Code": "0xd2"
+  },
+  {
+    "Perf-Code": "r80000d3",
+    "EventName": "L1D_LSMQ00_LDVLD",
+    "Description": "LSMQ entry 0 was initiated by a load",
+    "Code": "0xd3"
+  },
+  {
+    "Perf-Code": "r80000d4",
+    "EventName": "L1D_LSMQ15_STREQ",
+    "Description": "A store was allocated LSMQ entry 15",
+    "Code": "0xd4"
+  },
+  {
+    "Perf-Code": "r80000d5",
+    "EventName": "L1D_LSMQ15_STVLD",
+    "Description": "LSMQ entry 15 was initiated by a store",
+    "Code": "0xd5"
+  },
+  {
+    "Perf-Code": "r80000d6",
+    "EventName": "L1D_PB_FLUSH",
+    "Description": "LRQ ordering flush",
+    "Code": "0xd6"
+  },
+  {
+    "Perf-Code": "r80000e0",
+    "EventName": "BR_COND_MIS_PRED_RETIRED",
+    "Description": "Conditional branch instruction executed",
+    "Code": "0xe0"
+  },
+  {
+    "Perf-Code": "r80000e1",
+    "EventName": "BR_IND_MIS_PRED_RETIRED",
+    "Description": "Indirect branch instruction executed",
+    "Code": "0xe1"
+  },
+  {
+    "Perf-Code": "r80000e2",
+    "EventName": "BR_RETURN_MIS_PRED_RETIRED",
+    "Description": "Return branch instruction executed",
+    "Code": "0xe2"
+  },
+  {
+    "Perf-Code": "r80000e8",
+    "EventName": "OP_RETIRED",
+    "Description": "Uops executed",
+    "Code": "0xe8"
+  },
+  {
+    "Perf-Code": "r80000e9",
+    "EventName": "LD_OP_RETIRED",
+    "Description": "Load uops executed",
+    "Code": "0xe9"
+  },
+  {
+    "Perf-Code": "r80000ea",
+    "EventName": "ST_OP_RETIRED",
+    "Description": "Store uops executed",
+    "Code": "0xea"
+  },
+  {
+    "Perf-Code": "r80000eb",
+    "EventName": "FUSED_OP_RETIRED",
+    "Description": "Fused uops executed",
+    "Code": "0xeb"
+  },
+  {
+    "Perf-Code": "r80000f8",
+    "EventName": "IRQ_MASK",
+    "Description": "Cumulative duration of a PSTATE",
+    "Code": "0xf8"
+  },
+  {
+    "Perf-Code": "r80000f9",
+    "EventName": "FIQ_MASK",
+    "Description": "Cumulative duration of a PSTATE",
+    "Code": "0xf9"
+  },
+  {
+    "Perf-Code": "r80000fa",
+    "EventName": "SERROR_MASK",
+    "Description": "Cumulative duration of PSTATE",
+    "Code": "0xfa"
+  },
+  {
+    "Perf-Code": "r8000108",
+    "EventName": "WFIWFE_SLEEP",
+    "Description": "Number of cycles in which CPU is in low power mode due to WFI",
+    "Code": "0x108"
+  },
+  {
+    "Perf-Code": "r8000127",
+    "EventName": "L2TLB_4K_PAGE_MISS",
+    "Description": "L2 TLB lookup miss using 4K page size",
+    "Code": "0x127"
+  },
+  {
+    "Perf-Code": "r8000128",
+    "EventName": "L2TLB_64K_PAGE_MISS",
+    "Description": "L2 TLB lookup miss using 64K page size",
+    "Code": "0x128"
+  },
+  {
+    "Perf-Code": "r8000129",
+    "EventName": "L2TLB_2M_PAGE_MISS",
+    "Description": "L2 TLB lookup miss using 2M page size",
+    "Code": "0x129"
+  },
+  {
+    "Perf-Code": "r800012a",
+    "EventName": "L2TLB_512M_PAGE_MISS",
+    "Description": "L2 TLB lookup miss using 512M page size",
+    "Code": "0x12a"
+  },
+  {
+    "Perf-Code": "r8000150",
+    "EventName": "ISB_EMPTY",
+    "Description": "Number of cycles during which micro-op skid-buffer is empty",
+    "Code": "0x150"
+  },
+  {
+    "Perf-Code": "r8000151",
+    "EventName": "ISB_FULL",
+    "Description": "Number of cycles during which micro-op skid-buffer is back-pressuring decode",
+    "Code": "0x151"
+  },
+  {
+    "Perf-Code": "r8000152",
+    "EventName": "STALL_NOTSELECTED",
+    "Description": "Number of cycles during which thread was available for dispatch but not selected",
+    "Code": "0x152"
+  },
+  {
+    "Perf-Code": "r8000153",
+    "EventName": "ROB_RECYCLE",
+    "Description": "Number of cycles in which one or more valid micro-ops did not dispatch due to ROB full",
+    "Code": "0x153"
+  },
+  {
+    "Perf-Code": "r8000154",
+    "EventName": "ISSQ_RECYCLE",
+    "Description": "Number of cycles in which one or more valid micro-ops did not dispatch due to ISSQ full",
+    "Code": "0x154"
+  },
+  {
+    "Perf-Code": "r8000155",
+    "EventName": "GPR_RECYCLE",
+    "Description": "Number of cycles in which one or more valid micro-ops did not dispatch due to GPR full",
+    "Code": "0x155"
+  },
+  {
+    "Perf-Code": "r8000156",
+    "EventName": "FPR_RECYCLE",
+    "Description": "Number of cycles in which one or more valid micro-ops did not dispatch due to FPR full",
+    "Code": "0x156"
+  },
+  {
+    "Perf-Code": "r8000158",
+    "EventName": "LRQ_RECYCLE",
+    "Description": "Number of cycles in which one or more valid micro-ops did not dispatch due to LRQ full",
+    "Code": "0x158"
+  },
+  {
+    "Perf-Code": "r8000159",
+    "EventName": "SRQ_RECYCLE",
+    "Description": "Number of cycles in which one or more valid micro-ops did not dispatch due to SRQ full",
+    "Code": "0x159"
+  },
+  {
+    "Perf-Code": "r800015b",
+    "EventName": "BSR_RECYCLE",
+    "Description": "Number of cycles in which one or more valid micro-ops did not dispatch due to BSR full",
+    "Code": "0x15b"
+  },
+  {
+    "Perf-Code": "r8000164",
+    "EventName": "UOPSFUSED",
+    "Description": "Number of fused micro-ops dispatched",
+    "Code": "0x164"
+  },
+  {
+    "Perf-Code": "r800020b",
+    "EventName": "L2D_TLBI_INT",
+    "Description": "Internal mmu tlbi cacheops",
+    "Code": "0x20b"
+  },
+  {
+    "Perf-Code": "r800020c",
+    "EventName": "L2D_TLBI_EXT",
+    "Description": "External mmu tlbi cacheops",
+    "Code": "0x20c"
+  },
+  {
+    "Perf-Code": "r8000218",
+    "EventName": "L2D_HWPF_DMD_HIT",
+    "Description": "Scu ld",
+    "Code": "0x218"
+  },
+  {
+    "Perf-Code": "r8000219",
+    "EventName": "L2D_HWPF_REQ_VAL",
+    "Description": "Scu hwpf requests into the pipeline",
+    "Code": "0x219"
+  },
+  {
+    "Perf-Code": "r800021a",
+    "EventName": "L2D_HWPF_REQ_LD",
+    "Description": "Scu hwpf ld requests into the pipeline",
+    "Code": "0x21a"
+  },
+  {
+    "Perf-Code": "r800021b",
+    "EventName": "L2D_HWPF_REQ_MISS",
+    "Description": "Scu hwpf ld requests that miss",
+    "Code": "0x21b"
+  },
+  {
+    "Perf-Code": "r800021c",
+    "EventName": "L2D_HWPF_NEXT_LINE",
+    "Description": "Scu hwpf next line requests generated",
+    "Code": "0x21c"
+  },
+  {
+    "Perf-Code": "rf",
+    "EventName": "UNC_DMC_READS",
+    "Description": "Memory read transactions",
+    "Code": "0xf"
+  },
+  {
+    "Perf-Code": "rb",
+    "EventName": "UNC_DMC_WRITES",
+    "Description": "Memory write transactions",
+    "Code": "0xb"
+  },
+  {
+    "Perf-Code": "rd",
+    "EventName": "UNC_DMC_DATA_TRANSFERS",
+    "Description": "Memory data transfers",
+    "Code": "0xd"
+  },
+  {
+    "Perf-Code": "r1",
+    "EventName": "UNC_DMC_CYCLES",
+    "Description": "Clocks at the DMC clock rate",
+    "Code": "0x1"
+  },
+  {
+    "Perf-Code": "rf",
+    "EventName": "UNC_DMC_READS",
+    "Description": "Memory read transactions",
+    "Code": "0xf"
+  },
+  {
+    "Perf-Code": "rb",
+    "EventName": "UNC_DMC_WRITES",
+    "Description": "Memory write transactions",
+    "Code": "0xb"
+  },
+  {
+    "Perf-Code": "rd",
+    "EventName": "UNC_DMC_DATA_TRANSFERS",
+    "Description": "Memory data transfers",
+    "Code": "0xd"
+  },
+  {
+    "Perf-Code": "r1",
+    "EventName": "UNC_DMC_CYCLES",
+    "Description": "Clocks at the DMC clock rate",
+    "Code": "0x1"
+  },
+  {
+    "Perf-Code": "rd",
+    "EventName": "UNC_LLC_READ",
+    "Description": "Read requests to LLC",
+    "Code": "0xd"
+  },
+  {
+    "Perf-Code": "r13",
+    "EventName": "UNC_LLC_EVICT",
+    "Description": "Evict requests to LLC",
+    "Code": "0x13"
+  },
+  {
+    "Perf-Code": "r17",
+    "EventName": "UNC_LLC_READ_HIT",
+    "Description": "Read requests to LLC which hit",
+    "Code": "0x17"
+  },
+  {
+    "Perf-Code": "re",
+    "EventName": "UNC_LLC_WB",
+    "Description": "Writeback requests to LLC",
+    "Code": "0xe"
+  },
+  {
+    "Perf-Code": "rd",
+    "EventName": "UNC_LLC_READ",
+    "Description": "Read requests to LLC",
+    "Code": "0xd"
+  },
+  {
+    "Perf-Code": "r13",
+    "EventName": "UNC_LLC_EVICT",
+    "Description": "Evict requests to LLC",
+    "Code": "0x13"
+  },
+  {
+    "Perf-Code": "r17",
+    "EventName": "UNC_LLC_READ_HIT",
+    "Description": "Read requests to LLC which hit",
+    "Code": "0x17"
+  },
+  {
+    "Perf-Code": "re",
+    "EventName": "UNC_LLC_WB",
+    "Description": "Writeback requests to LLC",
+    "Code": "0xe"
+  },
+  {
+    "Perf-Code": "r3d",
+    "EventName": "UNC_CCPI_REQ",
+    "Description": "Request packets sent from this node",
+    "Code": "0x3d"
+  },
+  {
+    "Perf-Code": "r65",
+    "EventName": "UNC_CCPI_SNOOP",
+    "Description": "Snoop packets sent from this node",
+    "Code": "0x65"
+  },
+  {
+    "Perf-Code": "r105",
+    "EventName": "UNC_CCPI_DATA",
+    "Description": "Data packets sent from this node",
+    "Code": "0x105"
+  },
+  {
+    "Perf-Code": "r12d",
+    "EventName": "UNC_CCPI_GIC",
+    "Description": "Interrupt related packets sent from this node",
+    "Code": "0x12d"
+  },
+  {
+    "Perf-Code": "r3d",
+    "EventName": "UNC_CCPI_REQ",
+    "Description": "Request packets sent from this node",
+    "Code": "0x3d"
+  },
+  {
+    "Perf-Code": "r65",
+    "EventName": "UNC_CCPI_SNOOP",
+    "Description": "Snoop packets sent from this node",
+    "Code": "0x65"
+  },
+  {
+    "Perf-Code": "r105",
+    "EventName": "UNC_CCPI_DATA",
+    "Description": "Data packets sent from this node",
+    "Code": "0x105"
+  }
+]

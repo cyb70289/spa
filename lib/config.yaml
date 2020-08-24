@@ -1,0 +1,5 @@
+virtif:
+        auto: true
+        Slevel: 2
+        command: "../lmbench/lmbench3/bin/lat_syscall null"
+        run_config: "run_configurations/config_build_profile.yaml"

@@ -1,0 +1,49 @@
+
+
+[
+  {
+    "EventCode": "0x00",
+    "UMask": "0x01",
+    "EventName": "instructions",
+    "BriefDescription": "Instructions retired from execution.",
+    "PublicDescription": "Counts the number of instructions retired from execution. For instructions that consist of multiple micro-ops, Counts the retirement of the last micro-op of the instruction. Counting continues during hardware interrupts, traps, and inside interrupt handlers. Notes: INST_RETIRED.ANY is counted by a designated fixed counter, leaving the four (eight when Hyperthreading is disabled) programmable counters available for other events. INST_RETIRED.ANY_P is counted by a programmable counter and it is an architectural performance event. Counting: Faulting executions of GETSEC/VM entry/VM Exit/MWait will not count as retired instructions.",
+    "Counter": "Fixed counter 0",
+    "CounterHTOff": "Fixed counter 0",
+    "SampleAfterValue": "2000003",
+    "MSRIndex": "0",
+    "MSRValue": "0",
+    "TakenAlone": "0",
+    "CounterMask": "0",
+    "Invert": "0",
+    "AnyThread": "0",
+    "EdgeDetect": "0",
+    "PEBS": "0",
+    "Data_LA": "0",
+    "L1_Hit_Indication": "0",
+    "Errata": "0",
+    "Offcore": "0"
+  },
+  {
+    "EventCode": "0x00",
+    "UMask": "0x02",
+    "EventName": "cycles",
+    "Alias": "Active_core_cycles_per_thread",
+    "BriefDescription": "Core cycles when the thread is not in halt state",
+    "PublicDescription": "Counts the number of core cycles while the thread is not in a halt state. The thread enters the halt state when it is running the HLT instruction. This event is a component in many key event ratios. The core frequency may change from time to time due to transitions associated with Enhanced Intel SpeedStep Technology or TM2. For this reason this event may have a changing ratio with regards to time. When the core frequency is constant, this event can approximate elapsed time while the core was not in the halt state. It is counted on a dedicated fixed counter, leaving the four (eight when Hyperthreading is disabled) programmable counters available for other events.",
+    "Counter": "Fixed counter 1",
+    "CounterHTOff": "Fixed counter 1",
+    "SampleAfterValue": "2000003",
+    "MSRIndex": "0",
+    "MSRValue": "0",
+    "TakenAlone": "0",
+    "CounterMask": "0",
+    "Invert": "0",
+    "AnyThread": "0",
+    "EdgeDetect": "0",
+    "PEBS": "0",
+    "Data_LA": "0",
+    "L1_Hit_Indication": "0",
+    "Errata": "0",
+    "Offcore": "0"
+  }
+]

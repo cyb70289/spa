@@ -1,0 +1,18 @@
+
+ebpf:
+        type: Analyze
+        input: ''
+        regex: All
+        list: ''
+        sens: Max
+        factor: 1
+        counters: instructions,cache_misses
+        path: "lmbench/lmbench3/bin/x86_64-linux-gnu/lat_syscall"
+        nooptimize: false
+        verbosity: Low
+        obfile: ''
+        compare: Current 
+
+
+
+

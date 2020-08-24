@@ -1,0 +1,30 @@
+
+record:
+        type: Analyze
+        extra_args: -a
+        createflamegraph: true
+        counters: ""
+        input: ""
+        callgraph: true
+        filter: ""
+        compare: Current
+        verbosity: Low
+
+
+ebpf:
+        type: Analyze
+        input: ''
+        regex: All
+        list: ''
+        sens: Max
+        factor: 1
+        counters: instructions,cache_misses
+        path: "lmbench/lmbench3/bin/x86_64-linux-gnu/lat_syscall"
+        nooptimize: true
+        verbosity: Low
+        obfile: ''
+        compare: Current 
+
+
+
+
