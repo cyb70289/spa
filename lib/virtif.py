@@ -82,7 +82,7 @@ def parse_config():
     spa_obj = pa.spa()
     
     virtif = config_main['virtif']
-   
+    jobs = {'stat': 0, 'record': 0, 'ebpf': 0}
 
     with open(virtif['run_config']) as f:
          config = yaml.load(f)
@@ -96,7 +96,9 @@ def parse_config():
         options_stat['command'] = virtif['command']
         stat_obj = stat(options_stat)
         spa_obj.stat(stat_obj)
-        analyze_stat(spa_obj, options_stat)
+        if not options_stat['type'] == 'Run':
+            analyze_stat(spa_obj, options_stat)
+        jobs['stat'] += 1
     
     if 'record' in config.keys():  
     
@@ -106,7 +108,9 @@ def parse_config():
         options_rec['command'] = virtif['command']
         record_obj = record(options_rec)
         spa_obj.record(record_obj)
-        analyze_rec(spa_obj, options_rec)
+        if not options_rec['type'] == 'Run':
+            analyze_rec(spa_obj, options_rec)
+        jobs['record'] += 1
 
     if 'ebpf' in config.keys():  
     
@@ -116,8 +120,13 @@ def parse_config():
         options_ebpf['command'] = virtif['command']
         ebpf_obj = ebpf(options_ebpf)
         spa_obj.ebpf(ebpf_obj)
+        jobs['ebpf'] += 1
         if not options_ebpf['type'] == 'Run':
             analyze_ebpf(spa_obj, options_ebpf)
+    
+    if virtif['Slevel'] > 0:
+        if jobs['record'] > 0 and jobs['ebpf'] > 0:
+            merge_rec_ebpf_data(spa_obj)
 
 
 def arg_replacer(options):
@@ -144,7 +153,7 @@ def analyze_rec(spa_obj, options):
     print(record_data[['Run', 'Name', 'Value']])
 
 
-def merge_rec_ebpf_data(spa_obj, options):
+def merge_rec_ebpf_data(spa_obj):
 
     record_data = spa_obj.pmu_record.data.dg
     ebpf_data = spa_obj.ebpf_record.data.dg
@@ -154,6 +163,7 @@ def merge_rec_ebpf_data(spa_obj, options):
         if name in ebpf_function:
             match_name.append(name)
     arr = []
+    
     for name in match_name:
         tmp = record_data.query('Name == "{}"'.format(name))
         tmp_ebpf = ebpf_data.query('Function == "{}"'.format(name))
@@ -162,12 +172,15 @@ def merge_rec_ebpf_data(spa_obj, options):
         tmp['Ebpf_latency'] = latency
         tmp['Ebpf_count'] = count
         arr.append(tmp)
-    
-    rec_ebpf_data = pd.concat(arr)
-    rec_ebpf_data = rec_ebpf_data.sort_values(by=['Value']) 
-    dump_output(rec_ebpf_data, "record_ebpf_data")
+    try:
+        rec_ebpf_data = pd.concat(arr)
+        rec_ebpf_data = rec_ebpf_data.sort_values(by=['Value']) 
+        dump_output(rec_ebpf_data, "record_ebpf_data")
 
-    print(rec_ebpf_data[['Name', 'Value', 'Ebpf_latency', 'Ebpf_count']])
+        print(rec_ebpf_data[['Name', 'Value', 'Ebpf_latency', 'Ebpf_count']])
+    except ValueError:
+        print('Cannot find values to match')
+        pass
 
 
 def analyze_stat(spa_obj, options):
@@ -191,7 +204,7 @@ def analyze_stat(spa_obj, options):
    elif options['compare'] == 'Custom' and size > 1:
         print(tmp[['Events', 'Alias', 'Runs', 'Names', 'Values', 'RelVar%']])
    elif size == 1:
-        print(stat_data[['Events', 'Alias', 'Runs',  'Names', 'Values', 'Values_list']])
+        print(stat_data[['Runs', 'Events', 'Alias', 'Values', 'Values_list']])
    else:
         print('NO DATA FOUND')
         exit()
