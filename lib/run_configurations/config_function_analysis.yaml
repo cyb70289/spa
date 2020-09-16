@@ -8,6 +8,8 @@ record:
         callgraph: true
         filter: ""
         compare: Current
+        Flevel: 10
+        thorough: false
         verbosity: Low
 
 
