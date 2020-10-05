@@ -1,0 +1,20 @@
+[
+{
+    "EventName": "instructions"
+},
+{
+    "EventName": "cycles"
+},
+{
+    "EventName": "r3"
+},
+{
+    "EventName": "r17"
+},
+{
+    "EventName": "r23"
+},
+{
+    "EventName": "r24"
+}
+]

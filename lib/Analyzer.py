@@ -83,7 +83,8 @@ class Analyzer:
                 self.event_names.append(i)
                 self.runs.append("RUN_{}".format(count))
                 self.values_list.append(pmu['counter'][i]['Value'])
-                self.values.append(sum(pmu['counter'][i]['Value']))
+                if not self.compare == "Profile":
+                    self.values.append(mean(pmu['counter'][i]['Value']))
                 self.alias.append(pmu['counter'][i]['Alias'])
                 self.timestamps.append(pmu['metadata']['timestamp'])
                 self.names.append(pmu['metadata']['name'])
