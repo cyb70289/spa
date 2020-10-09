@@ -88,6 +88,11 @@ def parse_config():
 
     with open(virtif['run_config']) as f:
          config = yaml.load(f)
+    with open("run_configurations/defaults.yaml") as f:
+         config_def = yaml.load(f)
+    def_stat = config_def['stat']
+    def_ebpf = config_def['ebpf']
+    def_rec = config_def['record']
 
 
     if 'stat' in config.keys():
@@ -96,7 +101,9 @@ def parse_config():
         arg_replacer(options_stat)
         options_stat['code'] = timestamp
         options_stat['command'] = virtif['command']
-        stat_obj = stat(options_stat)
+        for key in options_stat.keys():
+            def_stat[key] = options_stat[key]
+        stat_obj = stat(def_stat)
         spa_obj.stat(stat_obj)
         if not options_stat['type'] == 'Run':
             analyze_stat(spa_obj, options_stat)
@@ -108,7 +115,9 @@ def parse_config():
         arg_replacer(options_rec)
         options_rec['code'] = timestamp
         options_rec['command'] = virtif['command']
-        record_obj = record(options_rec)
+        for key in options_rec.keys():
+            def_rec[key] = options_rec[key]
+        record_obj = record(def_rec)
         spa_obj.record(record_obj)
         if not options_rec['type'] == 'Run':
             analyze_rec(spa_obj, options_rec)
@@ -120,7 +129,9 @@ def parse_config():
         arg_replacer(options_ebpf)
         options_ebpf['code'] = timestamp
         options_ebpf['command'] = virtif['command']
-        ebpf_obj = ebpf(options_ebpf)
+        for key in options_ebpf.keys():
+            def_ebpf[key] = options_ebpf[key]
+        ebpf_obj = ebpf(def_ebpf)
         spa_obj.ebpf(ebpf_obj)
         jobs['ebpf'] += 1
         if not options_ebpf['type'] == 'Run':

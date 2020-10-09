@@ -1,0 +1,48 @@
+
+stat:
+        type: All
+        input: ""
+        counters: ""
+        filter: ''
+        applyalias: false
+        base: NoName
+        verbosity: Low
+        compare: All
+        name: NoName
+        style: Normal
+        mx_degree: 1
+        regex: ""
+        repeat: 1
+        interval: ''
+        key: 'Runs'
+
+
+ebpf:
+        type: All
+        input: ''
+        regex: All
+        list: ''
+        sens: Max
+        factor: 1
+        counters: instructions,cache_misses
+        path: "../lmbench/lmbench3/bin/lat_syscall"
+        nooptimize: false
+        verbosity: Low
+        obfile: ''
+        compare: Current 
+
+
+record:
+        type: All
+        extra_args: -a
+        createflamegraph: true
+        counters: ""   #not teted
+        input: ""      #nott tested
+        callgraph: true
+        filter: ""
+        compare: Current
+        verbosity: Low
+        Flevel: 10
+        thorough: False # not in use currently
+
+
