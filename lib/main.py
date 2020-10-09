@@ -314,7 +314,9 @@ class spa:
             if args.compare == 'None':
                 self.log.warning("No compare type provided using All as the default compare type")
                 options["compare"] = 'Current'
-        
+
+        options['mx_degree'] = args.mx_degree
+
         if args.interval:
             options['interval'] = args.interval
         if args.code:
@@ -399,6 +401,7 @@ class spa:
         stat_parser.add_argument("-i", "--input", help="input pmu counters file [json]", required=False)
         stat_parser.add_argument("-c", "--counters", help="list of counters seperated by , ", type=str)
         stat_parser.add_argument("-s", "--style", help="Style of sampling [Default is Iterate]", choices=['Iterate', 'Normal'], default='Iterate', type=str)
+        stat_parser.add_argument("-mx", "--mx_degree", help="Multiplexing limit for iterate style [default is 1]", default=1, type=int)
         stat_parser.add_argument("-r", "--regex", help="Regular Expression for matching events to profile", default="", type=str)
         stat_parser.add_argument("-C", "--compare", help="Compare gathered data", choices=['All', 'Runs', 'Profile', 'Custom', 'Current'], default="Current", type=str)
         stat_parser.add_argument("--key", help="Key to compare with in custom setting", default="Runs", type=str)

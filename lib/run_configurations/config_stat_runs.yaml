@@ -2,6 +2,7 @@
 stat:
         type: Analyze
         input: counter_files/skylake_short.json
+        counters: ''
         filter: ''
         applyalias: false
         base: NoName
@@ -10,6 +11,7 @@ stat:
         name: NoName
         base: Base
         style: Normal
+        mx_degree: 1
         regex: ""
         repeat: 1
         interval: ''

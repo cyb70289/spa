@@ -127,37 +127,21 @@ class spa_pmu:
                 break
             self.log.info(i)
             count_regex = ""
-            if not options['style'] == Style.Iterate:
-                index = 0
-                if not 'interval' in options.keys():
-                    count_regex = re.compile("^( *)([0-9.]+)( *)(\S+)( *| +#.*)$")
-                    index = 2
-                    key = 4
-                else: 
-                    count_regex = re.compile("( *)([0-9.]+)( +)([0-9]+)( +)(\S+)( *)")
-                    index = 4
-                    key = 6
+            index = 0
+            if not 'interval' in options.keys():
+                count_regex = re.compile("^( *)([0-9.]+)( *)(\S+)( *| +#.*)$")
+                index = 2
+                key = 4
+            else: 
+                count_regex = re.compile("( *)([0-9.]+)( +)([0-9]+)( +)(\S+)( *)")
+                index = 4
+                key = 6
     
-                match = count_regex.search(i)
-                if match:
-                    pmu_obj.info['counter'][match.group(key)]['Value'].append(int(match.group(index)))
-                    if 'interval' in options.keys():
-                        pmu_obj.info['counter'][match.group(key)]['Timestamp'].append(float(match.group(2)))
-            else:
-               if not 'interval' in options.keys():
-                   count_regex = re.compile("( *)([0-9.]+)( *)({})( .*)".format(event_list))
-                   index = 2
-                   key = 4
-               else: 
-                   count_regex = re.compile("( *)([0-9.]+)( *)([0-9]+)( *)({})( *)".format(event_list))
-                   index = 4
-                   key = 6
-    
-               match = count_regex.match(i)
-               if match:
-                   pmu_obj.info['counter'][match.group(key)]['Value'].append(int(match.group(index)))
-                   if 'interval' in options.keys():
-                       pmu_obj.info['counter'][match.group(key)]['Timestamp'].append(float(match.group(2)))
+            match = count_regex.search(i)
+            if match:
+                pmu_obj.info['counter'][match.group(key)]['Value'].append(int(match.group(index)))
+                if 'interval' in options.keys():
+                    pmu_obj.info['counter'][match.group(key)]['Timestamp'].append(float(match.group(2)))
         
         if 'interval' in options.keys():
             for k in pmu_obj.info['counter'].keys():
@@ -178,14 +162,36 @@ class spa_pmu:
     
     
     def iterative_style(self,  pmu_obj, options):    
-        
+       
+        com = self.com_create(options)
+        tmp = []
+        event_set = ""
+        i = 0
         for event in options['event_list']:
-            com = self.com_create(options)
-            com.append(event)
-            for i in options['command'].split(' '):
-                com.append(str(i))
+            if i < options['mx_degree']:
+                tmp.append(event)
+                i += 1
+                if not i == options['mx_degree']:
+                    continue
+
+            if len(tmp) > 1:
+                event_set = ','.join(e for e in tmp)
+                com.append(event_set)
+            else:
+                com.append(event)
+            
+            for com_part in options['command'].split(' '):
+                com.append(str(com_part))
+            
             out = self.perform_action(com, options, event)
             self.parse_output(pmu_obj, out, event, options)
+            
+            event_set = ""
+            tmp = []
+            i = 0
+            
+            self.parse_output(pmu_obj, out, event, options)
+            com = self.com_create(options)
     
     
     def com_create(self, options):
@@ -201,7 +207,7 @@ class spa_pmu:
     def perform_action(self, com, options, event=None):
     
         out = None
-        self.log.info("Counter Being Profiles: {}".format(com[3]))
+        self.log.info("Counter Being Profiled: {}".format(com))
         try:
             out = subprocess.Popen(com, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True)
         except Exception as e:

@@ -1,19 +1,18 @@
 
 stat:
         type: All
-        input: counter_files/skylake_short.json
-        counters: ''
+        input: '' 
+        counters: instructions,cycles,cache-misses,branch-misses
         filter: ''
         applyalias: false
         base: NoName
         verbosity: Low
-        compare: Custom
+        compare: All
         name: NoName
-        base: Base
-        style: Normal
+        style: Iterate
+        mx_degree: 2
         regex: ""
         repeat: 1
-        mx_degree: 1
         interval: ''
         key: 'Runs'
 

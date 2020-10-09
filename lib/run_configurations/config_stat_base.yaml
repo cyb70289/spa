@@ -3,14 +3,17 @@ stat:
         type: Analyze
         input: counter_files/skylake_short.json
         filter: ''
+        counters: ''
         applyalias: false
         base: Base  #provide the base run's name here
         verbosity: High
         compare: Runs
         name: Base
         style: Normal
+        mx_degree: 1
         regex: ""
         repeat: 1
+        mx_degree: 1
         interval: ''
         key: 'Runs'
 
