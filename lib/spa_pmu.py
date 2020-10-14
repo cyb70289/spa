@@ -129,7 +129,8 @@ class spa_pmu:
             count_regex = ""
             index = 0
             if not 'interval' in options.keys():
-                count_regex = re.compile("^( *)([0-9.]+)( *)(\S+)( *| +#.*)$")
+               # count_regex = re.compile("^( *)([0-9.]+)( *)(\S+)( *| +#.*)$")
+                count_regex = re.compile("^( *)([0-9.]+)( *)(\S+)( .*)")
                 index = 2
                 key = 4
             else: 
@@ -138,7 +139,7 @@ class spa_pmu:
                 key = 6
     
             match = count_regex.search(i)
-            if match:
+            if match and not match.group(key)=="seconds":
                 pmu_obj.info['counter'][match.group(key)]['Value'].append(int(match.group(index)))
                 if 'interval' in options.keys():
                     pmu_obj.info['counter'][match.group(key)]['Timestamp'].append(float(match.group(2)))

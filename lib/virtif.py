@@ -98,9 +98,9 @@ def parse_config():
     if 'stat' in config.keys():
     
         options_stat = config['stat']
-        arg_replacer(options_stat)
         options_stat['code'] = timestamp
         options_stat['command'] = virtif['command']
+        arg_replacer(options_stat)
         for key in options_stat.keys():
             def_stat[key] = options_stat[key]
         stat_obj = stat(def_stat)
@@ -112,9 +112,9 @@ def parse_config():
     if 'record' in config.keys():  
     
         options_rec = config['record']
-        arg_replacer(options_rec)
         options_rec['code'] = timestamp
         options_rec['command'] = virtif['command']
+        arg_replacer(options_rec)
         for key in options_rec.keys():
             def_rec[key] = options_rec[key]
         record_obj = record(def_rec)
@@ -126,9 +126,9 @@ def parse_config():
     if 'ebpf' in config.keys():  
     
         options_ebpf = config['ebpf']
-        arg_replacer(options_ebpf)
         options_ebpf['code'] = timestamp
         options_ebpf['command'] = virtif['command']
+        arg_replacer(options_rec)
         for key in options_ebpf.keys():
             def_ebpf[key] = options_ebpf[key]
         ebpf_obj = ebpf(def_ebpf)
@@ -145,7 +145,7 @@ def parse_config():
 def arg_replacer(options):
     for i, arg in enumerate(sys.argv):
         if i > 0:
-            match = re.search(r'(\S+)\s*=\s*(\S+)', arg)
+            match = re.search(r'(\S+)\s*=(.*)', arg)
             if match:
                 options[match.group(1)] = match.group(2).strip()
 
@@ -211,7 +211,7 @@ def analyze_stat(spa_obj, options):
                print('{} = {}'.format(key, mean(sim[key])))
 
    elif options['compare'] == 'All' and size > 1:
-        print(tmp[['Events', 'Alias', 'Runs', 'Names', 'Values', 'Mean', 'AbsVariation%']])
+        print(tmp[['Events', 'Alias', 'Runs', 'Names', 'Values', 'Mean', 'AbsVariation%', 'Dev', 'Command']])
    elif options['compare'] == 'Runs' and size > 1:
         print(tmp[['Events', 'Alias', 'Runs', 'Names', 'Values', 'BAbsVariation%', 'BVariation%']])
    elif options['compare'] == 'Custom' and size > 1:
