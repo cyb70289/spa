@@ -46,42 +46,57 @@ class spa:
     def start_pmu_stat(self, options):
          
         pmu_obj = data_manager.PMU()
-        if not options['type'] == "Analyze":
+        output_file = ""
+        if not os.path.exists("JSON_logs"):
+            os.makedirs("JSON_logs/Regular_logs")
+            os.mkdir("JSON_logs/TopDown_logs")
+        
+        if not os.path.exists("Analysis_Results"):
+            os.mkdir("Analysis_Results")
+        
+        if not os.path.exists("CSV_logs"):
+            os.makedirs("CSV_logs/Topdown")
+            os.mkdir("CSV_logs/Regular")
+       
+        if options['type'] == "TD" or options['type'] == "TDA":
+            options['output_path'] = "JSON_logs/TopDown_logs"
+            options['csv_path'] = "CSV_logs/Topdown"
+        else:
+            options['output_path'] = "JSON_logs/Regular_logs"
+            options['csv_path'] = "CSV_logs/Regular"
+        timestamp = datetime.timestamp(datetime.now())
+        options['timestamp'] = timestamp
+
+        if options['type'] != "Analyze" and options['type'] != "TDA":
             for _ in range(options['repeat']):
                 pmu_obj = data_manager.PMU()
-                if not os.path.exists("PMU_logs"):
-                    os.mkdir("PMU_logs")
                 
-                timestamp = datetime.timestamp(datetime.now())
-                output_file = "PMU_logs/pmu_result_{}".format(timestamp)
+                output_file = "{}/pmu_result_{}".format(options['output_path'], timestamp)
                 self.setup_metadata(pmu_obj, options)
-                
+
+                options['output_file'] = output_file
                 pmu_obj.info['metadata']['timestamp'] = timestamp
                 pmu_obj.info['metadata']['name'] = options['name']
                 pmu_obj.info['metadata']['command'] = options['command']
+
                 if 'interval' in options.keys():
                     pmu_obj.info['metadata']['interval'] = options['interval']
     
                 pmu_obj.info['counter'] = options['counter_info']
     
-    
+                options['output_file'] = output_file 
                 subprocess.call("rm pmu_result_latest", shell=True) 
                 subprocess.call("ln -s {} pmu_result_latest".format(output_file), shell=True) 
                 options['log'] = self.log 
                 try:
                     stat_obj = spa_pmu.spa_pmu(self.log)
                     stat_obj.perform_perf_stat(pmu_obj, options)
-                    self.dump_to_file(pmu_obj, output_file)
                 except KeyboardInterrupt:
                     self.dump_to_file(pmu_obj, output_file)
                 
         if not options['type'] == "Run":
-            if options['compare'] == 'Runs':
-               pmu_obj.data = self.compare_data('Runs', options['alias'], options['base'], options['filter'])
-            elif options['compare'] == 'Custom':
-               pmu_obj.data = self.compare_data('Custom', options['alias'], "", options['filter'], options['key'])
-            else:
-               pmu_obj.data = self.compare_data(options['compare'], options['alias'], "", options['filter'])
+             pmu_obj.data = self.compare_data(options)
+         
         
         self.pmu_stat = pmu_obj
     
@@ -120,9 +135,9 @@ class spa:
         self.ebpf_record = ebpf_obj
 
 
-    def compare_data(self, compare, apply_alias, name, cond, key=None):
+    def compare_data(self, options):
     
-        analyzer = Analyzer.Analyzer(self.log, compare, apply_alias, name, cond, key)
+        analyzer = Analyzer.Analyzer(self.log, options)
         return analyzer
 
 
@@ -249,36 +264,58 @@ class spa:
    
         event_list = []
         counter_info = {}
+        index = args.index
         event_name = "EventName"
-        if args.input:
-            pmu_list = self.gather_pmu_json("{}".format(args.input))
-            if not args.regex:
-                for i in pmu_list:
-                    event_list.append(i[event_name])
-                    if args.applyalias and 'Alias' in i.keys():
-                        counter_info[i[event_name]] = {'Alias':i['Alias'],  'Value':[], 'Timestamp':[]}
-                    else:
-                        counter_info[i[event_name]] = {'Alias':i[event_name], 'Value':[], 'Timestamp':[]}
-            else:
-                for i in pmu_list:
-                    regex = re.compile(args.regex)
-                    match = regex.match(i[event_name])
-                    if match:
-                        pmu_list.append(i[event_name])
-                        if args.applyalias:
-                            counter_info[i[event_name]] = {'Alias':i['Alias'], 'Value':[], 'Timestamp':[]}
-                        else:
-                            counter_info[i[event_name]] = {'Alias':i[event_name], 'Value':[], 'Timestamp':[]}
+        event_code = "EventCode"
+        
+        if args.type == "TD":
+            pmu_list = self.gather_pmu_json("cpu_json/{}.json".format(args.platform))
+            for i in pmu_list:
+                alias = "EventName"
+
+                if args.applyalias and 'Alias' in i.keys():
+                   alias = "Alias"
+                
+                if index == event_code:
+                    key = self.generate_raw_counter(args, i)
+                else:
+                    key = i[index]
+                
+                event_list.append(key)
+                counter_info[key] = {'EventName':i[event_name], 'Alias':i[alias], 'EventCode':i[event_code],  'Value':[0], 'Timestamp':[]}
         else:
-            event_list = (args.counters).split(',')
-            for i in event_list:
-                counter_info[i] = {'Alias':i, 'Value':[]}
+            if args.input:
+                pmu_list = self.gather_pmu_json("{}".format(args.input))
+                if not args.regex:
+                    for i in pmu_list:
+                        alias = "EventName"
+
+                        if args.applyalias and 'Alias' in i.keys():
+                            alias = "Alias"
+
+                        if not args.regex:
+                            event_list.append('r'.join(i[index]) if index == event_code else  i[index])
+                            counter_info[i[event_name]] = {'EventName':i[event_name], 'Alias':i[alias], 'EventCode':i[event_code],  'Value':[0], 'Timestamp':[]}
+                        else:
+                            regex = re.compile(args.regex)
+                            match = regex.match(i[event_name])
+                            if match:
+                                event_list.append(i[event_name])
+                                counter_info[i[event_name]] = {'EventName':i[event_name], 'Alias':i[alias], 'EventCode':i[event_code],  'Value':[0], 'Timestamp':[]}
+            else:
+                event_list = (args.counters).split(',')
+                for i in event_list:
+                    counter_info[i] = {'EventName':i, 'Alias':i, 'EventCode':i, 'Value':[], 'Timestamp':[]}
+        print(event_list)
         return [event_list, counter_info]
     
     
     def stat(self, args):
     
         options = {}
+
+
+
         if not args.type == 'Analyze' and args.command == 'None':
             self.log.error("Command not provided")
             exit('Command Needs to be provided unless Analyzing')
@@ -332,6 +369,8 @@ class spa:
         options['base'] = args.base
         options['type'] = args.type
         options['alias'] = args.applyalias
+        options['arch'] = args.arch
+        options['platform'] = args.platform
         
         self.start_pmu_stat(options)
     
@@ -376,13 +415,24 @@ class spa:
         options['nooptimize'] = args.nooptimize
         options['type'] = args.type
         options['compare'] = args.compare
+        options['index'] = args.index
         if args.code:
             options['code'] = args.code
         else:
             timestamp = datetime.timestamp(datetime.now())
             options['code'] = timestamp
         self.start_ebpf(options)
-    
+   
+
+    def generate_raw_counter(self, options, event):
+
+        if options.arch == "ARM":
+                return event["EventCode"].replace("0x", "r")
+        if options.arch == "Intel":
+                return "r{}{}".format(event["UMask"].replace("0x", ""), event["EventCode"].replace("0x", ""))
+             
+
+
     
     def parse_input(self):
     
@@ -399,7 +449,11 @@ class spa:
         
         stat_parser.add_argument("-v", "--verbosity",  help="increase verbosity", choices=['Low', 'Medium', 'High'], default = 'Low', type=str)
         stat_parser.add_argument("-i", "--input", help="input pmu counters file [json]", required=False)
+        stat_parser.add_argument("-I", "--index", help="Key in the input file to be used for perf [either code or name]", choices=['EventCode','EventName'],
+                                 default="EventCode", required=False)
         stat_parser.add_argument("-c", "--counters", help="list of counters seperated by , ", type=str)
+        stat_parser.add_argument("-p", "--platform", help="The current processor model for Top down analysis [Only valid when type='TD']", choices=["neoverse-n1"], default="neoverse-n1", type=str)
+        stat_parser.add_argument("--arch", help="The current architecture", choices=["ARM, Intel"], default="ARM", type=str)
         stat_parser.add_argument("-s", "--style", help="Style of sampling [Default is Iterate]", choices=['Iterate', 'Normal'], default='Iterate', type=str)
         stat_parser.add_argument("-mx", "--mx_degree", help="Multiplexing limit for iterate style [default is 1]", default=1, type=int)
         stat_parser.add_argument("-r", "--regex", help="Regular Expression for matching events to profile", default="", type=str)
@@ -408,7 +462,7 @@ class spa:
         stat_parser.add_argument("-n", "--repeat", help="Repeat profiling for n times", default = 1, type=int)
         stat_parser.add_argument("-N", "--name", help="Unique Run Name", default="Noname", type=str)
         stat_parser.add_argument("-B", "--base", help="Unique Run Name for baseline", default="Noname", type=str)
-        stat_parser.add_argument("-t", "--type", help="Run Type", choices=['Analyze', 'All', 'Run'], default="Run", type=str)
+        stat_parser.add_argument("-t", "--type", help="Run Type", choices=['Analyze', 'All', 'Run', 'TD', 'TDA'], default="Run", type=str)
         stat_parser.add_argument("--applyalias", help="Make Alias key instead of EventName", action='store_true')
         stat_parser.add_argument("-I","--interval", help="Interval in miliseconds to sample", type=str)
         stat_parser.add_argument("--filter", 

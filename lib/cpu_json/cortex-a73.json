@@ -1,0 +1,499 @@
+[
+  {
+    "code": "0x00",
+    "name": "SW_INCR",
+    "architectural": true,
+    "description": "Software increment. Instruction architecturally executed (condition check pass)"
+  },
+  {
+    "code": "0x01",
+    "name": "L1I_CACHE_REFILL",
+    "architectural": false,
+    "component": "L1I",
+    "description": "L1 instruction cache refill"
+  },
+  {
+    "code": "0x02",
+    "name": "L1I_TLB_REFILL",
+    "architectural": false,
+    "component": "L1ITLB",
+    "description": "L1 instruction TLB refill"
+  },
+  {
+    "code": "0x03",
+    "name": "L1D_CACHE_REFILL",
+    "architectural": false,
+    "component": "L1D",
+    "description": "L1 data cache refill"
+  },
+  {
+    "code": "0x04",
+    "name": "L1D_CACHE",
+    "architectural": false,
+    "component": "L1D",
+    "description": "L1 data cache access"
+  },
+  {
+    "code": "0x05",
+    "name": "L1D_TLB_REFILL",
+    "architectural": false,
+    "component": "L1DTLB",
+    "description": "L1 data TLB refill"
+  },
+  {
+    "code": "0x08",
+    "name": "INST_RETIRED",
+    "architectural": true,
+    "description": "Instruction architecturally executed"
+  },
+  {
+    "code": "0x09",
+    "name": "EXC_TAKEN",
+    "description": "Exception taken"
+  },
+  {
+    "code": "0x0A",
+    "name": "EXC_RETURN",
+    "architectural": true,
+    "description": "Instruction architecturally executed, condition code check pass, exception return"
+  },
+  {
+    "code": "0x0B",
+    "name": "CID_WRITE_RETIRED",
+    "architectural": true,
+    "description": "Instruction architecturally executed, condition code check pass, write to CONTEXTIDR"
+  },
+  {
+    "code": "0x0C",
+    "name": "PC_WRITE_RETIRED",
+    "architectural": true,
+    "description": "Instruction architecturally executed, condition check pass, software change of the PC"
+  },
+  {
+    "code": "0x0D",
+    "name": "BR_IMMED_RETIRED",
+    "architectural": true,
+    "description": "Instruction architecturally executed, immediate branch"
+  },
+  {
+    "code": "0x0E",
+    "name": "BR_RETURN_RETIRED",
+    "architectural": true,
+    "description": "Instruction architecturally executed, condition code check pass, procedure return.dj"
+  },
+  {
+    "code": "0x10",
+    "name": "BR_MIS_PRED",
+    "architectural": false,
+    "component": "BPU",
+    "description": "Mispredicted or not predicted branch speculatively executed"
+  },
+  {
+    "code": "0x11",
+    "name": "CPU_CYCLES",
+    "architectural": false,
+    "description": "Cycle"
+  },
+  {
+    "code": "0x12",
+    "name": "BR_PRED",
+    "architectural": false,
+    "component": "BPU",
+    "description": "Predictable branch speculatively executed"
+  },
+  {
+    "code": "0x13",
+    "name": "MEM_ACCESS",
+    "description": "Data memory access"
+  },
+  {
+    "code": "0x14",
+    "name": "L1I_CACHE",
+    "architectural": false,
+    "component": "L1I",
+    "description": "L1 instruction cache access"
+  },
+  {
+    "code": "0x15",
+    "name": "L1D_CACHE_WB",
+    "architectural": false,
+    "component": "L1D",
+    "description": "L1 data cache Write-Back"
+  },
+  {
+    "code": "0x16",
+    "name": "L2D_CACHE",
+    "architectural": false,
+    "component": "L2",
+    "description": "L2 data cache access"
+  },
+  {
+    "code": "0x17",
+    "name": "L2D_CACHE_REFILL",
+    "architectural": false,
+    "component": "L2",
+    "description": "L2 data cache refill"
+  },
+  {
+    "code": "0x18",
+    "name": "L2D_CACHE_WB",
+    "architectural": false,
+    "component": "L2",
+    "description": "L2 data cache Write-Back. di This event is encoded with 7 bits so that it can indicate that up to 127 instructions have been retired. dj In addition to the instructions that are counted in this event as specified in the ARMv8 architecture, the Cortex-A73 processor also counts the instruction LDR PC, [SP, #offset]"
+  },
+  {
+    "code": "0x19",
+    "name": "BUS_ACCESS",
+    "component": "BUS",
+    "description": "Bus access"
+  },
+  {
+    "code": "0x1B",
+    "name": "INT_SPEC",
+    "architectural": false,
+    "description": "Operation speculatively executed"
+  },
+  {
+    "code": "0x1C",
+    "name": "TTBR_WRITE_RETIRED",
+    "architectural": true,
+    "description": "Instruction architecturally executed (condition check pass) - Write to TTBR"
+  },
+  {
+    "code": "0x1D",
+    "name": "BUS_CYCLES",
+    "architectural": false,
+    "component": "BUS",
+    "description": "Bus cycle"
+  },
+  {
+    "code": "0x1E",
+    "name": "CHAIN",
+    "description": "For odd-numbered counters, increments the count by one for each overflow of the preceding even-numbered counter. For evennumbered counters there is no increment"
+  },
+  {
+    "code": "0x40",
+    "name": "L1D_CACHE_RD",
+    "architectural": false,
+    "component": "L1D",
+    "description": "L1 data cache access, read"
+  },
+  {
+    "code": "0x41",
+    "name": "L1D_CACHE_WR",
+    "architectural": false,
+    "component": "L1D",
+    "description": "L1 data cache access, write"
+  },
+  {
+    "code": "0x50",
+    "name": "L2D_CACHE_RD",
+    "architectural": false,
+    "component": "L2",
+    "description": "L2 data cache access, read"
+  },
+  {
+    "code": "0x51",
+    "name": "L2D_CACHE_WR",
+    "architectural": false,
+    "component": "L2",
+    "description": "L2 data cache access, write"
+  },
+  {
+    "code": "0x56",
+    "name": "L2D_CACHE_WB_VICTIM",
+    "architectural": false,
+    "component": "L2",
+    "description": "L2 data cache write-back, victim"
+  },
+  {
+    "code": "0x57",
+    "name": "L2D_CACHE_WB_CLEAN",
+    "architectural": false,
+    "component": "L2",
+    "description": "L2 data cache write-back, cleaning and coherency"
+  },
+  {
+    "code": "0x58",
+    "name": "L2D_CACHE_INVAL",
+    "architectural": false,
+    "component": "L2",
+    "description": "L2 data cache invalidate"
+  },
+  {
+    "code": "0x62",
+    "name": "BUS_ACCESS_SHARED",
+    "architectural": false,
+    "component": "BUS",
+    "description": "Bus access, Normal, Cacheable, Shareable"
+  },
+  {
+    "code": "0x63",
+    "name": "BUS_ACCESS_NOT_SHARED",
+    "architectural": false,
+    "component": "BUS",
+    "description": "Bus access, not Normal, Cacheable, or Shareable"
+  },
+  {
+    "code": "0x64",
+    "name": "BUS_ACCESS_NORMAL",
+    "component": "BUS",
+    "description": "Bus access, Normal"
+  },
+  {
+    "code": "0x65",
+    "name": "BUS_ACCESS_SO_DIV",
+    "component": "BUS",
+    "description": "Bus access, Device"
+  },
+  {
+    "code": "0x66",
+    "name": "MEM_ACCESS_RD",
+    "description": "Data memory access, read"
+  },
+  {
+    "code": "0x67",
+    "name": "MEM_ACCESS_WR",
+    "description": "Data memory access, write"
+  },
+  {
+    "code": "0x6A",
+    "name": "UNALIGNED_LDST_SPEC",
+    "description": "Unaligned access"
+  },
+  {
+    "code": "0x6C",
+    "name": "LDREX_SPEC",
+    "architectural": false,
+    "description": "Exclusive operation speculatively executed, LDREX, or LDX"
+  },
+  {
+    "code": "0x6E",
+    "name": "STREX_FAIL_SPEC",
+    "architectural": false,
+    "description": "Exclusive operation speculatively executed, STREX, or STX pass"
+  },
+  {
+    "code": "0x70",
+    "name": "LD_SPEC",
+    "architectural": false,
+    "description": "Operation speculatively executed, load"
+  },
+  {
+    "code": "0x71",
+    "name": "ST_SPEC",
+    "architectural": false,
+    "description": "Operation speculatively executed, store"
+  },
+  {
+    "code": "0x72",
+    "name": "LDST_SPEC",
+    "architectural": false,
+    "description": "Operation speculatively executed, load or store"
+  },
+  {
+    "code": "0x73",
+    "name": "DP_SPEC",
+    "architectural": false,
+    "description": "Operation speculatively executed, integer data processing"
+  },
+  {
+    "code": "0x74",
+    "name": "ASE_SPEC",
+    "architectural": false,
+    "description": "Operation speculatively executed, Advanced SIMD instruction"
+  },
+  {
+    "code": "0x75",
+    "name": "VFP_SPEC",
+    "architectural": false,
+    "description": "Operation speculatively executed, floatingpoint instruction"
+  },
+  {
+    "code": "0x77",
+    "name": "CRYPTO_SPEC",
+    "architectural": false,
+    "description": "Operation speculatively executed, Cryptographic instruction"
+  },
+  {
+    "code": "0x7A",
+    "name": "BR_INDIRECT_SPEC",
+    "architectural": false,
+    "description": "Branch speculatively executed - Indirect branch"
+  },
+  {
+    "code": "0x7C",
+    "name": "ISB_SPEC",
+    "architectural": false,
+    "description": "Barrier speculatively executed, ISB"
+  },
+  {
+    "code": "0x7D",
+    "name": "DSB_SPEC",
+    "architectural": false,
+    "description": "Barrier speculatively executed, DSB"
+  },
+  {
+    "code": "0x7E",
+    "name": "DMB_SPEC",
+    "architectural": false,
+    "description": "Barrier speculatively executed, DMB"
+  },
+  {
+    "code": "0x8A",
+    "name": "EXC_HVC",
+    "description": "Exception taken, Hypervisor Call"
+  },
+  {
+    "code": "0xC0",
+    "name": "LF_STALL",
+    "architectural": false,
+    "description": "A linefill caused an instruction side stall"
+  },
+  {
+    "code": "0xC1",
+    "name": "PTW_STALL",
+    "architectural": false,
+    "description": "A translation table walk caused an instruction side stall"
+  },
+  {
+    "code": "0xC2",
+    "name": "I_TAG_RAM_RD",
+    "architectural": false,
+    "description": "Number of ways read in the instruction cache - Tag RAM"
+  },
+  {
+    "code": "0xC3",
+    "name": "I_DATA_RAM_RD",
+    "architectural": false,
+    "description": "Number of ways read in the instruction cache - Data RAM"
+  },
+  {
+    "code": "0xC4",
+    "name": "I_BTAC_RAM_RD",
+    "description": "Number of ways read in the instruction BTAC RAM"
+  },
+  {
+    "code": "0xD3",
+    "name": "D_LSU_SLOT_FULL",
+    "architectural": false,
+    "component": "BUS",
+    "description": "Duration for which all slots in the Load-Store Unit are busy"
+  },
+  {
+    "code": "0xD8",
+    "name": "LS_IQ_FULL",
+    "architectural": false,
+    "component": "BUS",
+    "description": "Duration for which all slots in the load-store issue queue are busy"
+  },
+  {
+    "code": "0xD9",
+    "name": "DP_IQ_FULL",
+    "architectural": false,
+    "component": "BUS",
+    "description": "Duration for which all slots in the data processing issue queue are busy"
+  },
+  {
+    "code": "0xDA",
+    "name": "DE_IQ_FULL",
+    "architectural": false,
+    "component": "BUS",
+    "description": "Duration for which all slots in the Data Engine issue queue are busy"
+  },
+  {
+    "code": "0xDC",
+    "name": "EXC_TRAP_HYP",
+    "description": "Number of Traps to hypervisor"
+  },
+  {
+    "code": "0xDE",
+    "name": "ETM_EXT_OUT0",
+    "description": "ETM trace unit output 0"
+  },
+  {
+    "code": "0xDF",
+    "name": "ETM_EXT_OUT1",
+    "description": "ETM trace unit output 1"
+  },
+  {
+    "code": "0xE0",
+    "name": "MMU_PTW",
+    "architectural": false,
+    "description": "Duration of a translation table walk handled by the MMU"
+  },
+  {
+    "code": "0xE1",
+    "name": "MMU_PTW_ST1",
+    "architectural": false,
+    "description": "Duration of a Stage 1 translation table walk handled by the MMU"
+  },
+  {
+    "code": "0xE2",
+    "name": "MMU_PTW_ST2",
+    "architectural": false,
+    "description": "Duration of a Stage 2 translation table walk handled by the MMU"
+  },
+  {
+    "code": "0xE3",
+    "name": "MMU_PTW_LSU",
+    "architectural": false,
+    "description": "Duration of a translation table walk requested by the LSU"
+  },
+  {
+    "code": "0xE4",
+    "name": "MMU_PTW_ISIDE",
+    "architectural": false,
+    "description": "Duration of a translation table walk requested by the Instruction Side"
+  },
+  {
+    "code": "0xE5",
+    "name": "MMU_PTW_PLD",
+    "architectural": false,
+    "description": "Duration of a translation table walk requested by a Preload instruction or Prefetch request"
+  },
+  {
+    "code": "0xE6",
+    "name": "MMU_PTW_CP15",
+    "architectural": false,
+    "description": "Duration of a translation table walk requested by a CP15 operation (maintenance by MVA and VA to PA operations)"
+  },
+  {
+    "code": "0xE7",
+    "name": "PLD_UTLB_REFILL",
+    "architectural": false,
+    "description": "Level 1 PLD TLB refill"
+  },
+  {
+    "code": "0xE8",
+    "name": "CP15_UTLB_REFILL",
+    "architectural": false,
+    "description": "Level 1 CP15 TLB refill"
+  },
+  {
+    "code": "0xE9",
+    "name": "UTLB_FLUSH",
+    "architectural": false,
+    "description": "Level 1 TLB flush"
+  },
+  {
+    "code": "0xEA",
+    "name": "TLB_ACCESS",
+    "architectural": false,
+    "component": "L2TLB",
+    "description": "Level 2 TLB access"
+  },
+  {
+    "code": "0xEB",
+    "name": "TLB_MISS",
+    "architectural": false,
+    "component": "L2TLB",
+    "description": "Level 2 TLB miss"
+  },
+  {
+    "code": "0xEC",
+    "name": "DCACHE_SELF_HIT_VIPT",
+    "architectural": false,
+    "description": "Data cache hit in itself due to VIPT aliasing"
+  }
+]

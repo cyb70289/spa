@@ -1,11 +1,12 @@
 stat:
-        type: Analyze
-        input: counter_files/skylake_short.json
+        type: All
+        input: '' 
+        counters: instructions,branch-misses
         filter: ''
         applyalias: false
         base: NoName
         verbosity: Low
-        compare: Profile
+        compare: Current
         name: NoName
         style: Normal
         regex: ""

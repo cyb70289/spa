@@ -23,14 +23,13 @@ import pandas as pd
 from statistics import mean, stdev
 import json
 import matplotlib.pyplot as plt
+import numpy as np
 
 class Analyzer:
 
-    def __init__(self, log, compare, apply_alias, name, cond, key=None):
+    def __init__(self, log, options):
         
-        self.compare = compare
-        self.apply_alias = apply_alias
-        self.name = name
+        self.options = options
         self.event_names = []
         self.runs = []
         self.values = []
@@ -42,19 +41,18 @@ class Analyzer:
         self.kernel = []
         self.system = []
         self.release = []
+        self.event_codes = []
         self.code = []
         self.command = []
         self.architecture = []
         self.event_profile = {}
         self.dg = None
-        self.cond = cond
-        self.key = key
         self.log = log
         self.similarity = {}
-        self.gather_data()
+        self.analyze_data()
 
 
-    def gather_data(self):
+    def analyze_data(self):
         self.log.info('Perf Stat Data Analysis Started')
     
         pd.options.mode.chained_assignment = None  # default='warn'
@@ -64,93 +62,65 @@ class Analyzer:
         pd.set_option('display.max_columns', None)
         pd.set_option('display.width', None)
         pd.set_option('display.max_colwidth', -1)
-
-        if not self.compare == 'Current':
-            for filename in os.listdir("PMU_logs"):
-                pmu_result = data_manager.PMU()
-                with open("PMU_logs/{}".format(filename), 'r') as pmu_file:
-                    f = json.load(pmu_file)
-                    pmu_result_list[filename] = f 
-        else:
-            with open("pmu_result_latest", "r") as stat_file:
-                f = json.load(stat_file)
-                pmu_result_list['pmu_result_latest'] = f
+        dg = None
+        
         count = 0
-    
-        for filename in pmu_result_list.keys():
-            pmu = pmu_result_list[filename]
-            for i in pmu['counter'].keys():
-                self.event_names.append(i)
-                self.runs.append("RUN_{}".format(count))
-                self.values_list.append(pmu['counter'][i]['Value'])
-                if not self.compare == "Profile":
-                    self.values.append(mean(pmu['counter'][i]['Value']))
-                self.alias.append(pmu['counter'][i]['Alias'])
-                self.timestamps.append(pmu['metadata']['timestamp'])
-                self.names.append(pmu['metadata']['name'])
-                self.code.append(pmu['metadata']['code'])
-                self.machine.append(pmu['metadata']['machine'])
-                self.kernel.append(pmu['metadata']['kernel'])
-                self.system.append(pmu['metadata']['system'])
-                self.release.append(pmu['metadata']['release'])
-                self.command.append(pmu['metadata']['command'])
-            count = count + 1
-    
-        info = {
-                "Events":self.event_names,
-                "Alias":self.alias,
-                "Runs":self.runs,
-                "Names":self.names,
-                "Values":self.values,
-                "Values_list":self.values_list,
-                "Timestamps":self.timestamps,
-                "Machine":self.machine,
-                "Kernel":self.kernel,
-                "System":self.system,
-                "Release":self.release,
-                "Command":self.command
-                }
+        if not self.options['compare'] == 'Current':
+            for filename in os.listdir(self.options['csv_path']):
+                tmp = pd.read_csv("{}/{}".format(self.options['csv_path'], filename))
 
-        dg = pd.DataFrame(info)
-        if self.cond:
-            dg = dg.query(self.cond)
-       # dg.to_csv("dg_all.csv", index = False)
+                runs = np.repeat("RUN_{}".format(count), len(tmp))
+                tmp["Runs"] = runs
+                tmp_dg = pd.DataFrame(tmp)
+                if count == 0:
+                    dg = tmp_dg
+                else:
+                    dg = pd.concat([dg, tmp_dg])
+                count = count + 1
+                    
+        else:
+                dg = pd.read_csv("csv_result_latest")
+                runs = np.repeat("RUN_{}".format(count), len(dg))
+                dg["Runs"] = runs 
+        
+        if self.options['filter']:
+            dg = dg.query(self.options['filter'])
 
         self.dg = dg
         tag = 'Events'
-        if self.apply_alias:
+        if self.options['alias']:
             tag = "Alias"
         runs = pd.unique(list(dg['Runs']))
         event_names = pd.unique(list(dg[tag]))
         
         if not len(runs) <= 1:
 
-            if self.key:
-                value = pd.unique(list(dg[self.key]))
+            if self.options['compare'] ==  'Custom': 
+                value = pd.unique(list(dg[self.options['key']]))
             else:
                 value = 'Events'
 
             event_names.sort()
             runs.sort()
             dg = dg.sort_values(by=[tag])
-       #     print('\nKey used = {}'.format(tag))
-            
+
                 
-            if self.compare == 'All': 
+            if self.options['compare'] == 'All': 
                 self.compare_all(dg, tag, event_names)
-                if len(dg['Values_list'][0]) > 1:
-                    self.build_profile(dg, event_names, runs)
-            if self.compare == 'Runs': 
+            if self.options['compare'] == 'Runs': 
                 if len(runs) > 1:
+                    print("here")
                     self.compare_between_runs(dg, tag, event_names) 
-            if self.compare ==  'Custom': 
-                self.compare_custom(dg, value, self.key, tag, event_names)
-            if self.compare == 'Profile': 
+            if self.options['compare'] ==  'Custom': 
+                self.compare_custom(dg, value, self.options['key'], tag, event_names)
+            if self.options['compare'] == 'Profile': 
                 self.build_profile(dg, event_names, runs)
         else:
             self.log.error('No Analysis can be done since only one Run has been performed')
+        self.dg.to_csv("Analysis_Results/{}".format(self.options["timestamp"]))
 
-    
+
+
     def compare_all(self, dg, tag, event_names):
     
         dg_list = []
@@ -170,9 +140,6 @@ class Analyzer:
         for i in dg_list:
             dg_final = pd.concat([dg_final, i])
         self.dg = dg_final
-        #print("\n\n--------------------------------------------------Showing Results------------------------------------------------------\n\n")
-        #print(dg_final)
-        #self.analyze(dg_list, "mean")
     
     
     def compare_between_runs(self, dg, tag, event_names):
@@ -185,7 +152,7 @@ class Analyzer:
          
         for i in dg_list:
             base = 0
-            tmp = i.query('Names == "{}"'.format(self.name))
+            tmp = i.query('Names == "{}"'.format(self.options['base']))
             base_value = tmp['Values'].values 
             i['BAbsVariation%'] = abs((i['Values'] - base_value)/base_value) *100
             i['BVariation%'] = ((i['Values'] - base_value)/base_value) *100
@@ -193,9 +160,6 @@ class Analyzer:
             dg_final = pd.concat([dg_final, i])
         
         self.dg = dg_final
-        #print("\n\n--------------------------------------------------Showing Results------------------------------------------------------\n\n")
-        #print(dg_final)
-        #self.analyze(dg_list, 1)
     
    
     def compare_custom(self, dg, value, key, tag, event_names): #key must not be event or alias
@@ -213,7 +177,9 @@ class Analyzer:
                 relvar = {}
                 for j in dg_list:
                     tmp_j = j.query('{} == "{}"'.format(tag, e))
-                    variance = float(abs(int(tmp_j['Values']) - int(tmp_i['Values'])) / int(tmp_i['Values']))
+                    variance = 0.0
+                    if int(tmp_i['Values']) > 0:
+                        variance = float(abs(int(tmp_j['Values']) - int(tmp_i['Values'])) / int(tmp_i['Values']))
                     key_t = "{}WRT{}".format(tmp_j[key].values[0], tmp_i[key].values[0])
                     relvar[key_t] = variance
                 tmp_i['RelVar%'] = [relvar]
@@ -240,7 +206,12 @@ class Analyzer:
             tmp = dg.query('Runs == "{}"'.format(i))
             for j in event_names:
                 tmp_ev = tmp.query('Events == "{}"'.format(j))
-                values =  list(tmp_ev["Values_list"])[0]
+                values = list(tmp_ev["Values_list"])[0]
+                values = values.replace('[', '')
+                values = values.replace(']', '')
+                values = values.replace(' ', '').split(',')
+                values = map(int, values)
+                values = list(values)
                 index = np.arange(len(values))
                 line, slope, inter = self.create_bf_line(index, values)
                 tmp_profile = {'line':line, 'slope':slope, 'inter':inter}

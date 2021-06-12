@@ -1,0 +1,675 @@
+[
+  {
+    "code": "0x00",
+    "name": "SW_INCR",
+    "architectural": true,
+    "description": "Software increment. Instruction architecturally executed (condition check pass)"
+  },
+  {
+    "code": "0x01",
+    "name": "L1I_CACHE_REFILL",
+    "architectural": false,
+    "component": "L1I",
+    "description": "L1 instruction cache refill. This event counts cacheable linefill requests"
+  },
+  {
+    "code": "0x02",
+    "name": "L1I_TLB_REFILL",
+    "architectural": false,
+    "component": "L1ITLB",
+    "description": "L1 instruction TLB refill. This event counts refills from the main TLB. Refills that do not result in actual allocations in the instruction micro TLB, including translation faults and Compare And Swap (CAS) fails, are excluded"
+  },
+  {
+    "code": "0x03",
+    "name": "L1D_CACHE_REFILL",
+    "architectural": false,
+    "component": "L1D",
+    "description": "L1 data cache refill. This event counts all allocations into the L1 cache. This includes read linefills, store linefills, and prefetch linefills"
+  },
+  {
+    "code": "0x04",
+    "name": "L1D_CACHE",
+    "architectural": false,
+    "component": "L1D",
+    "description": "L1 data cache access. This event counts read, write and prefetch accesses to the L1 data cache. This includes non-cacheable speculative reads which do not have cacheability attributes yet. Cache Maintenance Operation (CMO) accesses are excluded"
+  },
+  {
+    "code": "0x05",
+    "name": "L1D_TLB_REFILL",
+    "architectural": false,
+    "component": "L1DTLB",
+    "description": "L1 data TLB refill. This event counts all refills effectively allocated in the data micro TLB. Translation faults are not counted and this even counts without taking into account whether the MMU is enabled or not"
+  },
+  {
+    "code": "0x08",
+    "name": "INST_RETIRED",
+    "architectural": true,
+    "description": "Instruction architecturally executed. This event increments for every architecturally executed instruction, including instructions that fail their condition code check"
+  },
+  {
+    "code": "0x09",
+    "name": "EXC_TAKEN",
+    "description": "Exception taken. This event is set every time that an exception is executed. CCFAIL exceptions are excluded"
+  },
+  {
+    "code": "0x0A",
+    "name": "EXC_RETURN",
+    "architectural": true,
+    "description": "Instruction architecturally executed, condition code check pass, exception return. This event is set every time that an exception return is executed in ALU0. CCFAIL exceptions are excluded"
+  },
+  {
+    "code": "0x0B",
+    "name": "CID_WRITE_RETIRED",
+    "architectural": true,
+    "description": "Instruction architecturally executed, condition code check pass, write to CONTEXTIDR"
+  },
+  {
+    "code": "0x0C",
+    "name": "PC_WRITE_RETIRED",
+    "architectural": true,
+    "description": "Instruction architecturally executed, condition check pass, software change of the PC. This event counts all branches taken. This excludes exception entries and debug entries"
+  },
+  {
+    "code": "0x0D",
+    "name": "BR_IMMED_RETIRED",
+    "architectural": true,
+    "description": "Instruction architecturally executed, immediate branch. This event counts all branches decoded as immediate branches, taken or not taken. This excludes exception entries, debug entries, and CCFAIL branches"
+  },
+  {
+    "code": "0x0E",
+    "name": "BR_RETURN_RETIRED",
+    "architectural": true,
+    "description": "Instruction architecturally executed, condition code check pass, procedure return. This event counts the following branches: \" \"BX R14• \" \"MOV PC, LR• \" \"POP{...,PC}• \" \"LDR PC, SP, #offset•"
+  },
+  {
+    "code": "0x10",
+    "name": "BR_MIS_PRED",
+    "architectural": false,
+    "component": "BPU",
+    "description": "Mispredicted or not predicted branch speculatively executed. This event counts branches mispredicted or not predicted. It counts: \" Each correction to the predicted program flow that occurs because of a misprediction. \" Each correction to the predicted program flow that occurs because there is no prediction. \" Each correction that relates to instructions that the program flow prediction resources can predict"
+  },
+  {
+    "code": "0x11",
+    "name": "CPU_CYCLES",
+    "architectural": false,
+    "description": "Cycle"
+  },
+  {
+    "code": "0x12",
+    "name": "BR_PRED",
+    "architectural": false,
+    "component": "BPU",
+    "description": "Predictable branch speculatively executed. This event counts all updates to the program counter, apart from exception call/return"
+  },
+  {
+    "code": "0x13",
+    "name": "MEM_ACCESS",
+    "description": "Data memory access"
+  },
+  {
+    "code": "0x14",
+    "name": "L1I_CACHE",
+    "architectural": false,
+    "component": "L1I",
+    "description": "L1 instruction cache access. This event is incremented when an instruction fetch reads data from data RAM or buffer, and did not need a linefill. Cache maintenance operations are excluded. The fetch granularity is 128 bits"
+  },
+  {
+    "code": "0x15",
+    "name": "L1D_CACHE_WB",
+    "architectural": false,
+    "component": "L1D",
+    "description": "L1 data cache Write-Back. This event counts evictions caused by natural allocation, CMO, and snoops. Write streams are excluded"
+  },
+  {
+    "code": "0x16",
+    "name": "L2D_CACHE",
+    "architectural": false,
+    "component": "L2",
+    "description": "L2 data cache access. This event counts data reads, instruction reads, and prefetches that hit. Snoops are not counted"
+  },
+  {
+    "code": "0x17",
+    "name": "L2D_CACHE_REFILL",
+    "architectural": false,
+    "component": "L2",
+    "description": "L2 data cache refill. This event counts reads and prefetches that allocate a new linefill buffer entry. The reads and prefetches that fold into a prefetch are not counted"
+  },
+  {
+    "code": "0x18",
+    "name": "L2D_CACHE_WB",
+    "architectural": false,
+    "component": "L1I",
+    "description": "L2 data cache Write-Back. This event counts evictions with data caused by L2 CMOs, L2 evictions, and L2 snoops. It does not count L1 snooped data, streams, and data evicted by an L1 instruction write CMO"
+  },
+  {
+    "code": "0x19",
+    "name": "BUS_ACCESS",
+    "component": "BUS",
+    "description": "Bus access. This event counts any move of data received from or sent to the SCU"
+  },
+  {
+    "code": "0x1B",
+    "name": "INT_SPEC",
+    "architectural": false,
+    "description": "Operation speculatively executed. This event counts all the instructions that go through the core rename block at each cycle. This includes instructions architecturally executed and the last micro-operation of each instruction that is not architecturally executed"
+  },
+  {
+    "code": "0x1C",
+    "name": "TTBR_WRITE_RETIRED",
+    "architectural": true,
+    "description": "Instruction architecturally executed (condition check pass) - Write to TTBR"
+  },
+  {
+    "code": "0x1D",
+    "name": "BUS_CYCLES",
+    "architectural": false,
+    "component": "BUS",
+    "description": "Bus cycles"
+  },
+  {
+    "code": "0x1E",
+    "name": "CHAIN",
+    "description": "For odd-numbered counters, increments the count by one for each overflow of the preceding even-numbered counter. For even-numbered counters, there is no increment"
+  },
+  {
+    "code": "0x1F",
+    "name": "L1D_CACHE_ALLOCATE",
+    "architectural": false,
+    "component": "L1D",
+    "description": "Level 1 data cache allocation without refill"
+  },
+  {
+    "code": "0x20",
+    "name": "L2D_CACHE_ALLOCATE",
+    "architectural": false,
+    "component": "L2",
+    "description": "Level 2 data cache allocation without refill"
+  },
+  {
+    "code": "0x21",
+    "name": "BR_RETIRED",
+    "architectural": true,
+    "description": "Instruction architecturally executed, branch. This event counts all branches, taken or not taken. This excludes exception entries and debug entries. In the core, an ISB is a branch and is also counted"
+  },
+  {
+    "code": "0x23",
+    "name": "STALL_FRONTEND",
+    "architectural": false,
+    "description": "No operation issued because of the front end. The counter counts every cycle counted by the CPU_CYCLES event on which no operation was issued because there are no operations coming from the instruction side available to issue for this core. Flush windows are excluded"
+  },
+  {
+    "code": "0x24",
+    "name": "STALL_BACKEND",
+    "architectural": false,
+    "description": "No operation issued because of the back end. The counter counts every cycle counted by the CPU_CYCLES event on which no operation was issued because the rename stage cannot accept any instructions coming from the decoder stage. Flush windows are excluded"
+  },
+  {
+    "code": "0x25",
+    "name": "L1D_TLB",
+    "architectural": false,
+    "component": "L1DTLB",
+    "description": "Level 1 data TLB access. This event counts all accesses to the data micro TLB, that is load and store instructions, and speculative load and store instructions executed. This event counts without taking into account whether the MMU is enabled or not. If 2 accesses are performed at the same time, then the counter is incremented twice"
+  },
+  {
+    "code": "0x26",
+    "name": "L1I_TLB",
+    "architectural": false,
+    "component": "L1ITLB",
+    "description": "Level 1 instruction TLB access. This event counts any instruction fetch that accesses the instruction micro TLB. This event does not take into account whether the MMU is enabled or not. The fetch granularity is 128 bits"
+  },
+  {
+    "code": "0x29",
+    "name": "L3D_CACHE_ALLOCATE",
+    "architectural": false,
+    "description": "Attributable Level 3 data or unified cache allocation without refill"
+  },
+  {
+    "code": "0x2A",
+    "name": "L3D_CACHE_REFILL",
+    "architectural": false,
+    "description": "Attributable Level 3 data or unified cache refill. This event counts all cacheable read transactions that return from the DSU and come from outside of the cluster"
+  },
+  {
+    "code": "0x2B",
+    "name": "L3D_CACHE",
+    "architectural": false,
+    "component": "L3",
+    "description": "Attributable Level 3 data or unified cache access. This event counts all cacheable read transactions that return data from the SCU, and all cache line writes into the L3 cache that do not cause a linefill"
+  },
+  {
+    "code": "0x2D",
+    "name": "L2D_TLB_REFILL",
+    "architectural": false,
+    "component": "L2TLB",
+    "description": "Attributable Level 2 data or unified TLB refill. This event counts refills for VA to PA translations only. The counter is not incremented on partial translations allocated in the main TLB and not incremented for IPA to VA translations. The core implements a unified TLB, therefore only L2_TLB_REFILL is incremented. This event counts only if stage 1 MMU is enabled"
+  },
+  {
+    "code": "0x2F",
+    "name": "L2D_TLB",
+    "architectural": false,
+    "component": "L2TLB",
+    "description": "Attributable Level 2 data or unified TLB access. This event counts accesses to the main TLB caused by a correct requester and only if stage 1 MMU is enabled. The counter is incremented one time for each translation"
+  },
+  {
+    "code": "0x30",
+    "name": "L2I_TLB",
+    "architectural": false,
+    "component": "L2TLB",
+    "description": "Attributable Level 2 instruction TLB access. This event counts accesses to the main TLB caused by a correct requester and only if stage 1 MMU is enabled. The counter is incremented one time for each translation"
+  },
+  {
+    "code": "0x34",
+    "name": "DTLB_WALK",
+    "architectural": false,
+    "description": "Data access to unified TLB that caused a page table walk. This event counts every access caused by each requester that does not hit in a VA to PA translation. The counter increments even if the translation generates a fault and only if stage 1 MMU is enabled"
+  },
+  {
+    "code": "0x35",
+    "name": "ITLB_WALK",
+    "architectural": false,
+    "description": "Instruction access to unified TLB that caused a page table walk. This event counts every access caused by each requester that does not hit in a VA to PA translation. The counter increments even if the translation generates a fault and only if stage 1 MMU is enabled"
+  },
+  {
+    "code": "0x36",
+    "name": "LL_CACHE_RD",
+    "architectural": false,
+    "description": "Last level cache access, read"
+  },
+  {
+    "code": "0x37",
+    "name": "LL_CACHE_MISS_RD",
+    "architectural": false,
+    "description": "Last level cache miss, read"
+  },
+  {
+    "code": "0x38",
+    "name": "REMOTE_ACCESS_RD",
+    "description": "Access to another socket in a multi-socket system, read"
+  },
+  {
+    "code": "0x40",
+    "name": "L1D_CACHE_RD",
+    "architectural": false,
+    "component": "L1DTLB",
+    "description": "L1 data cache access, read. This event counts all read accesses, PLD, PF, TLB, and multiple cache accesses for the same load"
+  },
+  {
+    "code": "0x41",
+    "name": "L1D_CACHE_WR",
+    "architectural": false,
+    "component": "L1D",
+    "description": "L1 data cache access, write. This event counts all store lookups, reads, and writes into the cache"
+  },
+  {
+    "code": "0x46",
+    "name": "L1D_CACHE_WB_VICTIM",
+    "architectural": false,
+    "component": "L1D",
+    "description": "Level 1 data cache write-back, victim"
+  },
+  {
+    "code": "0x47",
+    "name": "L1D_CACHE_WB_CLEAN",
+    "architectural": false,
+    "component": "L1D",
+    "description": "Level 1 data cache write-back, cleaning and, coherency"
+  },
+  {
+    "code": "0x48",
+    "name": "L1D_CACHE_INVAL",
+    "architectural": false,
+    "component": "L1D",
+    "description": "Level 1 data cache invalidate"
+  },
+  {
+    "code": "0x50",
+    "name": "L2D_CACHE_RD",
+    "architectural": false,
+    "component": "L2",
+    "description": "L2 data cache access, read. This event counts reads and prefetches. Snoop reads are excluded"
+  },
+  {
+    "code": "0x51",
+    "name": "L2D_CACHE_WR",
+    "architectural": false,
+    "component": "L2",
+    "description": "L2 data cache access, write. This event counts L1 natural evictions, cache maintenance operations evictions, snoop evictions, and streams"
+  },
+  {
+    "code": "0x56",
+    "name": "L2D_CACHE_WB_VICTIM",
+    "architectural": false,
+    "component": "L2",
+    "description": "L2 data cache write-back, victim"
+  },
+  {
+    "code": "0x57",
+    "name": "L2D_CACHE_WB_CLEAN",
+    "architectural": false,
+    "component": "L2",
+    "description": "L2 data cache write-back, cleaning and coherency"
+  },
+  {
+    "code": "0x58",
+    "name": "L2D_CACHE_INVAL",
+    "architectural": false,
+    "component": "L2",
+    "description": "L2 data cache invalidate"
+  },
+  {
+    "code": "0x60",
+    "name": "BUS_ACCESS_RD",
+    "component": "BUS",
+    "description": "Bus access read. This event counts beats of read data received from the SCU"
+  },
+  {
+    "code": "0x61",
+    "name": "BUS_ACCESS_WR",
+    "component": "BUS",
+    "description": "Bus access write. This event counts beats of store data sent to the SCU"
+  },
+  {
+    "code": "0x62",
+    "name": "BUS_ACCESS_SHARED",
+    "architectural": false,
+    "component": "BUS",
+    "description": "Bus access, Normal, Cacheable, Shareable"
+  },
+  {
+    "code": "0x63",
+    "architectural": false,
+    "component": "BUS",
+    "description": "Bus access, not Normal, Cacheable, or Shareable"
+  },
+  {
+    "code": "0x64",
+    "name": "BUS_ACCESS_NORMAL",
+    "component": "BUS",
+    "description": "Bus access, Normal"
+  },
+  {
+    "code": "0x65",
+    "component": "BUS",
+    "description": "Bus access, Device"
+  },
+  {
+    "code": "0x66",
+    "name": "MEM_ACCESS_RD",
+    "description": "Data memory access, read"
+  },
+  {
+    "code": "0x67",
+    "name": "MEM_ACCESS_WR",
+    "description": "Data memory access, write"
+  },
+  {
+    "code": "0x6A",
+    "name": "UNALIGNED_LDST_SPEC",
+    "description": "Unaligned access"
+  },
+  {
+    "code": "0x6C",
+    "name": "LDREX_SPEC",
+    "architectural": false,
+    "description": "Exclusive operation speculatively executed, LDREX, or LDX"
+  },
+  {
+    "code": "0x6D",
+    "name": "STREX_PASS_SPEC",
+    "architectural": false,
+    "description": "Exclusive operation speculatively executed, STREX, or STX pass"
+  },
+  {
+    "code": "0x6E",
+    "name": "STREX_FAIL_SPEC",
+    "architectural": false,
+    "description": "Exclusive operation speculatively executed, STREX, or STX fail"
+  },
+  {
+    "code": "0x6F",
+    "name": "STREX_SPEC",
+    "architectural": false,
+    "description": "Exclusive operation speculatively executed, STREX, or STX"
+  },
+  {
+    "code": "0x70",
+    "name": "LD_SPEC",
+    "architectural": false,
+    "description": "Operation speculatively executed, load. This event counts all the instructions that go through the core rename block at each cycle, similar to INST_SPEC. The counter counts the last microoperation of each LDR instruction"
+  },
+  {
+    "code": "0x71",
+    "name": "ST_SPEC",
+    "architectural": false,
+    "description": "Operation speculatively executed, store. This event counts all the instructions that go through the core rename block at each cycle, similar to INST_SPEC. The counter counts the last microoperation of each STR instruction"
+  },
+  {
+    "code": "0x72",
+    "name": "LDST_SPEC",
+    "architectural": false,
+    "description": "Operation speculatively executed, load or store. This event counts all the instructions that go through the core rename block at each cycle, similar to INST_SPEC. The counter counts the last microoperation of each LDR or STR instruction"
+  },
+  {
+    "code": "0x73",
+    "name": "DP_SPEC",
+    "architectural": false,
+    "description": "Operation speculatively executed, integer data processing. This event counts all the instructions that go through the core rename block at each cycle, similar to INST_SPEC. The counter counts the last microoperation of each data processing instruction"
+  },
+  {
+    "code": "0x74",
+    "name": "ASE_SPEC",
+    "architectural": false,
+    "description": "Operation speculatively executed, Advanced SIMD instruction. This event counts all the instructions that go through the core rename block at each cycle, similar to INST_SPEC. The counter counts the last microoperation of each data engine SIMD instruction"
+  },
+  {
+    "code": "0x75",
+    "name": "VFP_SPEC",
+    "architectural": false,
+    "description": "Operation speculatively executed, floating-point instruction. This event counts all the instructions that go through the core rename block at each cycle, similar to INST_SPEC. The counter counts the last microoperation of each data engine floating-point instruction"
+  },
+  {
+    "code": "0x77",
+    "name": "CRYPTO_SPEC",
+    "architectural": false,
+    "description": "Operation speculatively executed, Cryptographic instruction. This event counts all the instructions that go through the core rename block at each cycle, similar to INST_SPEC. The counter counts the last microoperation of each data engine Cryptographic instruction"
+  },
+  {
+    "code": "0x7A",
+    "name": "BR_INDIRECT_SPEC",
+    "architectural": false,
+    "description": "Branch speculatively executed - Indirect branch"
+  },
+  {
+    "code": "0x7C",
+    "name": "ISB_SPEC",
+    "architectural": false,
+    "description": "Barrier speculatively executed, ISB. This event counts all architectural ISB instructions"
+  },
+  {
+    "code": "0x7D",
+    "name": "DSB_SPEC",
+    "architectural": false,
+    "description": "Barrier speculatively executed, DSB"
+  },
+  {
+    "code": "0x7E",
+    "name": "DMB_SPEC",
+    "architectural": false,
+    "description": "Barrier speculatively executed, DMB"
+  },
+  {
+    "code": "0x81",
+    "name": "EXC_UNDEF",
+    "description": "Counts the number of UNDEFINED exceptions taken. This event is set every time that an UNDEF exception is executed. CCFAIL exceptions are excluded"
+  },
+  {
+    "code": "0x8A",
+    "name": "EXC_HVC",
+    "description": "Exception taken, Hypervisor Call. This event is set every time that an exception is executed because of an HVC instruction. CCFAIL exceptions are excluded. This event is not counted when it is accessible from Non-secure EL0 or EL1"
+  },
+  {
+    "code": "0xA0",
+    "name": "L3D_CACHE_RD",
+    "architectural": false,
+    "component": "L3",
+    "description": "Attributable Level 3 data or unified cache access, read. This event counts RDUnique, RDClean, RDNotSharedDirty, atomics (STR, LD, SWP, CMP reads and writes), and StashOnce sent to L3"
+  },
+  {
+    "code": "0xA2",
+    "name": "L3D_CACHE_REFILL_RD",
+    "architectural": false,
+    "description": "Attributable Level 3 data or unified cache refill, read"
+  },
+  {
+    "code": "0xC0",
+    "name": "LF_STALL",
+    "architectural": false,
+    "description": "A linefill caused an instruction side stall"
+  },
+  {
+    "code": "0xC1",
+    "name": "PTW_STALL",
+    "architectural": false,
+    "description": "A translation table walk caused an instruction side stall"
+  },
+  {
+    "code": "0xC2",
+    "name": "I_TAG_RAM_RD",
+    "architectural": false,
+    "description": "Number of ways read in the instruction cache - Tag RAM"
+  },
+  {
+    "code": "0xC3",
+    "name": "I_DATA_RAM_RD",
+    "architectural": false,
+    "description": "Number of ways read in the instruction cache - Data RAM"
+  },
+  {
+    "code": "0xC4",
+    "name": "I_BTAC_RAM_RD",
+    "description": "Number of ways read in the instruction BTAC RAM"
+  },
+  {
+    "code": "0xD3",
+    "name": "D_LSU_SLOT_FULL",
+    "architectural": false,
+    "component": "BUS",
+    "description": "Duration for which all slots in the Load-Store Unit (LSU) are busy"
+  },
+  {
+    "code": "0xD8",
+    "name": "LS_IQ_FULL",
+    "architectural": false,
+    "component": "BUS",
+    "description": "Duration for which all slots in the load-store issue queue are busy. This event counts the cycles where all slots in the LS IQs are full with micro-operations waiting for issuing, and the dispatch stage is not empty"
+  },
+  {
+    "code": "0xD9",
+    "name": "DP_IQ_FULL",
+    "architectural": false,
+    "component": "BUS",
+    "description": "Duration for which all slots in the data processing issue queue are busy. This event counts the cycles where all slots in the DP0 and DP1 IQs are full with micro-operations waiting for issuing, and the despatch stage is not empty"
+  },
+  {
+    "code": "0xDA",
+    "name": "DE_IQ_FULL",
+    "architectural": false,
+    "component": "BUS",
+    "description": "Duration for which all slots in the data engine issue queue are busy. This event is set every time that the data engine rename has at least one valid instruction, excluding No Operations (NOPs), that cannot move to the issue stage because accpt_instr is LOW"
+  },
+  {
+    "code": "0xDC",
+    "name": "EXC_TRAP_HYP",
+    "description": "Number of traps to hypervisor. This event counts the number of exception traps taken to EL2, excluding HVC instructions. This event is set every time that an exception is executed because of a decoded trap to the hypervisor. CCFAIL exceptions and traps caused by HVC instructions are excluded. This event is not counted when it is accessible from Non-secure EL0 or EL1"
+  },
+  {
+    "code": "0xDE",
+    "name": "ETM_EXT_OUT0",
+    "description": "ETM trace unit output 0"
+  },
+  {
+    "code": "0xDF",
+    "name": "ETM_EXT_OUT1",
+    "description": "ETM trace unit output 1"
+  },
+  {
+    "code": "0xE0",
+    "name": "MMU_PTW",
+    "architectural": false,
+    "description": "Duration of a translation table walk handled by the MMU"
+  },
+  {
+    "code": "0xE1",
+    "name": "MMU_PTW_ST1",
+    "architectural": false,
+    "description": "Duration of a Stage 1 translation table walk handled by the MMU. This event is not counted when it is accessible from Non-secure EL0 or EL1"
+  },
+  {
+    "code": "0xE2",
+    "name": "MMU_PTW_ST2",
+    "architectural": false,
+    "description": "Duration of a Stage 2 translation table walk handled by the MMU. This event is not counted when it is accessible from Non-secure EL0 or EL1"
+  },
+  {
+    "code": "0xE3",
+    "name": "MMU_PTW_LSU",
+    "architectural": false,
+    "description": "Duration of a translation table walk requested by the LSU"
+  },
+  {
+    "code": "0xE4",
+    "name": "MMU_PTW_ISIDE",
+    "architectural": false,
+    "description": "Duration of a translation table walk requested by the instruction side"
+  },
+  {
+    "code": "0xE5",
+    "name": "MMU_PTW_PLD",
+    "architectural": false,
+    "description": "Duration of a translation table walk requested by a Preload instruction or Prefetch request"
+  },
+  {
+    "code": "0xE6",
+    "name": "MMU_PTW_CP15",
+    "architectural": false,
+    "description": "Duration of a translation table walk requested by an address translation operation"
+  },
+  {
+    "code": "0xE7",
+    "name": "L1PLD_TLB_REFILL",
+    "architectural": false,
+    "description": "Level 1 PLD TLB refill"
+  },
+  {
+    "code": "0xE8",
+    "name": "L2PLD_TLB",
+    "architectural": false,
+    "component": "L2TLB",
+    "description": "Level 2 preload and MMU prefetcher TLB access. This event only counts software and hardware prefetches at Level 2"
+  },
+  {
+    "code": "0xE9",
+    "name": "UTLB_FLUSH",
+    "architectural": false,
+    "description": "Level 1 TLB flush"
+  },
+  {
+    "code": "0xEA",
+    "name": "TLB_ACCESS",
+    "architectural": false,
+    "component": "L2TLB",
+    "description": "Level 2 TLB access"
+  },
+  {
+    "code": "0xEB",
+    "name": "L1PLD_TLB",
+    "architectural": false,
+    "description": "Level 1 preload TLB access. This event only counts software and hardware prefetches at Level 1. This event counts all accesses to the preload data micro TLB, that is L1 prefetcher and preload instructions. This event does not take into account whether the MMU is enabled or not"
+  },
+  {
+    "code": "0xEC",
+    "name": "PLDTLB_WALK",
+    "architectural": false,
+    "description": "Prefetch access to unified TLB that caused a page table walk. This event counts software and hardware prefetches"
+  }
+]

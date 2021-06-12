@@ -1,0 +1,730 @@
+[
+  {
+    "code": "0x00",
+    "name": "SW_INCR",
+    "architectural": true,
+    "description": "Instruction architecturally executed, condition code check pass, software increment"
+  },
+  {
+    "code": "0x01",
+    "name": "L1I_CACHE_REFILL",
+    "architectural": false,
+    "component": "L1I",
+    "description": "Level 1 instruction cache refill. This event counts any instruction fetch which misses in the cache. The following instructions are not counted: \" Cache maintenance instructions. \" Non-cacheable accesses"
+  },
+  {
+    "code": "0x02",
+    "name": "L1I_TLB_REFILL",
+    "architectural": false,
+    "component": "L1ITLB",
+    "description": "Level 1 instruction TLB refill. This event counts any refill of the instruction L1 TLB from the L2 TLB. This includes refills which result in a translation fault. The following instructions are not counted: \" TLB maintenance instructions. This event counts regardless of whether the MMU is enabled"
+  },
+  {
+    "code": "0x03",
+    "name": "L1D_CACHE_REFILL",
+    "architectural": false,
+    "component": "L1D",
+    "description": "Level 1 data cache refill. This event counts any load or store operation or pagewalk access which causes data to be read from outside the L1, including accesses which do not allocate into L1. The following instructions are not counted: \" Cache maintenance instructions and prefetches. \" Stores of an entire cache line, even if they make a coherency request ouside the L1. \" Partial cache line writes which do not allocate into the L1 cache. \" Non-cacheable accesses. This event counts the sum of L1D_CACHE_REFILL_RD and L1D_CACHE_REFILL_WR"
+  },
+  {
+    "code": "0x04",
+    "name": "L1D_CACHE",
+    "architectural": false,
+    "component": "L1D",
+    "description": "Level 1 data cache access. This event counts any load or store operation or pagewalk access which looks up in the L1 data cache. In particular, any access which could count the L1D_CACHE_REFILL event causes this event to count. The following instructions are not counted: \" Cache maintenance instructions and prefetches. \" Non-cacheable accesses. This event counts the sum of L1D_CACHE_RD and L1D_CACHE_WR"
+  },
+  {
+    "code": "0x05",
+    "name": "L1D_TLB_REFILL",
+    "architectural": false,
+    "component": "L1DTLB",
+    "description": "Level 1 data TLB refill. This event counts any refill of the data L1 TLB from the L2 TLB. This includes refills which result in a translation fault. The following instructions are not counted: \" TLB maintenance instructions. This event counts regardless of whether the MMU is enabled"
+  },
+  {
+    "code": "0x06",
+    "name": "LD_RETIRED",
+    "architectural": true,
+    "description": "Instruction architecturally executed, condition code check pass, load. This event counts all load and prefetch instructions. This includes the ARMv8.1 atomic instructions, other than the ST* variants"
+  },
+  {
+    "code": "0x07",
+    "name": "ST_RETIRED",
+    "architectural": true,
+    "description": "Instruction architecturally executed, condition code check pass, store. This event counts all store instructions and DC ZVA. This includes all the ARMv8.1 atomic instructions. The following instructions are not counted: \" Store-Exclusive instructions which fail"
+  },
+  {
+    "code": "0x08",
+    "name": "INST_RETIRED",
+    "architectural": true,
+    "description": "Instruction architecturally executed. This event counts all retired instructions, including those that fail their condition check"
+  },
+  {
+    "code": "0x09",
+    "name": "EXC_TAKEN",
+    "description": "Exception taken"
+  },
+  {
+    "code": "0x0A",
+    "name": "EXC_RETURN",
+    "architectural": true,
+    "description": "Instruction architecturally executed, condition code check pass, exception return"
+  },
+  {
+    "code": "0x0B",
+    "name": "CID_WRITE_RETIRED",
+    "architectural": true,
+    "description": "Instruction architecturally executed, condition code check pass, write to CONTEXTIDR. This event only counts writes to CONTEXTIDR in AArch32, and via the CONTEXTIDR_EL1 mnemonic in AArch64. The following instructions are not counted: \" Writes to CONTEXTIDR_EL12 and CONTEXTIDR_EL2"
+  },
+  {
+    "code": "0x0C",
+    "name": "PC_WRITE_RETIRED",
+    "architectural": true,
+    "description": "Instruction architecturally executed, condition code check pass, software change of the PC. This event counts all branches taken and popped from the branch monitor. This excludes exception entries, debug entries, and CCFAIL branches"
+  },
+  {
+    "code": "0x0D",
+    "name": "BR_IMMED_RETIRED",
+    "architectural": true,
+    "description": "Instruction architecturally executed, immediate branch. This event counts all branches decoded as immediate branches, taken or not, and popped from the branch monitor. This excludes exception entries, debug entries, and CCFAIL branches"
+  },
+  {
+    "code": "0x0E",
+    "name": "BR_RETURN_RETIRED",
+    "architectural": true,
+    "description": "Instruction architecturally executed, condition code check pass, procedure return"
+  },
+  {
+    "code": "0x0F",
+    "name": "UNALIGNED_LDST_RETIRED",
+    "architectural": true,
+    "description": "Instruction architecturally executed, condition code check pass, unaligned load or store"
+  },
+  {
+    "code": "0x10",
+    "name": "BR_MIS_PRED",
+    "architectural": false,
+    "component": "BPU",
+    "description": "Mispredicted or not predicted branch speculatively executed.This event counts any predictable branch instruction which is mispredicted either due to dynamic misprediction or because the MMU is off and the branches are statically predicted not taken"
+  },
+  {
+    "code": "0x11",
+    "name": "CPU_CYCLES",
+    "architectural": false,
+    "description": "Cycle"
+  },
+  {
+    "code": "0x12",
+    "name": "BR_PRED",
+    "architectural": false,
+    "component": "BPU",
+    "description": "Predictable branch speculatively executed. This event counts all predictable branches"
+  },
+  {
+    "code": "0x13",
+    "name": "MEM_ACCESS",
+    "architectural": false,
+    "description": "Data memory access.This event counts memory accesses due to load or store instructions. The following instructions are not counted: \" Instruction fetches. \" Cache maintenance instructions. \" Translation table walks or prefetches. This event counts the sum of MEM_ACCESS_RD and MEM_ACCESS_WR"
+  },
+  {
+    "code": "0x14",
+    "name": "L1I_CACHE",
+    "architectural": false,
+    "component": "L1I",
+    "description": "Level 1 instruction cache access. This event counts any instruction fetch which accesses the L1 instruction cache. The following instructions are not counted: \" Cache maintenance instructions. \" Non-cacheable accesses"
+  },
+  {
+    "code": "0x15",
+    "name": "L1D_CACHE_WB",
+    "architectural": false,
+    "component": "L1D",
+    "description": "Level 1 data cache Write-Back. This event counts any write back of data from the L1 data cache to L2 or L3. This counts both victim line evictions and snoops, including cache maintenance operations. The following instructions are not counted: \" Invalidations which do not result in data being transferred out of the L1. \" Full-line writes which write to L2 without writing L1, such as writestreaming mode"
+  },
+  {
+    "code": "0x16",
+    "name": "L2D_CACHE",
+    "architectural": false,
+    "component": "L2",
+    "description": "Level 2 data cache access. \" If the core is configured with a per-core L2 cache: This event counts any transaction from L1 which looks up in the L2 cache, and any write-back from the L1 to the L2. Snoops from outside the core and cache maintenance operations are not counted. \" If the core is not configured with a per-core L2 cache: This event counts the cluster cache event, as defined by L3D_CACHE. \" If there is neither a per-core cache nor a cluster cache configured, then this event is not implemented"
+  },
+  {
+    "code": "0x17",
+    "name": "L2D_CACHE_REFILL",
+    "architectural": false,
+    "component": "L2",
+    "description": "Level 2 data cache refill. \" If the core is configured with a per-core L2 cache: This event counts any cacheable transaction from L1 which causes data to be read from outside the core. L2 refills caused by stashes into L2 should not be counted. \" If the core is not configured with a per-core L2 cache: This event counts the cluster cache event, as defined by L3D_CACHE_REFILL. \" If there is neither a per-core cache nor a cluster cache configured, then this event is not implemented"
+  },
+  {
+    "code": "0x18",
+    "name": "L2D_CACHE_WB",
+    "architectural": false,
+    "component": "L2",
+    "description": "Level 2 data cache Write-Back. \" If the core is configured with a per-core L2 cache: This event counts any write back of data from the L2 cache to outside the core. This includes snoops to the L2 which return data, regardless of whether they cause an invalidation. Invalidations from the L2 which do not write data outside of the core and snoops which return data from the L1 are not counted. \" If the core is not configured with a per-core L2 cache, this event is not implemented"
+  },
+  {
+    "code": "0x19",
+    "name": "BUS_ACCESS",
+    "architectural": false,
+    "component": "BUS",
+    "description": "Bus access. This event counts for every beat of data transferred over the data channels between the core and the SCU. If both read and write data beats are transferred on a given cycle, this event is counted twice on that cycle. This event counts the sum of BUS_ACCESS_RD and BUS_ACCESS_WR"
+  },
+  {
+    "code": "0x1A",
+    "name": "MEMORY_ERROR",
+    "description": "Local memory error. This event counts any correctable or uncorrectable memory error (ECC or parity) in the protected core RAMs"
+  },
+  {
+    "code": "0x1B",
+    "name": "INT_SPEC",
+    "architectural": false,
+    "description": "Operation speculatively executed. This event duplicates INST_RETIRED"
+  },
+  {
+    "code": "0x1C",
+    "name": "TTBR_WRITE_RETIRED",
+    "architectural": true,
+    "description": "Instruction architecturally executed, condition code check pass, write to TTBR.This event only counts writes to TTBR0/TTBR1 in AArch32 and TTBR0_EL1/TTBR1_EL1 in AArch64. The following instructions are not counted: \" Accesses to TTBR0_EL12/TTBR1_EL12 or TTBR0_EL2/ TTBR1_EL2"
+  },
+  {
+    "code": "0x1D",
+    "name": "BUS_CYCLES",
+    "architectural": false,
+    "component": "BUS",
+    "description": "Bus cycles.This event duplicates CPU_CYCLES"
+  },
+  {
+    "code": "0x1E",
+    "name": "CHAIN",
+    "description": "Odd performance counter chain mode"
+  },
+  {
+    "code": "0x20",
+    "name": "L2D_CACHE_ALLOCATE",
+    "architectural": false,
+    "component": "L2",
+    "description": "Level 2 data cache allocation without refill. \" If the core is configured with a per-core L2 cache: This event counts any full cache line write into the L2 cache which does not cause a linefill, including write-backs from L1 to L2 and full-line writes which do not allocate into L1. \" If the core is not configured with a per-core L2 cache: This event counts the cluster cache event, as defined by L3D_CACHE_ALLOCATE. \" If there is neither a per-core cache nor a cluster cache configured, this event is not implemented"
+  },
+  {
+    "code": "0x21",
+    "name": "BR_RETIRED",
+    "architectural": true,
+    "description": "Instruction architecturally executed, branch. This event counts all branches, taken or not, popped from the branch monitor. This excludes exception entries, debug entries, and CCFAIL branches. In the Cortex-A55 core, an ISB is a branch, and even micro architectural ISBs are counted"
+  },
+  {
+    "code": "0x22",
+    "name": "BR__MIS_PRED_RETIRED",
+    "architectural": false,
+    "component": "BPU",
+    "description": "Instruction architecturally executed, mispredicted branch. This event counts any branch counted by BR_RETIRED which is not correctly predicted and causes a pipeline flush"
+  },
+  {
+    "code": "0x23",
+    "name": "STALL_FRONTEND",
+    "architectural": false,
+    "description": "No operation issued because of the frontend. The counter counts on any cycle when no operations are issued due to the instruction queue being empty"
+  },
+  {
+    "code": "0x24",
+    "name": "STALL_BACKEND",
+    "architectural": false,
+    "description": "No operation issued because of the backend. The counter counts on any cycle when no operations are issued due to a pipeline stall"
+  },
+  {
+    "code": "0x25",
+    "name": "L1D_TLB",
+    "architectural": false,
+    "component": "L1DTLB",
+    "description": "Level 1 data TLB access. This event counts any load or store operation which accesses the data L1 TLB. If both a load and a store are executed on a cycle, this event counts twice. This event counts regardless of whether the MMU is enabled"
+  },
+  {
+    "code": "0x26",
+    "name": "L1I_TLB",
+    "architectural": false,
+    "component": "L1ITLB",
+    "description": "Level 1 instruction TLB access. This event counts any instruction fetch which accesses the instruction L1 TLB. This event counts regardless of whether the MMU is enabled"
+  },
+  {
+    "code": "0x29",
+    "name": "L3D_CACHE_ALLOCATE",
+    "architectural": false,
+    "component": "L2",
+    "description": "Attributable Level 3 unified cache allocation without refill. \" If the core is configured with a per-core L2 cache and the cluster is configured with an L3 cache: This event counts any full cache line write into the L3 cache which does not cause a linefill, including write-backs from L2 to L3 and full-line writes which do not allocate into L2. \" If either the core is configured without a per-core L2 or the cluster is configured without an L3 cache, this event is not implemented"
+  },
+  {
+    "code": "0x2A",
+    "name": "L3D_CACHE_REFILL",
+    "architectural": false,
+    "component": "L2",
+    "description": "Attributable Level 3 unified cache refill. \" If the core is configured with a per-core L2 cache and the cluster is configured with an L3 cache: This event counts for any cacheable read transaction returning data from the SCU for which the data source was outside the cluster. Transactions such as ReadUnique are counted here as \"read• transactions, even though they can be generated by store instructions. \" If either the core is configured without a per-core L2 or the cluster is configured without an L3 cache, this event is not implemented"
+  },
+  {
+    "code": "0x2B",
+    "name": "L3D_CACHE",
+    "architectural": false,
+    "component": "L2",
+    "description": "Attributable Level 3 unified cache access. \" If the core is configured with a per-core L2 cache and the cluster is configured with an L3 cache: This event counts for any cacheable read transaction returning data from the SCU, or for any cacheable write to the SCU. \" If either the core is configured without a per-core L2 or the cluster is configured without an L3 cache, this event is not implemented"
+  },
+  {
+    "code": "0x2D",
+    "name": "L2D_TLB_REFILL",
+    "architectural": false,
+    "component": "L2TLB",
+    "description": "Attributable Level 2 unified TLB refill. This event counts on any refill of the L2 TLB, caused by either an instruction or data access. This event does not count if the MMU is disabled"
+  },
+  {
+    "code": "0x2F",
+    "name": "L2D_TLB",
+    "architectural": false,
+    "component": "L2TLB",
+    "description": "Attributable Level 2 unified TLB access. This event counts on any access to the L2 TLB (caused by a refill of any of the L1 TLBs). This event does not count if the MMU is disabled"
+  },
+  {
+    "code": "0x34",
+    "name": "DTLB_WALK",
+    "architectural": false,
+    "component": "L2TLB",
+    "description": "Access to data TLB that caused a page table walk. This event counts on any data access which causes L2D_TLB_REFILL to count"
+  },
+  {
+    "code": "0x35",
+    "name": "ITLB_WALK",
+    "architectural": false,
+    "component": "L2TLB",
+    "description": "Access to instruction TLB that caused a page table walk. This event counts on any instruction access which causes L2D_TLB_REFILL to count"
+  },
+  {
+    "code": "0x36",
+    "name": "LL_CACHE_RD",
+    "architectural": false,
+    "component": "L1D",
+    "description": "Last level cache access, read. \" If CPUECTLR.EXTLLC is set: This event counts any cacheable read transaction which returns a data source of \"interconnect cache\". \" If CPUECTLR.EXTLLC is not set: This event is a duplicate of the L*D_CACHE_RD event corresponding to the last level of cache implemented - L3D_CACHE_RD if both per-core L2 and cluster L3 are implemented, L2D_CACHE_RD if only one is implemented, or L1D_CACHE_RD if neither is implemented"
+  },
+  {
+    "code": "0x37",
+    "name": "LL_CACHE_MISS_RD",
+    "architectural": false,
+    "component": "L1D",
+    "description": "Last level cache miss, read. \" If CPUECTLR.EXTLLC is set: This event counts any cacheable read transaction which returns a data source of \"DRAM\", \"remote\" or \"inter-cluster peer\". \" If CPUECTLR.EXTLLC is not set: This event is a duplicate of the L*D_CACHE_REFILL_RD event corresponding to the last level of cache implemented - L3D_CACHE_REFILL_RD if both per-core L2 and cluster L3 are implemented, L2D_CACHE_REFILL_RD if only one is implemented, or L1D_CACHE_REFILL_RD if neither is implemented"
+  },
+  {
+    "code": "0x38",
+    "name": "REMOTE_ACCESS_RD",
+    "description": "Access to another socket in a multi-socket system, read.This event counts any read transaction which returns a data source of \"remote\""
+  },
+  {
+    "code": "0x40",
+    "name": "L1D_CACHE_RD",
+    "architectural": false,
+    "component": "L1D",
+    "description": "Level 1 data cache access, read. This event counts any load operation or pagewalk access which looks up in the L1 data cache. In particular, any access which could count the L1D_CACHE_REFILL_RD event causes this event to count. The following instructions are not counted: \" Cache maintenance instructions and prefetches. \" Non-cacheable accesses"
+  },
+  {
+    "code": "0x41",
+    "name": "L1D_CACHE_WR",
+    "architectural": false,
+    "component": "L1D",
+    "description": "Level 1 data cache access, write. This event counts any store operation which looks up in the L1 data cache. In particular, any access which could count the L1D_CACHE_REFILL event causes this event to count. The following instructions are not counted: \" Cache maintenance instructions and prefetches. \" Non-cacheable accesses"
+  },
+  {
+    "code": "0x42",
+    "name": "L1D_CACHE_REFILL_RD",
+    "architectural": false,
+    "component": "L1D",
+    "description": "Level 1 data cache refill, read. This event counts any load operation or pagewalk access which causes data to be read from outside the L1, including accesses which do not allocate into L1. The following instructions are not counted: \" Cache maintenance instructions and prefetches. \" Non-cacheable accesses"
+  },
+  {
+    "code": "0x43",
+    "name": "L1D_CACHE_REFILL_WR",
+    "architectural": false,
+    "component": "L1D",
+    "description": "Level 1 data cache refill, write. This event counts any store operation which causes data to be read from outside the L1, including accesses which do not allocate into L1. The following instructions are not counted: \" Cache maintenance instructions and prefetches. \" Stores of an entire cache line, even if they make a coherency request ouside the L1. \" Partial cache line writes which do not allocate into the L1 cache. \" Non-cacheable accesses"
+  },
+  {
+    "code": "0x44",
+    "name": "L1D_CACHE_REFILL_INNER",
+    "architectural": false,
+    "component": "L1D",
+    "description": "Level 1 data cache refill, inner.This event counts any L1 D-cache linefill (as counted by L1D_CACHE_REFILL) which hits in the L2 cache, L3 cache or another core in the cluster"
+  },
+  {
+    "code": "0x45",
+    "name": "L1D_CACHE_REFILL_OUTER",
+    "architectural": false,
+    "component": "L1D",
+    "description": "Level 1 data cache refill, outer.This event counts any L1 D-cache linefill (as counted by L1D_CACHE_REFILL) which does not hit in the L2 cache, L3 cache or another core in the cluster, and instead obtains data from outside the cluster"
+  },
+  {
+    "code": "0x50",
+    "name": "L2D_CACHE_RD",
+    "architectural": false,
+    "component": "L2",
+    "description": "Level 2 cache access, read. \" If the core is configured with a per-core L2 cache: This event counts any read ransaction from L1 which looks up in the L2 cache. Snoops from outside the core are not counted. \" If the core is configured without a per-core L2 cache: This event counts the cluster cache event, as defined by L3D_CACHE_RD. \" If there is neither a per-core cache nor a cluster cache configured, this event is not implemented"
+  },
+  {
+    "code": "0x51",
+    "name": "L2D_CACHE_WR",
+    "architectural": false,
+    "component": "L2",
+    "description": "Level 2 cache access, write. \" If the core is configured with a per-core L2 cache: This event counts any write transaction from L1 which looks up in the L2 cache or any write-back from L1 which allocates into the L2 cache. Snoops from outside the core are not counted. \" If the core is configured without a per-core L2 cache: This event counts the cluster cache event, as defined by L3D_CACHE_WR. \" If there is neither a per-core cache nor a cluster cache configured, this event is not implemented"
+  },
+  {
+    "code": "0x52",
+    "name": "L2D_CACHE_REFILL_RD",
+    "architectural": false,
+    "component": "L2",
+    "description": "Level 2 cache refill, read. \" If the core is configured with a per-core L2 cache: This event counts any cacheable read transaction from L1 which causes data to be read from outside the core. L2 refills caused by stashes into L2 should not be counted. Transactions such as ReadUnique are counted here as \"read• transactions, even though they can be generated by store instructions. \" If the core is configured without a per-core L2 cache: This event counts the cluster cache event, as defined by L3D_CACHE_REFILL_RD. \" If there is neither a per-core cache nor a cluster cache configured, this event is not implemented"
+  },
+  {
+    "code": "0x53",
+    "name": "L2D_CACHE_REFILL_WR",
+    "architectural": false,
+    "component": "L2",
+    "description": "Level 2 cache refill, write. \" If the core is configured with a per-core L2 cache: This event counts any write transaction from L1 which causes data to be read from outside the core. L2 refills caused by stashes into L2 should not be counted. Transactions such as ReadUnique are not counted as write transactions. \" If the core is configured without a per-core L2 cache: This event counts the cluster cache event, as defined by L3D_CACHE_REFILL_WR. \" If there is neither a per-core cache nor a cluster cache configured, this event is not implemented"
+  },
+  {
+    "code": "0x60",
+    "name": "BUS_ACCESS_RD",
+    "component": "BUS",
+    "description": "Bus access, read. This event counts for every beat of data transferred over the read data channel between the core and the SCU"
+  },
+  {
+    "code": "0x61",
+    "name": "BUS_ACCESS_WR",
+    "component": "BUS",
+    "description": "Bus access, write. This event counts for every beat of data transferred over the write data channel between the core and the SCU"
+  },
+  {
+    "code": "0x66",
+    "name": "MEM_ACCESS_RD",
+    "architectural": false,
+    "description": "Data memory access, read.This event counts memory accesses due to load instructions. The following instructions are not counted: \" Instruction fetches. \" Cache maintenance instructions. \" Translation table walks. \" Prefetches"
+  },
+  {
+    "code": "0x67",
+    "name": "MEM_ACCESS_WR",
+    "architectural": false,
+    "description": "Data memory access, write.This event counts memory accesses due to store instructions. The following instructions are not counted: \" Instruction fetches. \" Cache maintenance instructions. \" Translation table walks. \" Prefetches"
+  },
+  {
+    "code": "0x70",
+    "name": "LD_SPEC",
+    "architectural": false,
+    "description": "Operation speculatively executed, load. This event duplicates LD_RETIRED"
+  },
+  {
+    "code": "0x71",
+    "name": "ST_SPEC",
+    "architectural": false,
+    "description": "Operation speculatively executed, store. This event duplicates ST_RETIRED"
+  },
+  {
+    "code": "0x72",
+    "name": "LDST_SPEC",
+    "architectural": false,
+    "description": "Operation speculatively executed, load or store. This event counts the sum of LD_SPEC and ST_SPEC"
+  },
+  {
+    "code": "0x73",
+    "name": "DP_SPEC",
+    "architectural": false,
+    "description": "Operation speculatively executed, integer data processing. This event counts retired integer data-processing instructions"
+  },
+  {
+    "code": "0x74",
+    "name": "ASE_SPEC",
+    "architectural": false,
+    "description": "Operation speculatively executed, Advanced SIMD instruction. This event counts retired Advanced SIMD instructions"
+  },
+  {
+    "code": "0x75",
+    "name": "VFP_SPEC",
+    "architectural": false,
+    "description": "Operation speculatively executed, floating-point instruction. This event counts retired floating-point instructions"
+  },
+  {
+    "code": "0x76",
+    "name": "PC_WRITE_SPEC",
+    "architectural": false,
+    "description": "Operation speculatively executed, software change of the PC. This event counts retired branch instructions"
+  },
+  {
+    "code": "0x77",
+    "name": "CRYPTO_SPEC",
+    "architectural": false,
+    "description": "Operation speculatively executed, Cryptographic instruction. This event counts retired Cryptographic instructions"
+  },
+  {
+    "code": "0x78",
+    "name": "BR_IMMED_SPEC",
+    "architectural": false,
+    "description": "Branch speculatively executed, immediate branch. This event duplicates BR_IMMED_RETIRED"
+  },
+  {
+    "code": "0x79",
+    "name": "BR_RETURN_SPEC",
+    "architectural": false,
+    "description": "Branch speculatively executed, procedure return. This event duplicates BR_RETURN_RETIRED"
+  },
+  {
+    "code": "0x7A",
+    "name": "BR_INDIRECT_SPEC",
+    "architectural": false,
+    "description": "Branch speculatively executed, indirect branch.This event counts retired indirect branch instructions"
+  },
+  {
+    "code": "0x86",
+    "name": "EXC_IRQ",
+    "description": "Exception taken, IRQ"
+  },
+  {
+    "code": "0x87",
+    "name": "EXC_FIQ",
+    "description": "Exception taken, FIQ"
+  },
+  {
+    "code": "0xA0",
+    "name": "L3D_CACHE_RD",
+    "architectural": false,
+    "component": "L2",
+    "description": "Attributable Level 3 unified cache access, read. This event counts for any cacheable read transaction returning data from the SCU. If either the core is configured without a per-core L2 or the cluster is configured without an L3 cache, this event is not implemented"
+  },
+  {
+    "code": "0xA2",
+    "name": "L3D_CACHE_REFILL_RD",
+    "architectural": false,
+    "component": "L2",
+    "description": "Attributable Level 3 unified cache refill, read.This event duplicates L3D_CACHE_REFILL. If either the core is configured without a per-core L2 or the cluster is configured without an L3 cache, this event is not implemented"
+  },
+  {
+    "code": "0xC0",
+    "name": "L3D_CACHE_REFILL_PREFETCH",
+    "architectural": false,
+    "component": "L2",
+    "description": "Level 3 cache refill due to prefetch. This event counts any linefills from the hardware prefetcher which cause an allocation into the L3 cache. Note It might not be possible to both distinguish hardware vs software prefetches and also which prefetches cause an allocation. If so, only hardware prefetches should be counted, regardless of whether they allocate. If either the core is configured without a per-core L2 or the cluster is configured without an L3 cache, this event is not implemented"
+  },
+  {
+    "code": "0xC1",
+    "name": "L2D_CACHE_REFILL_PREFETCH",
+    "architectural": false,
+    "component": "L2",
+    "description": "Level 2 cache refill due to prefetch. \" If the core is configured with a per-core L2 cache: This event does not count. \" If the core is configured without a per-core L2 cache: This event counts the cluster cache event, as defined by L3D_CACHE_REFILL_PREFETCH. \" If there is neither a per-core cache nor a cluster cache configured, this event is not implemented"
+  },
+  {
+    "code": "0xC2",
+    "name": "L1D_CACHE_REFILL_PREFETCH",
+    "architectural": false,
+    "component": "L1D",
+    "description": "Level 1 data cache refill due to prefetch. This event counts any linefills from the prefetcher which cause an allocation into the L1 D-cache"
+  },
+  {
+    "code": "0xC3",
+    "name": "L2D_WS_MODE",
+    "architectural": false,
+    "component": "L2",
+    "description": "Level 2 cache write streaming mode. This event counts for each cycle where the core is in write-streaming mode and not allocating writes into the L2 cache"
+  },
+  {
+    "code": "0xC4",
+    "name": "L1D_WS_MODE_ENTRY",
+    "architectural": false,
+    "component": "L1D",
+    "description": "Level 1 data cache entering write streaming mode.This event counts for each entry into write-streaming mode"
+  },
+  {
+    "code": "0xC5",
+    "name": "L1D_WS_MODE",
+    "architectural": false,
+    "component": "L1D",
+    "description": "Level 1 data cache write streaming mode.This event counts for each cycle where the core is in write-streaming mode and not allocating writes into the L1 D-cache"
+  },
+  {
+    "code": "0xC6",
+    "name": "PREDECODE_ERROR",
+    "description": "Predecode error"
+  },
+  {
+    "code": "0xC7",
+    "name": "L3D_WS_MODE",
+    "architectural": false,
+    "component": "L3",
+    "description": "Level 3 cache write streaming mode.This event counts for each cycle where the core is in write-streaming mode and not allocating writes into the L3 cache"
+  },
+  {
+    "code": "0xC8",
+    "description": "SCU Snooped data from another CPU for this CPU"
+  },
+  {
+    "code": "0xC9",
+    "name": "BR_COND_PRED",
+    "architectural": false,
+    "component": "BPU",
+    "description": "Predicted conditional branch executed.This event counts when any branch which can be predicted by the conditional predictor is retired. This event still counts when branch prediction is disabled due to the MMU being off"
+  },
+  {
+    "code": "0xCA",
+    "name": "BR_INDIRECT_MIS_PRED",
+    "architectural": false,
+    "component": "BPU",
+    "description": "Indirect branch mis-predicted.This event counts when any indirect branch which can be predicted by the BTAC is retired, and has mispredicted for either the condition or the address. This event still counts when branch prediction is disabled due to the MMU being off"
+  },
+  {
+    "code": "0xCB",
+    "name": "BR_INDIRECT_ADDR_MIS_PRED",
+    "architectural": false,
+    "component": "BPU",
+    "description": "Indirect branch mis-predicted due to address mis-compare.This event counts when any indirect branch which can be predicted by the BTAC is retired, was taken and correctly predicted the condition, and has mispredicted the address. This event still counts when branch prediction is disabled due to the MMU being off"
+  },
+  {
+    "code": "0xCC",
+    "name": "BR_COND_MIS_PRED",
+    "architectural": false,
+    "component": "BPU",
+    "description": "Conditional branch mis-predicted.This event counts when any branch which can be predicted by the conditional predictor is retired, and has mis-predicted the condition. This event still counts when branch prediction is disabled due to the MMU being off. Conditional indirect branches which correctly predicted the condition but mis-predicted on the address do not count this event"
+  },
+  {
+    "code": "0xCD",
+    "name": "BR_INDIRECT_ADDR_PRED",
+    "architectural": false,
+    "component": "BPU",
+    "description": "Indirect branch with predicted address executed.This event counts when any indirect branch which can be predicted by the BTAC is retired, was taken and correctly predicted the condition. This event still counts when branch prediction is disabled due to the MMU being off"
+  },
+  {
+    "code": "0xCE",
+    "name": "BR_RETURN_ADDR_PRED",
+    "architectural": false,
+    "component": "BPU",
+    "description": "Procedure return with predicted address executed.This event counts when any procedure return which can be predicted by the CRS is retired, was taken and correctly predicted the condition. This event still counts when branch prediction is disabled due to the MMU being off"
+  },
+  {
+    "code": "0xCF",
+    "name": "BR_RETURN_ADDR_MIS_PRED",
+    "architectural": false,
+    "component": "BPU",
+    "description": "Procedure return mis-predicted due to address mis-compare.This event counts when any procedure return which can be predicted by the CRS is retired, was taken and correctly predicted the condition, and has mispredicted the address. This event still counts when branch prediction is disabled due to the MMU being off"
+  },
+  {
+    "code": "0xD0",
+    "name": "L2D_LLWALK_TLB",
+    "architectural": false,
+    "component": "L2TLB",
+    "description": "Level 2 TLB last-level walk cache access.This event does not count if the MMU is disabled"
+  },
+  {
+    "code": "0xD1",
+    "name": "L2D_LLWALK_TLB_REFILL",
+    "architectural": false,
+    "component": "L2TLB",
+    "description": "Level 2 TLB last-level walk cache refill.This event does not count if the MMU is disabled"
+  },
+  {
+    "code": "0xD2",
+    "name": "L2D_L2WALK_TLB",
+    "architectural": false,
+    "component": "L2TLB",
+    "description": "Level 2 TLB level-2 walk cache access.This event counts accesses to the level-2 walk cache where the last-level walk cache has missed. The event only counts when the translation regime of the pagewalk uses level 2 descriptors. This event does not count if the MMU is disabled"
+  },
+  {
+    "code": "0xD3",
+    "name": "L2D_L2WALK_TLB_REFILL",
+    "architectural": false,
+    "component": "L2TLB",
+    "description": "Level 2 TLB level-2 walk cache refill.This event does not count if the MMU is disabled"
+  },
+  {
+    "code": "0xD4",
+    "name": "L2D_S2_TLB",
+    "architectural": false,
+    "component": "L2TLB",
+    "description": "Level 2 TLB IPA cache access. This event counts on each access to the IPA cache. \" If a single pagewalk needs to make multiple accesses to the IPA cache, each access is counted. \" If stage 2 translation is disabled, this event does not count"
+  },
+  {
+    "code": "0xD5",
+    "name": "L2D_S2_TLB_REFILL",
+    "architectural": false,
+    "component": "L2TLB",
+    "description": "Level 2 TLB IPA cache refill. This event counts on each refill of the IPA cache. \" If a single pagewalk needs to make multiple accesses to the IPA cache, each access which causes a refill is counted. \" If stage 2 translation is disabled, this event does not count"
+  },
+  {
+    "code": "0xD6",
+    "name": "L2D_CACHE_STASH_DROPPED",
+    "architectural": false,
+    "component": "L2",
+    "description": "Level 2 cache stash dropped.This event counts on each stash request received from the interconnect or ACP, that is targeting L2 and gets dropped due to lack of buffer space to hold the request"
+  },
+  {
+    "code": "0xE0",
+    "architectural": false,
+    "description": "Attributable Performance Impact Event. Counts every cycle that the DPU IQ is empty and that is not because of a recent micro-TLB miss, instruction cache miss or pre-decode error"
+  },
+  {
+    "code": "0xE1",
+    "name": "STALL_FRONTEND_CACHE",
+    "architectural": false,
+    "description": "No operation issued due to the frontend, cache miss.This event counts every cycle the DPU IQ is empty and there is an instruction cache miss being processed"
+  },
+  {
+    "code": "0xE2",
+    "name": "STALL_FRONTEND_TLB",
+    "architectural": false,
+    "description": "No operation issued due to the frontend, TLB miss.This event counts every cycle the DPU IQ is empty and there is an instruction L1 TLB miss being processed"
+  },
+  {
+    "code": "0xE3",
+    "name": "STALL_FRONTEND_PDERR",
+    "architectural": false,
+    "description": "No operation issued due to the frontend, pre-decode error.This event counts every cycle the DPU IQ is empty and there is a pre-decode error being processed"
+  },
+  {
+    "code": "0xE4",
+    "name": "STALL_BACKEND_ILOCK",
+    "architectural": false,
+    "description": "No operation issued due to the backend interlock.This event counts every cycle that issue is stalled and there is an interlock. Stall cycles due to a stall in Wr (typically awaiting load data) are excluded"
+  },
+  {
+    "code": "0xE5",
+    "name": "STALL_BACKEND_ILOCK_AGU",
+    "architectural": false,
+    "description": "No operation issued due to the backend, interlock, AGU.This event counts every cycle that issue is stalled and there is an interlock that is due to a load/store instruction waiting for data to calculate the address in the AGU. Stall cycles due to a stall in Wr (typically awaiting load data) are excluded"
+  },
+  {
+    "code": "0xE6",
+    "name": "STALL_BACKEND_ILOCK_FPU",
+    "architectural": false,
+    "description": "No operation issued due to the backend, interlock, FPU.This event counts every cycle that issue is stalled and there is an interlock that is due to an FPU/NEON instruction. Stall cycles due to a stall in the Wr stage (typically awaiting load data) are excluded"
+  },
+  {
+    "code": "0xE7",
+    "name": "STALL_BACKEND_LD",
+    "architectural": false,
+    "description": "No operation issued due to the backend, load.This event counts every cycle there is a stall in the Wr stage due to a load"
+  },
+  {
+    "code": "0xE8",
+    "name": "STALL_BACKEND_ST",
+    "architectural": false,
+    "description": "No operation issued due to the backend, store.This event counts every cycle there is a stall in the Wr stage due to a store"
+  },
+  {
+    "code": "0xE9",
+    "name": "STALL_BACKEND_LD_CACHE",
+    "architectural": false,
+    "description": "No operation issued due to the backend, load, cache miss.This event counts every cycle there is a stall in the Wr stage due to a load which is waiting on data (due to missing the cache or being non-cacheable)"
+  },
+  {
+    "code": "0xEA",
+    "name": "STALL_BACKEND_LD_TLB",
+    "architectural": false,
+    "description": "No operation issued due to the backend, load, TLB miss.This event counts every cycle there is a stall in the Wr stage due to a load which has missed in the L1 TLB"
+  },
+  {
+    "code": "0xEB",
+    "name": "STALL_BACKEND_ST_STB",
+    "architectural": false,
+    "description": "No operation issued due to the backend, store, STB full.This event counts every cycle there is a stall in the Wr stage due to a store which is waiting due to the STB being full"
+  },
+  {
+    "code": "0xEC",
+    "name": "STALL_BACKEND_ST_TLB",
+    "architectural": false,
+    "description": "No operation issued due to the backend, store, TLB miss.This event counts every cycle there is a stall in the Wr stage due to a store which has missed in the L1 TLB"
+  }
+]

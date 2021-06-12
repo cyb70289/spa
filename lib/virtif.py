@@ -12,6 +12,8 @@ import json
 import sys
 import re
 
+sys.path.append("perfmon_cpu")
+
 class stat:
 
     def __init__(self, options):
@@ -33,6 +35,9 @@ class stat:
         self.repeat = options['repeat']
         self.key = options['key']
         self.code = options['code']
+        self.platform = options['platform']
+        self.arch = options['arch']
+        self.index = options['index']
 
 
 class record:
@@ -105,7 +110,7 @@ def parse_config():
             def_stat[key] = options_stat[key]
         stat_obj = stat(def_stat)
         spa_obj.stat(stat_obj)
-        if not options_stat['type'] == 'Run':
+        if not def_stat['type'] == 'Run':
             analyze_stat(spa_obj, options_stat)
         jobs['stat'] += 1
     
@@ -140,6 +145,7 @@ def parse_config():
     if virtif['Slevel'] > 0:
         if jobs['record'] > 0 and jobs['ebpf'] > 0:
             merge_rec_ebpf_data(spa_obj)
+
 
 
 def arg_replacer(options):
@@ -217,7 +223,7 @@ def analyze_stat(spa_obj, options):
    elif options['compare'] == 'Custom' and size > 1:
         print(tmp[['Events', 'Alias', 'Runs', 'Names', 'Values', 'RelVar%']])
    elif size == 1:
-        print(stat_data[['Runs', 'Events', 'Alias', 'Values', 'Values_list']])
+        print(stat_data[['Runs', 'Names', 'Events', 'Alias', 'Values', 'Values_list']])
    else:
         print('NO DATA FOUND')
         exit()

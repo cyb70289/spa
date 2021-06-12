@@ -24,7 +24,11 @@ import json
 import data_manager 
 import shutil 
 from defines import Verbosity, Style
+import pandas as pd
+from statistics import mean, stdev
+import numpy as np
 
+sys.path.append("perfmon_cpu")
 class spa_pmu:
 
     
@@ -45,6 +49,9 @@ class spa_pmu:
             self.normal_style(pmu_obj, options)
         else:
             self.iterative_style(pmu_obj, options)
+
+        self.dump_to_file(pmu_obj, options['output_file']) 
+        self.gather_data(options)
     
     
     def perform_perf_rec(self, rec_obj, options):
@@ -73,6 +80,10 @@ class spa_pmu:
         regex = "( *)([0-9.]+%) *([0-9.]+)% *(\S+) *(\S+) +([\[\].a-z]+) +(\S+)(.*)"
         exp = re.compile(regex)
         data = {}
+        break_cond = False
+        
+        print("Creating Rec Obj")
+
         with open(filename, "r+" ) as f:
             for line in f:
                 match = exp.match(line)
@@ -81,6 +92,7 @@ class spa_pmu:
                     if key not in data.keys():
                         value = float(match.group(2)[:-1])
                         if value < options["Flevel"]:
+                            break_cond = True
                             break
                         data[key] = match.group(2)[:-1]
         
@@ -89,9 +101,12 @@ class spa_pmu:
         
         with open(filename, "w+") as f:
             f.write(json.dumps(rec_obj.info))
+
         subprocess.call("rm rec_data_latest", shell=True)
         subprocess.call("ln -s {} rec_data_latest".format(filename), shell=True)
-        
+
+        print("Creating Flamegraphs")
+
         if options['cf']:
             shutil.move('perf.data', record_path)
             os.chdir(record_path)
@@ -140,7 +155,11 @@ class spa_pmu:
     
             match = count_regex.search(i)
             if match and not match.group(key)=="seconds":
-                pmu_obj.info['counter'][match.group(key)]['Value'].append(int(match.group(index)))
+                value = int(match.group(index))
+                if not value >= 0:
+                    value = 0
+                pmu_obj.info['counter'][match.group(key)]['Value'].append(value)
+
                 if 'interval' in options.keys():
                     pmu_obj.info['counter'][match.group(key)]['Timestamp'].append(float(match.group(2)))
         
@@ -168,6 +187,7 @@ class spa_pmu:
         tmp = []
         event_set = ""
         i = 0
+        print(options['event_list'])
         for event in options['event_list']:
             if i < options['mx_degree']:
                 tmp.append(event)
@@ -215,3 +235,125 @@ class spa_pmu:
             self.log.warning("Error with profiling {}".format(e))
             #self.log.warning("Message = ".format(out))
         return out
+
+
+
+    def gather_data(self, options):
+    
+        pmu_result_list = {}
+        
+        event_names = []
+        values = []
+        values_list = []
+        timestamps = [] 
+        names = [] 
+        alias = []
+        machine = []
+        kernel = []
+        system = []
+        release = []
+        event_codes = []
+        code = []
+        command = []
+        architecture = []
+
+        output_file = "{}/{}.csv".format(options['csv_path'], options['timestamp']) 
+        subprocess.call("rm csv_result_latest", shell=True) 
+        subprocess.call("ln -s {} csv_result_latest".format(output_file), shell=True) 
+
+        with open("pmu_result_latest", "r") as stat_file:
+            f = json.load(stat_file)
+   
+        pmu = f
+
+        for i in pmu['counter'].keys():
+            event_names.append(pmu['counter'][i]['EventName'])
+            event_codes.append(pmu['counter'][i]['EventCode'])
+            values_list.append(pmu['counter'][i]['Value'])
+            values.append(mean(pmu['counter'][i]['Value']))
+            alias.append(pmu['counter'][i]['Alias'])
+            timestamps.append(pmu['metadata']['timestamp'])
+            names.append(pmu['metadata']['name'])
+            code.append(pmu['metadata']['code'])
+            machine.append(pmu['metadata']['machine'])
+            kernel.append(pmu['metadata']['kernel'])
+            system.append(pmu['metadata']['system'])
+            release.append(pmu['metadata']['release'])
+            command.append(pmu['metadata']['command'])
+    
+        info = {
+                "Events":event_names,
+                "EventCodes":event_codes,
+                "Alias":alias,
+                "Names":names,
+                "Values_list":values_list,
+                "Values":values,
+                "Timestamps":timestamps,
+                "Machine":machine,
+                "Kernel":kernel,
+                "System":system,
+                "Release":release,
+                "Command":command
+                }
+        dg = pd.DataFrame(info)
+        
+        if options['type'] == 'TD':
+            dg = self.topdown(dg, options)
+
+        dg.to_csv(index=False, path_or_buf=output_file, line_terminator="\n")
+
+
+
+    def dump_to_file(self, pmu_obj, output_file):
+        
+        with open(output_file, 'w+') as out:
+           json.dump(pmu_obj.info, out)
+
+    def n1(self, dg, options):
+    
+        from pmu_n1 import n1
+        
+        n1_obj = n1(self.strip_dg(dg))
+        return self.get_metric(n1_obj, dg, options)
+
+        
+    def strip_dg(self, dg):
+        
+        stat_data = dg
+        stat_data.reset_index(inplace=True)
+        stat_data_new = stat_data[["Events",  "Values"]]
+        stat_data_new.set_index("Events",  inplace=True)
+        stat_data_new = stat_data_new.transpose()
+        return stat_data_new
+
+    def get_metric(self, obj, stat_data, options):
+
+
+        out_df = obj.derive_perfmon_metrics()
+                        
+        out_df = out_df.transpose()
+        out_df.reset_index(inplace=True)
+        out_df.rename(columns={"index": "Events"}, inplace=True)
+        
+
+        alias = stat_data['Alias']
+        tmp = out_df.loc[len(stat_data): len(out_df)]
+        alias = np.append(alias, tmp['Events'])
+
+    
+        stat_data = stat_data.iloc[[0]]
+        stat_data = pd.concat([stat_data]*len(out_df), ignore_index=True)
+        stat_data['Events'] = out_df['Events']
+        print(len(stat_data), len(out_df), len(alias)) 
+        stat_data['Alias'] = alias
+          
+
+        stat_data['Values'] = out_df['Values']
+        return stat_data
+
+
+    def topdown(self, dg, options):
+        
+        pmap = {"neoverse-n1": self.n1(dg, options)}[options['platform']]
+        
+        return pmap
