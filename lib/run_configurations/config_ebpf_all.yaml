@@ -6,9 +6,9 @@ ebpf:
         list: ''
         sens: Max
         factor: 1
-        counters: instructions,cache_misses
-        path: "../lmbench/lmbench3/bin/lat_syscall"
-        nooptimize: false
+        counters: '0x8'
+        path: "../../xgboost/mymodel1600/mymodel/higgs"
+        nooptimize: False
         verbosity: Low
         obfile: ''
         compare: Current 

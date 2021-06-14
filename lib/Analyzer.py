@@ -117,7 +117,7 @@ class Analyzer:
                 self.build_profile(dg, event_names, runs)
         else:
             self.log.error('No Analysis can be done since only one Run has been performed')
-        self.dg.to_csv("Analysis_Results/{}".format(self.options["timestamp"]))
+        self.dg.to_csv("Analysis_Results/stat_analysis_{}".format(self.options["timestamp"]))
 
 
 

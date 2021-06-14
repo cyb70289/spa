@@ -97,18 +97,18 @@ class CL(PerfmonCpu):
         '''
         df_out = pd.DataFrame(index=df_in.index)
 
-        df_out['L1I MPKI'] = self._check_div(
-            df_in, 'L1-icache-load-misses', 'inst_retired.any', dscale=1e3)
-        df_out['ITLB MPKI'] = self._check_div(
-            df_in, 'L1-dcache-load-misses', 'inst_retired.any', dscale=1e3)
-        df_out['DTLB MPKI'] = self._check_div(
-            df_in, 'L1-dcache-load-misses', 'inst_retired.any', dscale=1e3)
-        df_out['L1D MPKI'] = self._check_div(
-            df_in, 'L1-dcache-load-misses', 'inst_retired.any', dscale=1e3)
-        df_out['L2D MPKI'] = self._check_div(
-            df_in, 'MEM_LOAD_RETIRED.L2_MISS', 'inst_retired.any', dscale=1e3)
-        df_out['L3D MPKI'] = self._check_div(
-            df_in, 'MEM_LOAD_RETIRED.L3_MISS', 'inst_retired.any', dscale=1e3)
+        df_out['L1I MPKI'] = self._convert_to_percent(self._check_div(
+            df_in, 'L1-icache-load-misses', 'inst_retired.any', dscale=1000))
+        df_out['ITLB MPKI'] = self._convert_to_percent(self._check_div(
+            df_in, 'L1-dcache-load-misses', 'inst_retired.any', dscale=1000))
+        df_out['DTLB MPKI'] = self._convert_to_percent(self._check_div(
+            df_in, 'L1-dcache-load-misses', 'inst_retired.any', dscale=1000))
+        df_out['L1D MPKI'] = self._convert_to_percent(self._check_div(
+            df_in, 'L1-dcache-load-misses', 'inst_retired.any', dscale=1000))
+        df_out['L2D MPKI'] = self._convert_to_percent(self._check_div(
+            df_in, 'MEM_LOAD_RETIRED.L2_MISS', 'inst_retired.any', dscale=1000))
+        df_out['L3D MPKI'] = self._convert_to_percent(self._check_div(
+            df_in, 'MEM_LOAD_RETIRED.L3_MISS', 'inst_retired.any', dscale=1000))
         
         return df_out
 
@@ -125,9 +125,9 @@ class CL(PerfmonCpu):
         df_out = pd.DataFrame(index=df_in.index)
 
         # High level Stall Stack
-        df_out['STALL'] = self._check_div(df_in, 'CYCLE_ACTIVITY.STALLS_TOTAL', 'cycles').apply(self._convert_to_percent)
-        df_out['L1D_STALL'] = self._check_div(df_in, 'CYCLE_ACTIVITY.STALLS_L1D_MISS', 'cycles').apply(self._convert_to_percent)
-        df_out['L2_STALL'] = self._check_div(df_in, 'CYCLE_ACTIVITY.STALLS_L2_MISS', 'cycles').apply(self._convert_to_percent)
-        df_out['L3_STALL'] = self._check_div(df_in, 'CYCLE_ACTIVITY.STALLS_L3_MISS', 'cycles').apply(self._convert_to_percent)
+        df_out['STALL'] = self._convert_to_percent(self._check_div(df_in, 'CYCLE_ACTIVITY.STALLS_TOTAL', 'cycles'))
+        df_out['L1D_STALL'] = self._convert_to_percent(self._check_div(df_in, 'CYCLE_ACTIVITY.STALLS_L1D_MISS', 'cycles'))
+        df_out['L2_STALL'] = self._convert_to_percent(self._check_div(df_in, 'CYCLE_ACTIVITY.STALLS_L2_MISS', 'cycles'))
+        df_out['L3_STALL'] = self._convert_to_percent(self._check_div(df_in, 'CYCLE_ACTIVITY.STALLS_L3_MISS', 'cycles'))
         return df_out
 

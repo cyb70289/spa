@@ -303,11 +303,11 @@ class spa_pmu:
         dg.to_csv(index=False, path_or_buf=output_file, line_terminator="\n")
 
 
-
     def dump_to_file(self, pmu_obj, output_file):
         
         with open(output_file, 'w+') as out:
            json.dump(pmu_obj.info, out)
+
 
     def n1(self, dg, options):
     
@@ -315,6 +315,14 @@ class spa_pmu:
         
         n1_obj = n1(self.strip_dg(dg))
         return self.get_metric(n1_obj, dg, options)
+
+
+    def cl(self, dg, options):
+    
+        from pmu_CL import CL
+        
+        cl_obj = CL(self.strip_dg(dg))
+        return self.get_metric(cl_obj, dg, options)
 
         
     def strip_dg(self, dg):

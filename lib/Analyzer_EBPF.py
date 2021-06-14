@@ -87,7 +87,7 @@ class Analyze:
                     self.command.append(ebpf['metadata']['command'])
             count = count +1
         
-        print(len(self.latency), len(self.event_name), len(self.value)) 
+        #print(len(self.latency), len(self.event_name), len(self.value)) 
         info = {
                 "Event":self.event_name,
                 "Run":self.run,
@@ -124,7 +124,7 @@ class Analyze:
         self.dg['LDev'] = self.dg['Latency'] - self.dg['LMean']
         self.dg['ALV%'] = abs(self.dg['Latency'] - self.dg['LMean'])/self.dg['LMean'] * 100
         #print("\n\n--------------------------------------------------Showing Results------------------------------------------------------\n\n")
-        #print(self.dg[['Function', 'Event', 'Latency', 'LMean', 'LDev', 'ALV%']])
+        self.dump_analysis_data(self.dg[['Function', 'Event', 'Latency', 'LMean', 'LDev', 'ALV%']])
  
 
     def compare_events(self):
@@ -147,7 +147,7 @@ class Analyze:
             dg_final = pd.concat([dg_final, i])
         self.dg = dg_final
         #print("\n\n--------------------------------------------------Showing Results------------------------------------------------------\n\n")
-        #print(self.dg[['Event', 'Function', 'Latency', 'CMean', 'CDev', 'ACV%']])
+        self.dump_analysis_data(self.dg[['Event', 'Function', 'Latency', 'CMean', 'CDev', 'ACV%']])
 
 
 
@@ -172,4 +172,8 @@ class Analyze:
         dg_final = pd.concat(dg_array)
 
         self.dg_latency = dg_final
-        print(dg_final[['Run', 'Function', 'Latency', 'Event', 'Latency_Comparison']])
+        self.dump_analysis_data(dg_final[['Run', 'Function', 'Latency', 'Event', 'Latency_Comparison']])
+
+    def dump_analysis_data(self, dg):
+
+        dg.to_csv("Analysis_Results/ebpf_analysis_{}".format(self.options["timestamp"]))

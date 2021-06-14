@@ -28,6 +28,7 @@ from datetime import datetime
 import json
 import data_manager
 import shutil
+from bcc import BPF  # pylint: disable=import-error
 
 
 class analyze_ebpf:
@@ -44,6 +45,10 @@ class analyze_ebpf:
     
         path_result = "Ebpf_logs/stat_{}".format(datetime.timestamp(datetime.now()))
         self.log.info("EBPF Tracing is starting")
+
+        functions = BPF.get_user_functions_and_addresses(name=options['obfile'], sym_re="")
+        self.log.info("Functions that can be profiled - {}".format(functions))
+        options['functions'] = functions
 
         if not os.path.exists("Ebpf_logs"):
             os.mkdir("Ebpf_logs")
@@ -100,18 +105,14 @@ class analyze_ebpf:
         command = sh.Command("readelf")
         output = command(["-Ws", "{}".format(options['obfile'])], _err_to_out = True)
         e = multiprocessing.Event()
-        exp = re.compile('.*FUNC.* ([a-z_]+)')
-        functions = []
+        exp = re.compile('.*FUNC.* ([a-z_0-9]+)')
 
         if not os.path.exists('cache.txt') or options['nooptimize'] == True:
             options['filter'] = (os.path.exists('cache.txt') == False)
-            for line in output:
-                match = exp.match(line)
-                if match:
-                    if  match.group(1):
-                        self.log.info("profiling {}".format(match.group(1)))
-                        for i in options['event_list']:
-                            self.create_process(e, match.group(1), path, path_result, i, options)
+            for function in options['functions']:
+                self.log.info("Profiling {}".format(function[0].decode('utf-8')))
+                for i in options['event_list']:
+                    self.create_process(e, function[0].decode('utf-8'), path, path_result, i, options)
         else:
             with open('cache.txt','r') as i:
                 line = i.readline()
@@ -175,7 +176,7 @@ class analyze_ebpf:
         tool = None
 
         try:
-            tool = pe.PerfToolBPF(logger=self.log,**options)
+            tool = pe.PerfToolBPF(logger=self.log, **options)
         except Exception as error:
             self.log.error(error)
            
@@ -245,7 +246,6 @@ class analyze_ebpf:
                     ebpf_obj.info['metadata'] = f['metadata']
                 for key, value in f['info'].items():
                     ebpf_obj.info['info'][key] = value
-        #print(ebpf_obj.info)
         shutil.rmtree(path)
 
         with open(path, 'w') as f:

@@ -138,7 +138,7 @@ class PerfToolBPF(FunctionTool):
                     event = int(event, 16)
                 else:
                     event = int(event)
-                event_type = 4  # Raw event. Using a number until BCC supports specifying raw
+            event_type = 4  # Raw event. Using a number until BCC supports specifying raw
             table = self.bpf['cnt{}'.format(i)]
             table.open_perf_event(event_type, event)
 

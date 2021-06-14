@@ -133,7 +133,7 @@ def parse_config():
         options_ebpf = config['ebpf']
         options_ebpf['code'] = timestamp
         options_ebpf['command'] = virtif['command']
-        arg_replacer(options_rec)
+        arg_replacer(options_ebpf)
         for key in options_ebpf.keys():
             def_ebpf[key] = options_ebpf[key]
         ebpf_obj = ebpf(def_ebpf)

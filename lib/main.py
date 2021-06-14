@@ -175,11 +175,9 @@ class spa:
         rec_obj = data_manager.REC()
         if not options['type'] == 'Analyze':
             
-        #    timestamp = datetime.timestamp(datetime.now())
             
             rec_obj.info['metadata']['timestamp'] = options['timestamp']
             rec_obj.info['metadata']['command'] = options['command']
-         #   options['timestamp'] = timestamp 
             self.setup_metadata(rec_obj, options)
             spa_obj = spa_pmu.spa_pmu(self.log)
             spa_obj.perform_perf_rec(rec_obj, options)
@@ -415,7 +413,6 @@ class spa:
         options['nooptimize'] = args.nooptimize
         options['type'] = args.type
         options['compare'] = args.compare
-        options['index'] = args.index
         if args.code:
             options['code'] = args.code
         else:
