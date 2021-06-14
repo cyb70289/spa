@@ -19,6 +19,7 @@ The verbosity can be setup in the configuration files. If set to High the logs a
 Else the logs are written in profiler.log. 
 
 The output files are placed in ../output/.
+The analysis results are displayed as well as stored in Analysis_Results/ .
 
 Once a basic configuration file is written for the test, the individual parameters for the 
 configuration files can be changed on runtime by adding the argument to the virtif.py command line.
@@ -38,6 +39,6 @@ are mentioned in defaults.yaml. Individual config files updates the parameters i
 
 Tips:
 
-Remove PMU_logs/ for a fresh perf stat monitoring
+Remove JSON_logs/ and CSV_logs/ for a fresh perf stat monitoring
 Remove PMU_rec_logs/ for a fresh perf record sampling
 Remove Ebpf_logs/ for a fresh ebpf trace
