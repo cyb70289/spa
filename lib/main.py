@@ -446,7 +446,7 @@ class spa:
         
         stat_parser.add_argument("-v", "--verbosity",  help="increase verbosity", choices=['Low', 'Medium', 'High'], default = 'Low', type=str)
         stat_parser.add_argument("-i", "--input", help="input pmu counters file [json]", required=False)
-        stat_parser.add_argument("-I", "--index", help="Key in the input file to be used for perf [either code or name]", choices=['EventCode','EventName'],
+        stat_parser.add_argument("--index", help="Key in the input file to be used for perf [either code or name]", choices=['EventCode','EventName'],
                                  default="EventCode", required=False)
         stat_parser.add_argument("-c", "--counters", help="list of counters seperated by , ", type=str)
         stat_parser.add_argument("-p", "--platform", help="The current processor model for Top down analysis [Only valid when type='TD']", choices=["neoverse-n1"], default="neoverse-n1", type=str)
