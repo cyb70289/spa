@@ -34,7 +34,7 @@ def install_ebpf():
             dirname = 'clang+llvm-6.0.0-x86_64-linux-gnu-ubuntu-16.04'
         elif arch == 'aarch64':
             dirname = 'clang+llvm-6.0.0-aarch64-linux-gnu'
-        wget('{}libraries/clang-llvm-6.0/{}/{}.tar.xz'.format(get_ast_cache(), arch, dirname))
+        wget('https://releases.llvm.org/6.0.0/{}.tar.xz'.format(dirname))
         tar.xf(dirname + '.tar.xz')
         # We use distutils.dir_util.copy_tree instead of
         # shutil.copytree since the latter will fail if the
