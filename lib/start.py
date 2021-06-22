@@ -48,7 +48,8 @@ def install_ebpf():
 
     from sh import git, cmake, make, nproc
     # Build and install bcc
-    bcc_repo = 'git://www.ast.arm.com/github.com/iovisor/bcc'
+    #bcc_repo = 'git://www.ast.arm.com/github.com/iovisor/bcc'
+    bcc_repo = 'git://github.com/iovisor/bcc'
     bcc_tag = 'v0.10.0'
     print('Building bcc from {} tag {}'.format(bcc_repo, bcc_tag))
     shutil.rmtree('bcc', ignore_errors=True)
