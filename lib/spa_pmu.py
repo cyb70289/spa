@@ -299,6 +299,7 @@ class spa_pmu:
         
         if options['type'] == 'TD':
             dg = self.topdown(dg, options)
+            dg.drop(['index',  'EventCodes'], axis=1, inplace=True)
 
         dg.to_csv(index=False, path_or_buf=output_file, line_terminator="\n")
 
@@ -352,7 +353,6 @@ class spa_pmu:
         stat_data = stat_data.iloc[[0]]
         stat_data = pd.concat([stat_data]*len(out_df), ignore_index=True)
         stat_data['Events'] = out_df['Events']
-        print(len(stat_data), len(out_df), len(alias)) 
         stat_data['Alias'] = alias
           
 

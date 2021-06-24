@@ -304,7 +304,6 @@ class spa:
                 event_list = (args.counters).split(',')
                 for i in event_list:
                     counter_info[i] = {'EventName':i, 'Alias':i, 'EventCode':i, 'Value':[], 'Timestamp':[]}
-        print(event_list)
         return [event_list, counter_info]
     
     
