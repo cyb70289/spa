@@ -153,6 +153,11 @@ def arg_replacer(options):
         if i > 0:
             match = re.search(r'(\S+)\s*=(.*)', arg)
             if match:
+                key = match.group(1)
+                value = match.group(2)
+                if not key == "mx_degree":
+                    options[match.group(1)] = match.group(2).strip()
+                options[key] = int(value)
                 options[match.group(1)] = match.group(2).strip()
 
 
