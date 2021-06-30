@@ -145,11 +145,11 @@ class spa_pmu:
             index = 0
             if not 'interval' in options.keys():
                # count_regex = re.compile("^( *)([0-9.]+)( *)(\S+)( *| +#.*)$")
-                count_regex = re.compile("^( *)([0-9.]+)( *)(\S+)( .*)")
+                count_regex = re.compile("^( *)([0-9.]+)( +)([0-9A-Za-z.]+)( .*)")
                 index = 2
                 key = 4
             else: 
-                count_regex = re.compile("( *)([0-9.]+)( +)([0-9]+)( +)(\S+)( *)")
+                count_regex = re.compile("( *)([0-9.]+)( +)([0-9]+)( +)([0-9A-Za-z.]+)( .*)")
                 index = 4
                 key = 6
     
