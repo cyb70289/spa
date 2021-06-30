@@ -149,7 +149,7 @@ class spa_pmu:
                 index = 2
                 key = 4
             else: 
-                count_regex = re.compile("( *)([0-9.]+)( +)([0-9]+)( +)([0-9A-Za-z.]+)( .*)")
+                count_regex = re.compile("^( *)([0-9.]+)( +)([0-9]+)( +)([0-9A-Za-z.]+)( *)")
                 index = 4
                 key = 6
     
@@ -187,7 +187,6 @@ class spa_pmu:
         tmp = []
         event_set = ""
         i = 0
-        print(options['event_list'])
         for event in options['event_list']:
             if i < options['mx_degree']:
                 tmp.append(event)
@@ -221,6 +220,7 @@ class spa_pmu:
         if 'interval' in options.keys():
             com.append('-I')
             com.append(str(options['interval']))
+        com.append(options['extra_args'])
         com.append("-e")
         return com
     
@@ -299,7 +299,6 @@ class spa_pmu:
         
         if options['type'] == 'TD':
             dg = self.topdown(dg, options)
-            dg.drop(['index',  'EventCodes'], axis=1, inplace=True)
 
         dg.to_csv(index=False, path_or_buf=output_file, line_terminator="\n")
 
@@ -353,6 +352,7 @@ class spa_pmu:
         stat_data = stat_data.iloc[[0]]
         stat_data = pd.concat([stat_data]*len(out_df), ignore_index=True)
         stat_data['Events'] = out_df['Events']
+        print(len(stat_data), len(out_df), len(alias)) 
         stat_data['Alias'] = alias
           
 

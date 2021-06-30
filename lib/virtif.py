@@ -38,6 +38,7 @@ class stat:
         self.platform = options['platform']
         self.arch = options['arch']
         self.index = options['index']
+        self.extra_args = options['extra_args']
 
 
 class record:
@@ -158,7 +159,6 @@ def arg_replacer(options):
                 if not key == "mx_degree":
                     options[match.group(1)] = match.group(2).strip()
                 options[key] = int(value)
-                options[match.group(1)] = match.group(2).strip()
 
 
 def analyze_ebpf(spa_obj, options):

@@ -4,13 +4,14 @@ stat:
         input: ""
         counters: ""
         filter: ''
+        extra_args: '-a'
         applyalias: false
         base: NoName
         verbosity: High
         compare: Current
         name: NoName
         style: Iterate
-        mx_degree: 1
+        mx_degree: 4
         regex: ""
         repeat: 1
         interval: ''

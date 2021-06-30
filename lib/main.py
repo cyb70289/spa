@@ -304,6 +304,7 @@ class spa:
                 event_list = (args.counters).split(',')
                 for i in event_list:
                     counter_info[i] = {'EventName':i, 'Alias':i, 'EventCode':i, 'Value':[], 'Timestamp':[]}
+        print(event_list)
         return [event_list, counter_info]
     
     
@@ -338,7 +339,8 @@ class spa:
                 sys.exit("Key needs to be provided with the Custom Compare Analyze setting")
             else:
                 options['key'] = args.key
-    
+
+        options['extra_args'] = args.extra_args
         options['compare'] = args.compare
         if not args.type == 'Analyze':
             info = self.create_event_list(args)
@@ -464,6 +466,7 @@ class spa:
         stat_parser.add_argument("--filter", 
                                  help="Add a filter to the data needed to analyze.Provide a query condition such as:\"{Machine != \\\"2p8168\\\"}\"",
                                  type=str)
+        stat_parser.add_argument("--extra_args", help='perf stat extra arguments', type=str, default="") 
         stat_parser.add_argument("--command", help="Command to profile", type=str)
         
         record_parser.add_argument("-v", "--verbosity",  help="increase verbosity", choices=['Low', 'Medium', 'High'], default = 'Low', type=str)
