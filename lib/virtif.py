@@ -158,7 +158,8 @@ def arg_replacer(options):
                 value = match.group(2)
                 if not key == "mx_degree":
                     options[match.group(1)] = match.group(2).strip()
-                options[key] = int(value)
+                else:
+                    options[key] = int(value)
 
 
 def analyze_ebpf(spa_obj, options):
