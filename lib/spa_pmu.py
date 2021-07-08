@@ -220,7 +220,8 @@ class spa_pmu:
         if 'interval' in options.keys():
             com.append('-I')
             com.append(str(options['interval']))
-        com.append(options['extra_args'])
+        if options['extra_args']:
+            com.append(options['extra_args'])
         com.append("-e")
         return com
     

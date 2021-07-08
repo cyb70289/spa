@@ -18,6 +18,7 @@ stat:
         platform: neoverse-n1
         arch: ARM
         index: EventCode
+        extra_args: ''
 
 
 ebpf:
