@@ -30,12 +30,10 @@ class spa_sar:
         
         for i in metrics:
             if i == "cpu":
-                print("cpu")
                 cmd_op = self.create_cpu_command()
-                output_path = "sar_logs/cpu_util"
+                output_path = "sar_logs/cpu_stat"
             if i == "net":
                 cmd_op = self.create_network_command()
-                print(cmd_op)
                 output_path = "sar_logs/net_stat"
             if i == "mem":
                 cmd_op = self.create_memory_command()
@@ -47,7 +45,7 @@ class spa_sar:
                 cmd_op = self.create_err_command()
                 output_path = "sar_logs/err_stat"
             if i == "io":
-                cmd_op = self.create_err_command()
+                cmd_op = self.create_io_command()
                 output_path = "sar_logs/io_stat"
         
             e = multiprocessing.Event()
@@ -66,7 +64,7 @@ class spa_sar:
             except Exception as exp:
                 self.log.error(exp)
                 exit(exp)
-            self.create_csv(output_path)
+            self.create_csv(output_path, i)
             os.remove("output")
 
 
@@ -109,7 +107,6 @@ class spa_sar:
         return cmd_op
 
 
-
     def create_io_command(self):   #sar -b for all the I/O statistics
         
         cmd_op = []
@@ -147,7 +144,7 @@ class spa_sar:
             self.log.error(err)
         
 
-    def create_csv(self, output_path):
+    def create_csv(self, output_path, name):
 
         out = ""
         with open("{}/sar_{}.csv".format(output_path, self.options['timestamp']), "w") as f:
@@ -166,7 +163,11 @@ class spa_sar:
                         skip = 1
                         continue
                     out = re.sub('\033\\[([0-9]+)(;[0-9]+)*m', '', str(out)) 
-                    out = re.sub(" +", ",", out)
+                    out = re.sub(' *[0-9]+:[0-9]+:[0-9]+ *', '', str(out)) 
                     self.log.info(out)
+                    out = re.sub(" +", ",", out)
                     f.write(out)
-    
+
+
+        subprocess.call("rm result_links/{}_latest".format(name), shell=True) 
+        subprocess.call("ln -s ../{}/sar_{}.csv result_links/{}_latest".format(output_path, self.options['timestamp'], name), shell=True) 

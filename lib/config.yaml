@@ -1,7 +1,8 @@
 virtif:
         auto: true
         Slevel: 0
-        command: "../../xgboost/mymodel1600/mymodel/higgs 1 1000"
-        #command: "sleep 1"
+        command: "../xgboost/mymodel1600/mymodel/higgs 1 20000"
+        #command: "sleep 3"
         #run_config: "run_configurations/config_record_data.yaml"
-        run_config: "run_configurations/config_ebpf_all.yaml"
+        #run_config: "run_configurations/config_ebpf_all.yaml"
+        run_config: "run_configurations/config_sar_cpu.yaml"

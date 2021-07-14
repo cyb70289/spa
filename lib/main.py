@@ -33,7 +33,7 @@ import Analyzer_REC as AR
 import logging 
 import Analyzer_EBPF as AE
 import spa_sar
-
+import analyze_sar 
 
 class spa:
 
@@ -43,6 +43,9 @@ class spa:
         self.pmu_stat = None
         self.pmu_record = None
         self.ebpf_record = None
+        self.sar_stat = None
+        if not os.path.exists("Analysis_Results"):
+            os.mkdir("Analysis_Results")
 
 
     def start_pmu_stat(self, options):
@@ -52,9 +55,6 @@ class spa:
         if not os.path.exists("JSON_logs"):
             os.makedirs("JSON_logs/Regular_logs")
             os.mkdir("JSON_logs/TopDown_logs")
-        
-        if not os.path.exists("Analysis_Results"):
-            os.mkdir("Analysis_Results")
         
         if not os.path.exists("CSV_logs"):
             os.makedirs("CSV_logs/Topdown")
@@ -436,6 +436,8 @@ class spa:
         options['command'] = args.command
         options['net_type'] = args.net_type
         options['err_type'] = args.err_type
+        options['type'] = args.type
+        options['compare'] = args.compare
         if args.dev_list:
             options['dev_list'] = args.dev_list
         options['verbosity'] = args.verbosity
@@ -447,15 +449,24 @@ class spa:
     def start_sar(self, options):
 
         if not os.path.exists("sar_logs"):
-            os.makedirs('sar_logs/cpu_util')
+            os.makedirs('sar_logs/cpu_stat')
             os.makedirs('sar_logs/net_stat')
             os.makedirs('sar_logs/mem_stat')
             os.makedirs('sar_logs/dev_stat')
             os.makedirs('sar_logs/err_stat')
             os.makedirs('sar_logs/io_stat')
 
-        sar_obj = spa_sar.spa_sar(self.log, options)
+        self.create_sl()
+        if not options['type'] == "Analysis":
+            sar_obj = spa_sar.spa_sar(self.log, options)
+        analysis_obj = analyze_sar.analyzer(self.log, options)
+        self.sar_stat = analysis_obj
 
+
+    def create_sl(self):
+
+        if not os.path.exists("result_links"):
+            os.mkdir('result_links')
 
     def generate_raw_counter(self, options, event):
 
@@ -464,8 +475,6 @@ class spa:
         if options.arch == "Intel":
                 return "r{}{}".format(event["UMask"].replace("0x", ""), event["EventCode"].replace("0x", ""))
              
-
-
     
     def parse_input(self):
     
@@ -537,6 +546,8 @@ class spa:
     
         sar_parser.add_argument("-m", "--metrics", help="Metrics to be captured (seperated by ,); Supported values: cpu,net,mem,dev,io,err", type=str, default="cpu" )
         sar_parser.add_argument("-I", "--interval", help="Intervals to capture metrics", default="1")
+        sar_parser.add_argument("-t", "--type", help="Sar mode", choices=["Runs", "All", "Analysis"], default="All")
+        sar_parser.add_argument("-C", "--compare", help="Compare gathered data", choices=['All', 'Current'], default="Current", type=str)
         sar_parser.add_argument("--command", help="Command to profile")
         sar_parser.add_argument("-v", "--verbosity",  help="increase verbosity", choices=['Low', 'Medium', 'High'], default = 'Low', type=str)
         sar_parser.add_argument("-n", "--net_type",  help="Network type to profile", choices=['DEV', 'UDP', 'IP', 'TCP', 'SOCK'], default = 'DEV', type=str)

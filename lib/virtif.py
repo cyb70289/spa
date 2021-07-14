@@ -80,73 +80,100 @@ class ebpf:
         self.compare = options['compare']
 
 
+class sar:
+
+    def __init__(self, options):
+
+        self.type = options['type']
+        self.metrics = options['metrics']
+        self.interval = options['interval']
+        self.verbosity = options['verbosity']
+        self.command = options['command']
+        self.obfile = options['compare']
+        self.counters = options['verbosity']
+        self.net_type = options['net_type']
+        self.err_type = options['err_type']
+        self.dev_list = options['dev_list']
+        self.compare = options['compare']
+
+
+
 def parse_config():
 
     config = None
     with open("config.yaml") as f:
         config_main = yaml.load(f)
     
-    timestamp = datetime.timestamp(datetime.now())
     spa_obj = pa.spa()
     
     virtif = config_main['virtif']
-    jobs = {'stat': 0, 'record': 0, 'ebpf': 0}
+    jobs = {'stat': 0, 'record': 0, 'ebpf': 0, 'sar':0}
 
     with open(virtif['run_config']) as f:
          config = yaml.load(f)
     with open("run_configurations/defaults.yaml") as f:
          config_def = yaml.load(f)
+
     def_stat = config_def['stat']
     def_ebpf = config_def['ebpf']
     def_rec = config_def['record']
+    def_sar = config_def['sar']
 
+    
 
     if 'stat' in config.keys():
     
-        options_stat = config['stat']
-        options_stat['code'] = timestamp
-        options_stat['command'] = virtif['command']
-        arg_replacer(options_stat)
-        for key in options_stat.keys():
-            def_stat[key] = options_stat[key]
-        stat_obj = stat(def_stat)
+        options = setup_tools("stat", def_sar, config, virtif)
+        stat_obj = stat(options)
         spa_obj.stat(stat_obj)
-        if not def_stat['type'] == 'Run':
+        if not options['type'] == 'Run':
             analyze_stat(spa_obj, options_stat)
         jobs['stat'] += 1
     
     if 'record' in config.keys():  
     
-        options_rec = config['record']
-        options_rec['code'] = timestamp
-        options_rec['command'] = virtif['command']
-        arg_replacer(options_rec)
-        for key in options_rec.keys():
-            def_rec[key] = options_rec[key]
-        record_obj = record(def_rec)
+        options = setup_tools("record", def_sar, config, virtif)
+        record_obj = record(options)
         spa_obj.record(record_obj)
-        if not options_rec['type'] == 'Run':
+        if not options['type'] == 'Run':
             analyze_rec(spa_obj, options_rec)
         jobs['record'] += 1
 
     if 'ebpf' in config.keys():  
     
-        options_ebpf = config['ebpf']
-        options_ebpf['code'] = timestamp
-        options_ebpf['command'] = virtif['command']
-        arg_replacer(options_ebpf)
-        for key in options_ebpf.keys():
-            def_ebpf[key] = options_ebpf[key]
-        ebpf_obj = ebpf(def_ebpf)
+        options = setup_tools("ebpf", def_sar, config, virtif)
+        ebpf_obj = ebpf(options)
         spa_obj.ebpf(ebpf_obj)
         jobs['ebpf'] += 1
-        if not options_ebpf['type'] == 'Run':
+        if not options['type'] == 'Run':
             analyze_ebpf(spa_obj, options_ebpf)
     
+    if 'sar' in config.keys():  
+
+        options = setup_tools("sar", def_sar, config, virtif)
+        sar_obj = sar(options)
+        spa_obj.sar(sar_obj)
+        jobs['sar'] += 1
+
+        if not options['type'] == 'Run':
+            analyze_sar(spa_obj, options)
+
     if virtif['Slevel'] > 0:
         if jobs['record'] > 0 and jobs['ebpf'] > 0:
             merge_rec_ebpf_data(spa_obj)
 
+
+def setup_tools(tool, def_stat, config, virtif):
+        
+    timestamp = datetime.timestamp(datetime.now())
+    options_stat = config[tool]
+    options_stat['code'] = timestamp
+    options_stat['command'] = virtif['command']
+    arg_replacer(options_stat)
+    for key in options_stat.keys():
+        def_stat[key] = options_stat[key]
+    return def_stat 
+        
 
 
 def arg_replacer(options):
@@ -168,6 +195,14 @@ def analyze_ebpf(spa_obj, options):
         
     ebpf_data.to_csv("../output/ebpf_data.csv", index = False)
     print(ebpf_data[['Run', 'Function', 'Latency', 'Event', 'Count', 'Value']])
+
+
+def analyze_sar(spa_obj, options):
+
+#    sar_data = spa_obj.sar_stat.dg_analyzed
+        
+    #sar_data.to_csv("../output/ebpf_data.csv", index = False)
+    print(sar)
 
 
 def analyze_rec(spa_obj, options):
