@@ -38,6 +38,7 @@ class Analyzer:
         self.names = [] 
         self.alias = []
         self.machine = []
+        self.host = []
         self.kernel = []
         self.system = []
         self.release = []

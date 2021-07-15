@@ -256,6 +256,7 @@ class spa_pmu:
         event_codes = []
         code = []
         command = []
+        host = []
         architecture = []
 
         output_file = "{}/{}.csv".format(options['csv_path'], options['timestamp']) 
@@ -278,6 +279,7 @@ class spa_pmu:
             code.append(pmu['metadata']['code'])
             machine.append(pmu['metadata']['machine'])
             kernel.append(pmu['metadata']['kernel'])
+            host.append(pmu['metadata']['host'])
             system.append(pmu['metadata']['system'])
             release.append(pmu['metadata']['release'])
             command.append(pmu['metadata']['command'])
@@ -293,6 +295,7 @@ class spa_pmu:
                 "Machine":machine,
                 "Kernel":kernel,
                 "System":system,
+                "Host":host,
                 "Release":release,
                 "Command":command
                 }

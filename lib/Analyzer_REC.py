@@ -61,6 +61,7 @@ class rec:
         machine = []
         kernel = []
         system = []
+        host = []
         release = []
         code = []
         command = []
@@ -80,6 +81,7 @@ class rec:
                 code.append(rec['metadata']['code'])
                 kernel.append(rec['metadata']['kernel'])
                 system.append(rec['metadata']['system'])
+                host.append(rec['metadata']['host'])
                 release.append(rec['metadata']['release'])
                 command.append(rec['metadata']['command'])
             if move_forward:
@@ -96,6 +98,7 @@ class rec:
                 "Code":code,
                 "Kernel":kernel,
                 "System":system,
+                'Host':host,
                 "Release":release,
                 "Command":command
                 }

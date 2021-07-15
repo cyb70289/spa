@@ -40,6 +40,7 @@ class Analyze:
         self.system = []
         self.code = []
         self.command = []
+        self.host = []
         self.timestamp = [] 
         self.dg = None
         self.dg_latency = None
@@ -83,6 +84,7 @@ class Analyze:
                     self.kernel.append(ebpf['metadata']['kernel'])
                     self.system.append(ebpf['metadata']['system'])
                     self.release.append(ebpf['metadata']['release'])
+                    self.host.append(ebpf['metadata']['release'])
                     self.code.append(ebpf['metadata']['code'])
                     self.command.append(ebpf['metadata']['command'])
             count = count +1
@@ -100,6 +102,7 @@ class Analyze:
                 "Machine":self.machine,
                 "Kernel":self.kernel,
                 "System":self.system,
+                "Host":self.host,
                 "Release":self.release,
                 "Code":self.code,
                 "Command":self.command
