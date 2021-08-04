@@ -1,0 +1,13 @@
+
+sar:
+        type: All
+        metrics: cpu
+        interval: 1
+        compare: Current
+        verbosity: Low
+        net_type: 'DEV'
+        err_type: 'EDEV' 
+        dev_list: '' 
+
+
+
