@@ -19,7 +19,6 @@ stat:
         arch: ARM
         index: EventCode
         extra_args: ''
-        host: 'undefined'
 
 
 ebpf:
@@ -35,7 +34,6 @@ ebpf:
         verbosity: Low
         obfile: ''
         compare: Current 
-        host: 'undefined'
 
 
 record:
@@ -50,6 +48,16 @@ record:
         verbosity: Low
         Flevel: 10
         thorough: False # not in use currently
-        host: 'undefined'
+
+sar:
+        type: All
+        metrics: cpu
+        interval: 1
+        compare: Current
+        verbosity: Low
+        net_type: 'DEV'
+        err_type: 'EDEV' 
+        dev_list: '' 
+
 
 
