@@ -127,7 +127,7 @@ def parse_config():
         stat_obj = stat(options)
         spa_obj.stat(stat_obj)
         if not options['type'] == 'Run':
-            analyze_stat(spa_obj, options_stat)
+            analyze_stat(spa_obj, options)
         jobs['stat'] += 1
     
     if 'record' in config.keys():  
@@ -136,7 +136,7 @@ def parse_config():
         record_obj = record(options)
         spa_obj.record(record_obj)
         if not options['type'] == 'Run':
-            analyze_rec(spa_obj, options_rec)
+            analyze_rec(spa_obj, options)
         jobs['record'] += 1
 
     if 'ebpf' in config.keys():  
@@ -146,7 +146,7 @@ def parse_config():
         spa_obj.ebpf(ebpf_obj)
         jobs['ebpf'] += 1
         if not options['type'] == 'Run':
-            analyze_ebpf(spa_obj, options_ebpf)
+            analyze_ebpf(spa_obj, options)
     
     if 'sar' in config.keys():  
 
