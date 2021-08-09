@@ -32,6 +32,8 @@ import analyze_ebpf as ae
 import Analyzer_REC as AR
 import logging 
 import Analyzer_EBPF as AE
+import spa_sar
+import analyze_sar 
 
 class spa:
 
@@ -41,6 +43,7 @@ class spa:
         self.pmu_stat = None
         self.pmu_record = None
         self.ebpf_record = None
+        self.sar_stat = None
         if not os.path.exists("Analysis_Results"):
             os.mkdir("Analysis_Results")
 
@@ -108,7 +111,6 @@ class spa:
                 pmu_obj.info['metadata']['kernel'] = platform.uname()[2]
                 pmu_obj.info['metadata']['release'] = platform.uname()[3]
                 pmu_obj.info['metadata']['architecture'] = platform.uname()[4]
-                pmu_obj.info['metadata']['host'] = options['host']
     
     
     def start_ebpf(self, options):
@@ -201,7 +203,6 @@ class spa:
         
         timestamp = datetime.timestamp(datetime.now())
         options['timestamp'] = timestamp 
-        options['host'] = args.host
 
         if not args.type == 'Analyze' and args.command == 'None':
             exit('Command Needs to be provided unless Analyzing')
@@ -371,7 +372,6 @@ class spa:
         options['alias'] = args.applyalias
         options['arch'] = args.arch
         options['platform'] = args.platform
-        options['host'] = args.host
         
         self.start_pmu_stat(options)
     
@@ -412,7 +412,6 @@ class spa:
             options['list'] = args.list
 
         options['path'] = args.path
-        options['host'] = args.host
         options['command'] = args.command
         options['nooptimize'] = args.nooptimize
         options['type'] = args.type
@@ -425,6 +424,50 @@ class spa:
         self.start_ebpf(options)
    
 
+    def sar(self, args):
+
+        options = {}
+        if args.verbosity == 'High':
+            self.set_logger(True)
+        else:
+            self.set_logger(False)
+        options['metrics'] = args.metrics
+        options['interval'] = args.interval
+        options['command'] = args.command
+        options['net_type'] = args.net_type
+        options['err_type'] = args.err_type
+        options['type'] = args.type
+        options['compare'] = args.compare
+        if args.dev_list:
+            options['dev_list'] = args.dev_list
+        options['verbosity'] = args.verbosity
+        timestamp = datetime.timestamp(datetime.now())
+        options['timestamp'] = timestamp
+        self.start_sar(options)
+
+
+    def start_sar(self, options):
+
+        if not os.path.exists("sar_logs"):
+            os.makedirs('sar_logs/cpu_stat')
+            os.makedirs('sar_logs/net_stat')
+            os.makedirs('sar_logs/mem_stat')
+            os.makedirs('sar_logs/dev_stat')
+            os.makedirs('sar_logs/err_stat')
+            os.makedirs('sar_logs/io_stat')
+
+        self.create_sl()
+        if not options['type'] == "Analysis":
+            sar_obj = spa_sar.spa_sar(self.log, options)
+        analysis_obj = analyze_sar.analyzer(self.log, options)
+        self.sar_stat = analysis_obj
+
+
+    def create_sl(self):
+
+        if not os.path.exists("result_links"):
+            os.mkdir('result_links')
+
     def generate_raw_counter(self, options, event):
 
         if options.arch == "ARM":
@@ -432,8 +475,6 @@ class spa:
         if options.arch == "Intel":
                 return "r{}{}".format(event["UMask"].replace("0x", ""), event["EventCode"].replace("0x", ""))
              
-
-
     
     def parse_input(self):
     
@@ -447,6 +488,8 @@ class spa:
         record_parser.set_defaults(func=self.record)
         ebpf_parser = subparser.add_parser('ebpf', help='perform ebpf analysis')
         ebpf_parser.set_defaults(func=self.ebpf)
+        sar_parser = subparser.add_parser('sar', help='perform system analysis')
+        sar_parser.set_defaults(func=self.sar)
         
         stat_parser.add_argument("-v", "--verbosity",  help="increase verbosity", choices=['Low', 'Medium', 'High'], default = 'Low', type=str)
         stat_parser.add_argument("-i", "--input", help="input pmu counters file [json]", required=False)
@@ -471,7 +514,6 @@ class spa:
                                  type=str)
         stat_parser.add_argument("--extra_args", help='perf stat extra arguments', type=str, default="") 
         stat_parser.add_argument("--command", help="Command to profile", type=str)
-        stat_parser.add_argument("--host", help="hostname", type=str, default="undefined")
         
         record_parser.add_argument("-v", "--verbosity",  help="increase verbosity", choices=['Low', 'Medium', 'High'], default = 'Low', type=str)
         record_parser.add_argument("-i", "--input", help="input pmu counters file [json]", required=False)
@@ -487,7 +529,6 @@ class spa:
                                    help="Add a filter to the data needed to analyze.Provide a query condition such as:\"{Machine != \\\"2p8168\\\"}\"", default='',
                                    type=str)
         record_parser.add_argument("-t", "--type", help="Run Type", choices=['Analyze', 'All', 'Run'], default="Run", type=str)
-        record_parser.add_argument("--host", help="hostname", type=str, default="undefined")
     
         ebpf_parser.add_argument("-R", "--regex", help="functions to profile [default is All]", type=str, default='All')
         ebpf_parser.add_argument("-L", "--list", help="functions to profile seperated by ,", type=str, default='')
@@ -502,8 +543,17 @@ class spa:
         ebpf_parser.add_argument("--command", help="Command to profile", type=str)
         ebpf_parser.add_argument("-C", "--compare", help="Compare gathered data", choices=['All', 'LBR', 'Profile', 'Custom', 'Current'], default="Current", type=str)
         ebpf_parser.add_argument("-v", "--verbosity",  help="increase verbosity", choices=['Low', 'Medium', 'High'], default = 'Low', type=str)
-        ebpf_parser.add_argument("--host", help="hostname", type=str, default="undefined")
     
+        sar_parser.add_argument("-m", "--metrics", help="Metrics to be captured (seperated by ,); Supported values: cpu,net,mem,dev,io,err", type=str, default="cpu" )
+        sar_parser.add_argument("-I", "--interval", help="Intervals to capture metrics", default="1")
+        sar_parser.add_argument("-t", "--type", help="Sar mode", choices=["Runs", "All", "Analysis"], default="All")
+        sar_parser.add_argument("-C", "--compare", help="Compare gathered data", choices=['All', 'Current'], default="Current", type=str)
+        sar_parser.add_argument("--command", help="Command to profile")
+        sar_parser.add_argument("-v", "--verbosity",  help="increase verbosity", choices=['Low', 'Medium', 'High'], default = 'Low', type=str)
+        sar_parser.add_argument("-n", "--net_type",  help="Network type to profile", choices=['DEV', 'UDP', 'IP', 'TCP', 'SOCK'], default = 'DEV', type=str)
+        sar_parser.add_argument("-e", "--err_type",  help="Network error type to profile", choices=['EDEV', 'EIP', 'ETCP'], default = 'EDEV', type=str)
+        sar_parser.add_argument("-dev", "--dev_list",  help="Block device to profile", type=str)
+
         args = parser.parse_args()
         args.func(args)
 

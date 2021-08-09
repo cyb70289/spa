@@ -61,7 +61,6 @@ class rec:
         machine = []
         kernel = []
         system = []
-        host = []
         release = []
         code = []
         command = []
@@ -81,7 +80,6 @@ class rec:
                 code.append(rec['metadata']['code'])
                 kernel.append(rec['metadata']['kernel'])
                 system.append(rec['metadata']['system'])
-                host.append(rec['metadata']['host'])
                 release.append(rec['metadata']['release'])
                 command.append(rec['metadata']['command'])
             if move_forward:
@@ -98,7 +96,6 @@ class rec:
                 "Code":code,
                 "Kernel":kernel,
                 "System":system,
-                'Host':host,
                 "Release":release,
                 "Command":command
                 }
@@ -111,6 +108,7 @@ class rec:
         if count > 1:
             self.compare_all(dg_filter)
     
+        self.dg.to_csv("Analysis_Results/rec_analysis_{}.csv".format(self.options["timestamp"]))
     
     def filter_data(self, dg):
     

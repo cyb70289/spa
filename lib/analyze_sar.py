@@ -91,7 +91,7 @@ class analyzer:
                 #    self.compare_custom(dg, value, self.options['key'], tag, event_names)
                 #if self.options['compare'] == 'Profile': 
                  #   self.build_profile(dg, event_names, runs)
-            self.dg_analyzed.to_csv("Analysis_Results/stat_analysis_{}".format(self.options["timestamp"]))
+            self.dg_analyzed.to_csv("Analysis_Results/sar_{}_analysis_{}.csv".format(i, self.options["timestamp"]))
 
     
     def create_key(self, metric):
