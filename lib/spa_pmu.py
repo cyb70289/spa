@@ -271,7 +271,7 @@ class spa_pmu:
             event_names.append(pmu['counter'][i]['EventName'])
             event_codes.append(pmu['counter'][i]['EventCode'])
             values_list.append(pmu['counter'][i]['Value'])
-            values.append(mean(pmu['counter'][i]['Value']))
+            values.append(sum(pmu['counter'][i]['Value']))
             alias.append(pmu['counter'][i]['Alias'])
             timestamps.append(pmu['metadata']['timestamp'])
             names.append(pmu['metadata']['name'])
@@ -297,7 +297,7 @@ class spa_pmu:
                 "Command":command
                 }
         dg = pd.DataFrame(info)
-        
+
         if options['type'] == 'TD':
             dg = self.topdown(dg, options)
 
