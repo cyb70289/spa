@@ -347,18 +347,13 @@ class spa_pmu:
 
         alias = stat_data['Alias']
         tmp = out_df.loc[len(stat_data): len(out_df)]
-        alias = np.append(alias, tmp['Events'])
-
-    
-        stat_data = stat_data.iloc[[0]]
-        stat_data = pd.concat([stat_data]*len(out_df), ignore_index=True)
-        stat_data['Events'] = out_df['Events']
-        print(len(stat_data), len(out_df), len(alias)) 
-        stat_data['Alias'] = alias
-          
-
-        stat_data['Values'] = out_df['Values']
-        return stat_data
+        
+        tmp.reset_index(inplace=True)
+        tmp['Alias'] = tmp['Events']
+        tmp = tmp.assign(Names=options['name'])
+        tmp = tmp.assign(Command=options['command'])
+        tmp.reset_index(inplace=True)
+        return tmp
 
 
     def topdown(self, dg, options):
