@@ -258,9 +258,12 @@ class spa_pmu:
         command = []
         architecture = []
 
-        output_file = "{}/{}.csv".format(options['csv_path'], options['timestamp']) 
-        subprocess.call("rm csv_result_latest", shell=True) 
-        subprocess.call("ln -s {} csv_result_latest".format(output_file), shell=True) 
+        output_file_events = "{}/topdown_metrics_{}.csv".format("{}/RawEvents".format(options['csv_path']), options['timestamp']) 
+        output_file_metrics = "{}/topdown_events_{}.csv".format("{}/Metrics".format(options['csv_path']), options['timestamp']) 
+        subprocess.call("rm csv_result_metrics_latest", shell=True) 
+        subprocess.call("ln -s {} csv_result_metrics_latest".format(output_file_metrics), shell=True) 
+        subprocess.call("rm csv_result_events_latest", shell=True) 
+        subprocess.call("ln -s {} csv_result_events_latest".format(output_file_events), shell=True) 
 
         with open("pmu_result_latest", "r") as stat_file:
             f = json.load(stat_file)
@@ -296,12 +299,15 @@ class spa_pmu:
                 "Release":release,
                 "Command":command
                 }
+
         dg = pd.DataFrame(info)
+        dg.to_csv(index=False, path_or_buf=output_file_events, line_terminator="\n")
+
 
         if options['type'] == 'TD':
             dg = self.topdown(dg, options)
 
-        dg.to_csv(index=False, path_or_buf=output_file, line_terminator="\n")
+        dg.to_csv(index=False, path_or_buf=output_file_metrics, line_terminator="\n")
 
 
     def dump_to_file(self, pmu_obj, output_file):

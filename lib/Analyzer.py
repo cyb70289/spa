@@ -65,6 +65,7 @@ class Analyzer:
         dg = None
         
         count = 0
+        
         if not self.options['compare'] == 'Current':
             for filename in os.listdir(self.options['csv_path']):
                 tmp = pd.read_csv("{}/{}".format(self.options['csv_path'], filename))
@@ -79,7 +80,7 @@ class Analyzer:
                 count = count + 1
                     
         else:
-                dg = pd.read_csv("csv_result_latest")
+                dg = pd.read_csv(self.options['current_path'])
                 runs = np.repeat("RUN_{}".format(count), len(dg))
                 dg["Runs"] = runs 
         
@@ -117,7 +118,7 @@ class Analyzer:
                 self.build_profile(dg, event_names, runs)
         else:
             self.log.error('No Analysis can be done since only one Run has been performed')
-        self.dg.to_csv("Analysis_Results/stat_analysis_{}.csv".format(self.options["timestamp"]))
+        self.dg.to_csv("Analysis_Results/{}_{}.csv".format(self.options['analysis_name'], self.options["timestamp"]))
 
 
 

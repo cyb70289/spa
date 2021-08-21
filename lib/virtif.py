@@ -127,7 +127,10 @@ def parse_config():
         stat_obj = stat(options)
         spa_obj.stat(stat_obj)
         if not options['type'] == 'Run':
-            analyze_stat(spa_obj, options)
+            if options['type'] == 'TD' or options['type'] == 'TDA':
+                analyze_td(spa_obj, options)
+            else:
+                analyze_stat(spa_obj, options)
         jobs['stat'] += 1
     
     if 'record' in config.keys():  
@@ -265,6 +268,26 @@ def analyze_stat(spa_obj, options):
         print(tmp[['Events', 'Alias', 'Runs', 'Names', 'Values', 'RelVar%']])
    elif size == 1:
         print(stat_data[['Runs', 'Names', 'Events', 'Alias', 'Values', 'Values_list']])
+   else:
+        print('NO DATA FOUND')
+        exit()
+
+
+def analyze_td(spa_obj, options):
+
+   stat_data = spa_obj.pmu_stat.data.dg
+   tmp = stat_data.sort_values(by = ['Events', 'Runs'])
+   dump_output(tmp, "stat_data")
+   size = len(pd.unique(tmp['Runs']))
+
+   if options['compare'] == 'All' and size > 1:
+       print(tmp[['Events', 'Alias', 'Runs', 'Names', 'Values', 'Mean', 'AbsVariation%', 'Dev', 'Command']])
+   elif options['compare'] == 'Runs' and size > 1:
+        print(tmp[['Events', 'Alias', 'Runs', 'Names', 'Values', 'BAbsVariation%', 'BVariation%']])
+   elif options['compare'] == 'Custom' and size > 1:
+        print(tmp[['Events', 'Alias', 'Runs', 'Names', 'Values', 'RelVar%']])
+   elif size == 1:
+        print(stat_data[['Runs', 'Events', 'Names', 'Alias', 'Values']])
    else:
         print('NO DATA FOUND')
         exit()

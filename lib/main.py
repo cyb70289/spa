@@ -57,7 +57,8 @@ class spa:
             os.mkdir("JSON_logs/TopDown_logs")
         
         if not os.path.exists("CSV_logs"):
-            os.makedirs("CSV_logs/Topdown")
+            os.makedirs("CSV_logs/Topdown/RawEvents")
+            os.makedirs("CSV_logs/Topdown/Metrics")
             os.mkdir("CSV_logs/Regular")
        
         if options['type'] == "TD" or options['type'] == "TDA":
@@ -90,6 +91,8 @@ class spa:
                 subprocess.call("rm pmu_result_latest", shell=True) 
                 subprocess.call("ln -s {} pmu_result_latest".format(output_file), shell=True) 
                 options['log'] = self.log 
+                options['current_path'] = "csv_result_latest"
+                options['analysis_name'] = "stat_analysis"
                 try:
                     stat_obj = spa_pmu.spa_pmu(self.log)
                     stat_obj.perform_perf_stat(pmu_obj, options)
@@ -97,7 +100,17 @@ class spa:
                     self.dump_to_file(pmu_obj, output_file)
                 
         if not options['type'] == "Run":
-             pmu_obj.data = self.compare_data(options)
+            if options['type'] == 'TD' or options['type'] == 'TDA':
+                options['csv_path'] = "CSV_logs/TopDown/RawEvents"
+                options['current_path'] = "csv_result_events_latest"
+                pmu_obj.data = self.compare_data(options)
+                options['csv_path'] = "CSV_logs/TopDown/Metrics"
+                options['current_path'] = "csv_result_metrics_latest"
+                options['analysis_name'] = "metrics_analysis"
+                pmu_obj.data = self.compare_data(options)
+            else:
+                pmu_obj.data = self.compare_data(options)
+
          
         
         self.pmu_stat = pmu_obj
