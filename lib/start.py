@@ -43,19 +43,21 @@ def install_ebpf():
         copy_tree(dirname, '/opt/')
     else:  # The packaged versions of LLVM and clang work correctly on x86_64 and artful.
         apt_install(['install', '-y', 'clang'])
-        apt_install(['install', 'llvm', '-y' ])
-        apt_install(['install', 'libclang-dev', '-y'])
+        apt_install(['install', 'llvm-6', '-y', 'flex', 'libedit-dev'
+                  'libllvm6.0','llvm-6.0-dev','libclang-6.0-dev'])
 
     from sh import git, cmake, make, nproc
     # Build and install bcc
     #bcc_repo = 'git://www.ast.arm.com/github.com/iovisor/bcc'
     bcc_repo = 'git://github.com/iovisor/bcc'
-    bcc_tag = 'v0.10.0'
+    bcc_tag = 'v0.21.0'
     print('Building bcc from {} tag {}'.format(bcc_repo, bcc_tag))
-    shutil.rmtree('bcc', ignore_errors=True)
-    git.clone(['--branch', bcc_tag, bcc_repo])
-    os.makedirs('bcc/build')
+    if not os.path.exists('bcc'):
+        shutil.rmtree('bcc', ignore_errors=True)
+        git.clone(['--branch', bcc_tag, bcc_repo])
+        os.makedirs('bcc/build')
     os.chdir('bcc/build')
+    print('CMAKE')
     cmake('..', '-DCMAKE_INSTALL_PREFIX=/usr', '-DPYTHON_CMD=python3', '-DCMAKE_PREFIX_PATH=/opt')
     jobs = nproc().strip()
     make('-j', jobs)

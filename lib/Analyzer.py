@@ -30,21 +30,6 @@ class Analyzer:
     def __init__(self, log, options):
         
         self.options = options
-        self.event_names = []
-        self.runs = []
-        self.values = []
-        self.values_list = []
-        self.timestamps = [] 
-        self.names = [] 
-        self.alias = []
-        self.machine = []
-        self.kernel = []
-        self.system = []
-        self.release = []
-        self.event_codes = []
-        self.code = []
-        self.command = []
-        self.architecture = []
         self.event_profile = {}
         self.dg = None
         self.log = log

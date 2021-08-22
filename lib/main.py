@@ -52,6 +52,7 @@ class spa:
          
         pmu_obj = data_manager.PMU()
         output_file = ""
+        self.create_sl()
         if not os.path.exists("JSON_logs"):
             os.makedirs("JSON_logs/Regular_logs")
             os.mkdir("JSON_logs/TopDown_logs")
@@ -88,10 +89,10 @@ class spa:
                 pmu_obj.info['counter'] = options['counter_info']
     
                 options['output_file'] = output_file 
-                subprocess.call("rm pmu_result_latest", shell=True) 
-                subprocess.call("ln -s {} pmu_result_latest".format(output_file), shell=True) 
+                subprocess.call("rm result_links/pmu_result_latest", shell=True) 
+                subprocess.call("ln -s ../{} result_links/pmu_result_latest".format(output_file), shell=True) 
                 options['log'] = self.log 
-                options['current_path'] = "csv_result_latest"
+                options['current_path'] = "result_links/csv_result_stat_latest"
                 options['analysis_name'] = "stat_analysis"
                 try:
                     stat_obj = spa_pmu.spa_pmu(self.log)
@@ -102,10 +103,10 @@ class spa:
         if not options['type'] == "Run":
             if options['type'] == 'TD' or options['type'] == 'TDA':
                 options['csv_path'] = "CSV_logs/TopDown/RawEvents"
-                options['current_path'] = "csv_result_events_latest"
+                options['current_path'] = "result_links/csv_result_events_latest"
                 pmu_obj.data = self.compare_data(options)
                 options['csv_path'] = "CSV_logs/TopDown/Metrics"
-                options['current_path'] = "csv_result_metrics_latest"
+                options['current_path'] = "result_links/csv_result_metrics_latest"
                 options['analysis_name'] = "metrics_analysis"
                 pmu_obj.data = self.compare_data(options)
             else:
@@ -306,9 +307,14 @@ class spa:
                         if args.applyalias and 'Alias' in i.keys():
                             alias = "Alias"
 
+                        if index == event_code:
+                            key = self.generate_raw_counter(args, i)
+                        else:
+                            key = i[index]
+
                         if not args.regex:
-                            event_list.append('r'.join(i[index]) if index == event_code else  i[index])
-                            counter_info[i[event_name]] = {'EventName':i[event_name], 'Alias':i[alias], 'EventCode':i[event_code],  'Value':[0], 'Timestamp':[]}
+                            event_list.append(key)
+                            counter_info[key] = {'EventName':i[event_name], 'Alias':i[alias], 'EventCode':i[event_code],  'Value':[0], 'Timestamp':[]}
                         else:
                             regex = re.compile(args.regex)
                             match = regex.match(i[event_name])

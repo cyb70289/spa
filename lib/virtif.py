@@ -123,7 +123,7 @@ def parse_config():
 
     if 'stat' in config.keys():
     
-        options = setup_tools("stat", def_sar, config, virtif)
+        options = setup_tools("stat", def_stat, config, virtif)
         stat_obj = stat(options)
         spa_obj.stat(stat_obj)
         if not options['type'] == 'Run':

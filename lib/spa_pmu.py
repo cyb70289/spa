@@ -258,14 +258,8 @@ class spa_pmu:
         command = []
         architecture = []
 
-        output_file_events = "{}/topdown_metrics_{}.csv".format("{}/RawEvents".format(options['csv_path']), options['timestamp']) 
-        output_file_metrics = "{}/topdown_events_{}.csv".format("{}/Metrics".format(options['csv_path']), options['timestamp']) 
-        subprocess.call("rm csv_result_metrics_latest", shell=True) 
-        subprocess.call("ln -s {} csv_result_metrics_latest".format(output_file_metrics), shell=True) 
-        subprocess.call("rm csv_result_events_latest", shell=True) 
-        subprocess.call("ln -s {} csv_result_events_latest".format(output_file_events), shell=True) 
 
-        with open("pmu_result_latest", "r") as stat_file:
+        with open("result_links/pmu_result_latest", "r") as stat_file:
             f = json.load(stat_file)
    
         pmu = f
@@ -301,13 +295,26 @@ class spa_pmu:
                 }
 
         dg = pd.DataFrame(info)
-        dg.to_csv(index=False, path_or_buf=output_file_events, line_terminator="\n")
 
 
         if options['type'] == 'TD':
+            
+            output_file_events = "{}/topdown_metrics_{}.csv".format("{}/RawEvents".format(options['csv_path']), options['timestamp']) 
+            output_file_metrics = "{}/topdown_events_{}.csv".format("{}/Metrics".format(options['csv_path']), options['timestamp']) 
+            subprocess.call("rm result_links/csv_result_metrics_latest", shell=True) 
+            subprocess.call("ln -s ../{} result_links/csv_result_metrics_latest".format(output_file_metrics), shell=True) 
+            subprocess.call("rm result_links/csv_result_events_latest", shell=True) 
+            subprocess.call("ln -s ../{} result_links/csv_result_events_latest".format(output_file_events), shell=True) 
+            
+            dg.to_csv(index=False, path_or_buf=output_file_events, line_terminator="\n")
             dg = self.topdown(dg, options)
 
-        dg.to_csv(index=False, path_or_buf=output_file_metrics, line_terminator="\n")
+            dg.to_csv(index=False, path_or_buf=output_file_metrics, line_terminator="\n")
+        else:
+            output_file = "{}/stat_{}.csv".format(options['csv_path'], options['timestamp']) 
+            subprocess.call("rm result_links/csv_result_stat_latest", shell=True) 
+            subprocess.call("ln -s ../{} result_links/csv_result_stat_latest".format(output_file), shell=True) 
+            dg.to_csv(index=False, path_or_buf=output_file, line_terminator="\n")
 
 
     def dump_to_file(self, pmu_obj, output_file):
