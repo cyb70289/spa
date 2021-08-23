@@ -42,9 +42,10 @@ def install_ebpf():
         # We just want to add files to it.
         copy_tree(dirname, '/opt/')
     else:  # The packaged versions of LLVM and clang work correctly on x86_64 and artful.
-        apt_install(['install', '-y', 'clang'])
-        apt_install(['install', 'llvm-6', '-y', 'flex', 'libedit-dev'
-                  'libllvm6.0','llvm-6.0-dev','libclang-6.0-dev'])
+        apt_install(['install', '-y', 'clang-13','clang-tools-13','clang-13-doc','libclang-common-13-dev','libclang-13-dev','libclang1-13','clang-format-13','clangd-13'])
+        apt_install(['install', '-y', 'libllvm-13-ocaml-dev','libllvm13','llvm-13','llvm-13-dev','llvm-13-doc','llvm-13-examples','llvm-13-runtime'])
+        apt_install(['install', '-y', 'libfuzzer-13-dev', 'lldb-13', 'lld-13', 'libc++-13-dev', 'libc++abi-13-dev', 'libomp-13-dev', 'libclc-13-dev', 'libunwind-13-dev'])
+
 
     from sh import git, cmake, make, nproc
     # Build and install bcc
