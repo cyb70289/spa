@@ -52,10 +52,9 @@ def install_ebpf():
     bcc_repo = 'git://github.com/iovisor/bcc'
     bcc_tag = 'v0.21.0'
     print('Building bcc from {} tag {}'.format(bcc_repo, bcc_tag))
-    if not os.path.exists('bcc'):
-        shutil.rmtree('bcc', ignore_errors=True)
-        git.clone(['--branch', bcc_tag, bcc_repo])
-        os.makedirs('bcc/build')
+    shutil.rmtree('bcc', ignore_errors=True)
+    git.clone(['--branch', bcc_tag, bcc_repo])
+    os.makedirs('bcc/build')
     os.chdir('bcc/build')
     print('CMAKE')
     cmake('..', '-DCMAKE_INSTALL_PREFIX=/usr', '-DPYTHON_CMD=python3', '-DCMAKE_PREFIX_PATH=/opt')
@@ -63,6 +62,7 @@ def install_ebpf():
     make('-j', jobs)
     make.install()
     os.chdir(prior_dir)  # go back to the previous working directory
+    shutil.rmtree('libpfm4', ignore_errors=True)
     git.clone("git://perfmon2.git.sourceforge.net/gitroot/perfmon2/libpfm4")
     os.chdir("libpfm4")
     make()

@@ -7,4 +7,4 @@ apt-get install python3-sh -y
 [ -d "/opt/FlameGraph" ] && echo "/opt/FlameGraph exists" || git clone https://github.com/brendangregg/FlameGraph.git /opt/FlameGraph
 python3 lib/start.py
 echo "ENABLED=true" > /etc/default/sysstat
-sysctl restart sysstat
+systemctl restart sysstat
