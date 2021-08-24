@@ -299,8 +299,8 @@ class spa_pmu:
 
         if options['type'] == 'TD':
             
-            output_file_events = "{}/topdown_metrics_{}.csv".format("{}/RawEvents".format(options['csv_path']), options['timestamp']) 
-            output_file_metrics = "{}/topdown_events_{}.csv".format("{}/Metrics".format(options['csv_path']), options['timestamp']) 
+            output_file_metrics = "{}/topdown_metrics_{}.csv".format("{}/RawEvents".format(options['csv_path']), options['timestamp']) 
+            output_file_events = "{}/topdown_events_{}.csv".format("{}/Metrics".format(options['csv_path']), options['timestamp']) 
             subprocess.call("rm result_links/csv_result_metrics_latest", shell=True) 
             subprocess.call("ln -s ../{} result_links/csv_result_metrics_latest".format(output_file_metrics), shell=True) 
             subprocess.call("rm result_links/csv_result_events_latest", shell=True) 
