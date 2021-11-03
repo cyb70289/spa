@@ -98,6 +98,8 @@ class n1(PerfmonCpu):
         '''
         df_out = pd.DataFrame(index=df_in.index)
 
+        df_out['IPC'] = self._check_div(
+            df_in, 'INST_RETIRED', 'CPU_CYCLES',  dscale=1000)
         df_out['L1I MPKI'] = self._check_div(
             df_in, 'L1I_CACHE_REFILL', 'INST_RETIRED', dscale=1000)
         df_out['L1I_TLB MPKI'] = self._check_div(
@@ -186,11 +188,15 @@ class n1(PerfmonCpu):
         '''
 
         df_out = pd.DataFrame(index=df_in.index)
-        df_out['Load'] = self._convert_to_percent(self._check_div(df_in, 'LD_SPEC', 'INST_SPEC'))
-        df_out['Store'] = self._convert_to_percent(self._check_div(df_in, 'ST_SPEC', 'INST_SPEC'))
-        df_out['Integer'] = self._convert_to_percent(self._check_div(df_in, 'DP_SPEC', 'INST_SPEC'))
-        df_out['SIMD'] = self._convert_to_percent(self._check_div(df_in, 'ASE_SPEC', 'INST_SPEC'))
+        df_out['Load %'] = self._convert_to_percent(self._check_div(df_in, 'LD_SPEC', 'INST_SPEC'))
+        df_out['Store %'] = self._convert_to_percent(self._check_div(df_in, 'ST_SPEC', 'INST_SPEC'))
         df_out['Branch'] = self._convert_to_percent(self._check_div(df_in, 'BR_PRED', 'INST_SPEC'))
+        df_out['DP %'] = self._convert_to_percent(self._check_div(df_in, 'DP_SPEC', 'INST_SPEC'))
+        df_out['VFP %'] = self._convert_to_percent(self._check_div(df_in, 'VFP_SPEC', 'INST_SPEC'))
+        df_out['ASE %'] = self._convert_to_percent(self._check_div(df_in, 'ASE_SPEC', 'INST_SPEC'))
+        df_out['Total Branches'] = df_in[ 'BR_INDIRECT_SPEC'] + df_in['BR_IMMED_SPEC'] + df_in['BR_RETURN_SPEC']
+        df_out['Crypto %'] = self._convert_to_percent(self._check_div(df_in, 'CRYPTO_SPEC', 'INST_SPEC'))
+        #df_out['Branch %'] = self._convert_to_percent(self._check_div(df_in, 'Total Branches', 'INST_SPEC'))
         return df_out
     
     def metric_branch_mix(self, df_in):
@@ -205,8 +211,7 @@ class n1(PerfmonCpu):
         '''
 
         df_out = pd.DataFrame(index=df_in.index)
-        df_out['Return'] = self._convert_to_percent(self._check_div(df_in, 'BR_RETURN_SPEC', 'BR_PRED'))
-        df_out['Immed'] = self._convert_to_percent(self._check_div(df_in, 'BR_IMMED_SPEC', 'BR_PRED'))
-        df_out['Indirect'] = self._convert_to_percent(self._check_div(df_in, 'BR_INDIRECT_SPEC', 'BR_PRED'))
-        df_out['Rest'] = 100 - (df_out['Return'] + df_out['Immed'] + df_out['Indirect'])
+        df_out['Return %'] = self._convert_to_percent(self._check_div(df_in, 'BR_RETURN_SPEC', 'BR_PRED'))
+        df_out['Immed %'] = self._convert_to_percent(self._check_div(df_in, 'BR_IMMED_SPEC', 'BR_PRED'))
+        df_out['Indirect %'] = self._convert_to_percent(self._check_div(df_in, 'BR_INDIRECT_SPEC', 'BR_PRED'))
         return df_out

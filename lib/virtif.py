@@ -259,7 +259,7 @@ def analyze_stat(spa_obj, options):
        for key in sim.keys():
            if mean(sim[key]) > int(options['Flevel']):
                print('{} = {}'.format(key, mean(sim[key])))
-
+   
    elif options['compare'] == 'All' and size > 1:
         print(tmp[['Events', 'Alias', 'Runs', 'Names', 'Values', 'Mean', 'AbsVariation%', 'Dev', 'Command']])
    elif options['compare'] == 'Runs' and size > 1:
@@ -279,7 +279,8 @@ def analyze_td(spa_obj, options):
    tmp = stat_data.sort_values(by = ['Events', 'Runs'])
    dump_output(tmp, "stat_data")
    size = len(pd.unique(tmp['Runs']))
-
+   tmp = tmp.dropna()
+   tmp = tmp.reset_index(drop=True)
    if options['compare'] == 'All' and size > 1:
        print(tmp[['Events', 'Alias', 'Runs', 'Names', 'Values', 'Mean', 'AbsVariation%', 'Dev', 'Command']])
    elif options['compare'] == 'Runs' and size > 1:

@@ -50,7 +50,7 @@ class Analyzer:
         dg = None
         
         count = 0
-        
+        print(os.getcwd()) 
         if not self.options['compare'] == 'Current':
             for filename in os.listdir(self.options['csv_path']):
                 tmp = pd.read_csv("{}/{}".format(self.options['csv_path'], filename))

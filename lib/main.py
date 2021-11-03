@@ -55,7 +55,7 @@ class spa:
         self.create_sl()
         if not os.path.exists("JSON_logs"):
             os.makedirs("JSON_logs/Regular_logs")
-            os.mkdir("JSON_logs/TopDown_logs")
+            os.mkdir("JSON_logs/Topdown_logs")
         
         if not os.path.exists("CSV_logs"):
             os.makedirs("CSV_logs/Topdown/RawEvents")
@@ -63,7 +63,7 @@ class spa:
             os.mkdir("CSV_logs/Regular")
        
         if options['type'] == "TD" or options['type'] == "TDA":
-            options['output_path'] = "JSON_logs/TopDown_logs"
+            options['output_path'] = "JSON_logs/Topdown_logs"
             options['csv_path'] = "CSV_logs/Topdown"
         else:
             options['output_path'] = "JSON_logs/Regular_logs"
@@ -102,10 +102,11 @@ class spa:
                 
         if not options['type'] == "Run":
             if options['type'] == 'TD' or options['type'] == 'TDA':
-                options['csv_path'] = "CSV_logs/TopDown/RawEvents"
+                options['csv_path'] = "CSV_logs/Topdown/RawEvents"
                 options['current_path'] = "result_links/csv_result_events_latest"
+                options['analysis_name'] = "raw_events_analysis"
                 pmu_obj.data = self.compare_data(options)
-                options['csv_path'] = "CSV_logs/TopDown/Metrics"
+                options['csv_path'] = "CSV_logs/Topdown/Metrics"
                 options['current_path'] = "result_links/csv_result_metrics_latest"
                 options['analysis_name'] = "metrics_analysis"
                 pmu_obj.data = self.compare_data(options)
