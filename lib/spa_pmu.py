@@ -66,7 +66,9 @@ class spa_pmu:
             com.append('--call-graph')
             com.append('dwarf')
         if 'extra_args' in options.keys():
-            com.append(options['extra_args'])
+            extra_args = options['extra_args'].split(' ')
+            for arg in extra_args:
+                com.append(arg)
         com.append(options['command'])
         com = ' '.join(i for i in com)
         self.log.info(com)
@@ -221,7 +223,9 @@ class spa_pmu:
             com.append('-I')
             com.append(str(options['interval']))
         if options['extra_args']:
-            com.append(options['extra_args'])
+            extra_args = options['extra_args'].split(' ')
+            for arg in extra_args:
+                com.append(arg)
         com.append("-e")
         return com
     
