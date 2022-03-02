@@ -335,6 +335,14 @@ class spa_pmu:
         return self.get_metric(n1_obj, dg, options)
 
 
+    def v1(self, dg, options):
+    
+        from pmu_v1 import v1
+        
+        v1_obj = v1(self.strip_dg(dg))
+        return self.get_metric(v1_obj, dg, options)
+
+
     def cl(self, dg, options):
     
         from pmu_CL import CL
@@ -375,6 +383,7 @@ class spa_pmu:
 
     def topdown(self, dg, options):
         
-        pmap = {"neoverse-n1": self.n1(dg, options)}[options['platform']]
+        pmap = {"neoverse-n1": self.n1(dg, options),
+                "neoverse-v1": self.v1(dg, options)}[options['platform']]
         
         return pmap

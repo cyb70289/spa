@@ -491,6 +491,9 @@ class spa:
     def generate_raw_counter(self, options, event):
 
         if options.arch == "ARM":
+            if not "x" in str(event["EventCode"]):
+                return str(hex(event["EventCode"])).replace("0x","r")
+            else:
                 return event["EventCode"].replace("0x", "r")
         if options.arch == "Intel":
                 return "r{}{}".format(event["UMask"].replace("0x", ""), event["EventCode"].replace("0x", ""))
