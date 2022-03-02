@@ -1,4 +1,4 @@
-#!usr/bin/env python3
+#!/bin/python3
 import platform
 import os
 import shutil
@@ -23,7 +23,7 @@ def install_ebpf():
     arch = platform.processor()
     print(arch)
     distro = lsb_release('-cs').strip()
-    if distro == 'xenial' or arch == 'aarch64':
+    if (distro == 'xenial' or arch == 'aarch64') and os.path.isdir("clang+llvm-6.0.0-aarch64-linux-gnu") is False:
         # We need to install LLVM 6 when the distro is xenial or
         # when arch is Aarch64.
         # For more information, see:
@@ -41,16 +41,17 @@ def install_ebpf():
         # destination directory already exists (/opt usually exists).
         # We just want to add files to it.
         copy_tree(dirname, '/opt/')
-    else:  # The packaged versions of LLVM and clang work correctly on x86_64 and artful.
-        apt_install(['install', '-y', 'clang-13','clang-tools-13','clang-13-doc','libclang-common-13-dev','libclang-13-dev','libclang1-13','clang-format-13','clangd-13'])
-        apt_install(['install', '-y', 'libllvm-13-ocaml-dev','libllvm13','llvm-13','llvm-13-dev','llvm-13-doc','llvm-13-examples','llvm-13-runtime'])
-        apt_install(['install', '-y', 'libfuzzer-13-dev', 'lldb-13', 'lld-13', 'libc++-13-dev', 'libc++abi-13-dev', 'libomp-13-dev', 'libclc-13-dev', 'libunwind-13-dev'])
+    else:
+        if os.path.isdir("clang+llvm-6.0.0-aarch64-linux-gnu") is False:  # The packaged versions of LLVM and clang work correctly on x86_64 and artful.
+            apt_install(['install', '-y', 'clang-13','clang-tools-13','clang-13-doc','libclang-common-13-dev','libclang-13-dev','libclang1-13','clang-format-13','clangd-13'])
+            apt_install(['install', '-y', 'libllvm-13-ocaml-dev','libllvm13','llvm-13','llvm-13-dev','llvm-13-doc','llvm-13-examples','llvm-13-runtime'])
+            apt_install(['install', '-y', 'libfuzzer-13-dev', 'lldb-13', 'lld-13', 'libc++-13-dev', 'libc++abi-13-dev', 'libomp-13-dev', 'libclc-13-dev', 'libunwind-13-dev'])
 
 
     from sh import git, cmake, make, nproc
     # Build and install bcc
     #bcc_repo = 'git://www.ast.arm.com/github.com/iovisor/bcc'
-    bcc_repo = 'git://github.com/iovisor/bcc'
+    bcc_repo = 'https://github.com/iovisor/bcc'
     bcc_tag = 'v0.21.0'
     print('Building bcc from {} tag {}'.format(bcc_repo, bcc_tag))
     shutil.rmtree('bcc', ignore_errors=True)
