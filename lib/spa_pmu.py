@@ -50,6 +50,11 @@ class spa_pmu:
         else:
             self.iterative_style(pmu_obj, options)
 
+        if 'interval' in options.keys():
+            for k in pmu_obj.info['counter'].keys():
+                v = pmu_obj.info['counter'][k]['Value']
+                pmu_obj.info['counter'][k]['Value'] = v[:-1]
+        
         self.dump_to_file(pmu_obj, options['output_file']) 
         self.gather_data(options)
     
@@ -165,12 +170,6 @@ class spa_pmu:
                 if 'interval' in options.keys():
                     pmu_obj.info['counter'][match.group(key)]['Timestamp'].append(float(match.group(2)))
         
-        if 'interval' in options.keys():
-            for k in pmu_obj.info['counter'].keys():
-                v = pmu_obj.info['counter'][k]['Value']
-                pmu_obj.info['counter'][k]['Value'] = v[:-1]
-
-    
         
     def normal_style(self, pmu_obj, options):    
         

@@ -202,10 +202,10 @@ def analyze_ebpf(spa_obj, options):
 
 def analyze_sar(spa_obj, options):
 
-#    sar_data = spa_obj.sar_stat.dg_analyzed
+    #sar_data = spa_obj.sar_stat.dg_analyzed
         
     #sar_data.to_csv("../output/ebpf_data.csv", index = False)
-    print(sar)
+    #print(sar_data)
 
 
 def analyze_rec(spa_obj, options):
