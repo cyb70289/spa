@@ -135,7 +135,7 @@ def parse_config():
     
     if 'record' in config.keys():  
     
-        options = setup_tools("record", def_sar, config, virtif)
+        options = setup_tools("record", def_rec, config, virtif)
         record_obj = record(options)
         spa_obj.record(record_obj)
         if not options['type'] == 'Run':
@@ -144,7 +144,7 @@ def parse_config():
 
     if 'ebpf' in config.keys():  
     
-        options = setup_tools("ebpf", def_sar, config, virtif)
+        options = setup_tools("ebpf", def_ebpf, config, virtif)
         ebpf_obj = ebpf(options)
         spa_obj.ebpf(ebpf_obj)
         jobs['ebpf'] += 1
