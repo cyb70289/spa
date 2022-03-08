@@ -50,10 +50,9 @@ class spa_pmu:
         else:
             self.iterative_style(pmu_obj, options)
         
-        if 'interval' in options.keys():
-            for k in pmu_obj.info['counter'].keys():
-                v = pmu_obj.info['counter'][k]['Value']
-                pmu_obj.info['counter'][k]['Value'] = v[1:] 
+        for k in pmu_obj.info['counter'].keys():
+            v = pmu_obj.info['counter'][k]['Value']
+            pmu_obj.info['counter'][k]['Value'] = v[1:] 
 
         if options['type'] == 'TD':
             
