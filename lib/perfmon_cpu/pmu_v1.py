@@ -161,7 +161,7 @@ class v1(PerfmonCpu):
         obj_out['Retiring'] = tmp['RETL1']
         obj_out['Bad Speculation'] = tmp['BADSPECL1']
         obj_out['Frontend Bound'] = 100 * (tmp['STALLF/CYCLES']*(1/8) - tmp['BR/CYC'])
-        obj_out['Frontend Bound'] = 100 * (tmp['STALLB/CYCLES']*(1/8))
+        obj_out['Backend Bound'] = 100 * (tmp['STALLB/CYCLES']*(1/8))
 
         return obj_out
 
