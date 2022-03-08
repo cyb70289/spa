@@ -49,14 +49,28 @@ class spa_pmu:
             self.normal_style(pmu_obj, options)
         else:
             self.iterative_style(pmu_obj, options)
-
+        
         if 'interval' in options.keys():
             for k in pmu_obj.info['counter'].keys():
                 v = pmu_obj.info['counter'][k]['Value']
-                pmu_obj.info['counter'][k]['Value'] = v[:-1]
-        
-        self.dump_to_file(pmu_obj, options['output_file']) 
-        self.gather_data(options)
+                pmu_obj.info['counter'][k]['Value'] = v[1:] 
+
+        if options['type'] == 'TD':
+            
+            output_file_metrics = "{}/topdown_metrics_{}.csv".format("{}/Metrics".format(options['csv_path']), options['timestamp']) 
+            output_file_events = "{}/topdown_events_{}.csv".format("{}/RawEvents".format(options['csv_path']), options['timestamp']) 
+            subprocess.call("rm result_links/csv_result_metrics_latest", shell=True) 
+            subprocess.call("ln -s ../{} result_links/csv_result_metrics_latest".format(output_file_metrics), shell=True) 
+            subprocess.call("rm result_links/csv_result_events_latest", shell=True) 
+            subprocess.call("ln -s ../{} result_links/csv_result_events_latest".format(output_file_events), shell=True) 
+            metric_obj = self.process_TD(pmu_obj, options)
+            self.gather_data(pmu_obj, options, output_file_events)
+            self.gather_data(metric_obj, options, output_file_metrics, 1)
+        else:
+            output_file = "{}/stat_{}.csv".format(options['csv_path'], options['timestamp']) 
+            subprocess.call("rm result_links/csv_result_stat_latest", shell=True) 
+            subprocess.call("ln -s ../{} result_links/csv_result_stat_latest".format(output_file), shell=True) 
+            self.gather_data(pmu_obj, options, output_file)
     
     
     def perform_perf_rec(self, rec_obj, options):
@@ -192,7 +206,7 @@ class spa_pmu:
             if i < options['mx_degree']:
                 tmp.append(event)
                 i += 1
-                if not i == options['mx_degree']:
+                if  (i != options['mx_degree']) and (event != options['event_list'][-1]):                  
                     continue
 
             if len(tmp) > 1:
@@ -242,7 +256,7 @@ class spa_pmu:
 
 
 
-    def gather_data(self, options):
+    def gather_data(self, pmu_obj, options, output_file, flag=0):
     
         pmu_result_list = {}
         
@@ -261,26 +275,29 @@ class spa_pmu:
         command = []
         architecture = []
 
-
-        with open("result_links/pmu_result_latest", "r") as stat_file:
-            f = json.load(stat_file)
-   
-        pmu = f
-
-        for i in pmu['counter'].keys():
-            event_names.append(pmu['counter'][i]['EventName'])
-            event_codes.append(pmu['counter'][i]['EventCode'])
-            values_list.append(pmu['counter'][i]['Value'])
-            values.append(sum(pmu['counter'][i]['Value']))
-            alias.append(pmu['counter'][i]['Alias'])
-            timestamps.append(pmu['metadata']['timestamp'])
-            names.append(pmu['metadata']['name'])
-            code.append(pmu['metadata']['code'])
-            machine.append(pmu['metadata']['machine'])
-            kernel.append(pmu['metadata']['kernel'])
-            system.append(pmu['metadata']['system'])
-            release.append(pmu['metadata']['release'])
-            command.append(pmu['metadata']['command'])
+        for i in pmu_obj.info['counter'].keys():
+            if flag == 0:
+                if not pmu_obj.info['counter'][i]['Value']:
+                    continue
+                event_names.append(pmu_obj.info['counter'][i]['EventName'])
+                event_codes.append(pmu_obj.info['counter'][i]['EventCode'])
+                values_list.append(pmu_obj.info['counter'][i]['Value'])
+                values.append(mean(pmu_obj.info['counter'][i]['Value']))
+                alias.append(pmu_obj.info['counter'][i]['Alias'])
+            else:
+                event_names.append(i)
+                event_codes.append("N/A")
+                alias.append("N/A")
+                values_list.append(pmu_obj.info['counter'][i])
+                values.append(mean(pmu_obj.info['counter'][i]))
+            timestamps.append(pmu_obj.info['metadata']['timestamp'])
+            names.append(pmu_obj.info['metadata']['name'])
+            code.append(pmu_obj.info['metadata']['code'])
+            machine.append(pmu_obj.info['metadata']['machine'])
+            kernel.append(pmu_obj.info['metadata']['kernel'])
+            system.append(pmu_obj.info['metadata']['system'])
+            release.append(pmu_obj.info['metadata']['release'])
+            command.append(pmu_obj.info['metadata']['command'])
     
         info = {
                 "Events":event_names,
@@ -298,26 +315,7 @@ class spa_pmu:
                 }
 
         dg = pd.DataFrame(info)
-
-
-        if options['type'] == 'TD':
-            
-            output_file_metrics = "{}/topdown_metrics_{}.csv".format("{}/Metrics".format(options['csv_path']), options['timestamp']) 
-            output_file_events = "{}/topdown_events_{}.csv".format("{}/RawEvents".format(options['csv_path']), options['timestamp']) 
-            subprocess.call("rm result_links/csv_result_metrics_latest", shell=True) 
-            subprocess.call("ln -s ../{} result_links/csv_result_metrics_latest".format(output_file_metrics), shell=True) 
-            subprocess.call("rm result_links/csv_result_events_latest", shell=True) 
-            subprocess.call("ln -s ../{} result_links/csv_result_events_latest".format(output_file_events), shell=True) 
-            
-            dg.to_csv(index=False, path_or_buf=output_file_events, line_terminator="\n")
-            dg = self.topdown(dg, options)
-
-            dg.to_csv(index=False, path_or_buf=output_file_metrics, line_terminator="\n")
-        else:
-            output_file = "{}/stat_{}.csv".format(options['csv_path'], options['timestamp']) 
-            subprocess.call("rm result_links/csv_result_stat_latest", shell=True) 
-            subprocess.call("ln -s ../{} result_links/csv_result_stat_latest".format(output_file), shell=True) 
-            dg.to_csv(index=False, path_or_buf=output_file, line_terminator="\n")
+        dg.to_csv(index=False, path_or_buf=output_file, line_terminator="\n")
 
 
     def dump_to_file(self, pmu_obj, output_file):
@@ -326,63 +324,41 @@ class spa_pmu:
            json.dump(pmu_obj.info, out)
 
 
-    def n1(self, dg, options):
+    def n1(self, pmu_obj, options):
     
         from pmu_n1 import n1
         
-        n1_obj = n1(self.strip_dg(dg))
-        return self.get_metric(n1_obj, dg, options)
+        n1_obj = n1(pmu_obj)
+        return n1_obj
 
 
-    def v1(self, dg, options):
+    def v1(self, pmu_obj, options):
     
         from pmu_v1 import v1
         
-        v1_obj = v1(self.strip_dg(dg))
-        return self.get_metric(v1_obj, dg, options)
+        v1_obj = v1(pmu_obj)
+        return v1_obj
 
 
-    def cl(self, dg, options):
-    
-        from pmu_CL import CL
+    def topdown(self, pmu_obj, options):
         
-        cl_obj = CL(self.strip_dg(dg))
-        return self.get_metric(cl_obj, dg, options)
-
-        
-    def strip_dg(self, dg):
-        
-        stat_data = dg
-        stat_data.reset_index(inplace=True)
-        stat_data_new = stat_data[["Events",  "Values"]]
-        stat_data_new.set_index("Events",  inplace=True)
-        stat_data_new = stat_data_new.transpose()
-        return stat_data_new
-
-    def get_metric(self, obj, stat_data, options):
-
-
-        out_df = obj.derive_perfmon_metrics()
-                        
-        out_df = out_df.transpose()
-        out_df.reset_index(inplace=True)
-        out_df.rename(columns={"index": "Events"}, inplace=True)
-        
-
-        alias = stat_data['Alias']
-        tmp = out_df.loc[len(stat_data): len(out_df)]
-        
-        tmp.reset_index(inplace=True)
-        tmp['Alias'] = tmp['Events']
-        tmp = tmp.assign(Names=options['name'])
-        tmp = tmp.assign(Command=options['command'])
-        tmp.reset_index(inplace=True)
-        return tmp
-
-
-    def topdown(self, dg, options):
-        
-        pmap = {"neoverse-n1": self.n1(dg, options),
-                "neoverse-v1": self.v1(dg, options)}[options['platform']]
+        pmap = {"neoverse-n1": self.n1(pmu_obj, options),
+                "neoverse-v1": self.v1(pmu_obj, options)}[options['platform']]
         
         return pmap
+
+
+    def process_TD(self, pmu_obj, options):
+
+        pmu_obj_new = data_manager.PMU()
+
+        for v in pmu_obj.info['counter'].keys():
+            name = pmu_obj.info['counter'][v]['EventName']
+            pmu_obj_new.info['counter'][name] = pmu_obj.info['counter'][v]
+
+        pmu_obj_new.info['metadata'] = pmu_obj.info['metadata'] 
+        core_obj = self.topdown(pmu_obj_new, options)
+        final_obj =  core_obj.derive_perfmon_metrics()
+        return final_obj
+
+

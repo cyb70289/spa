@@ -75,7 +75,6 @@ class spa:
             for _ in range(options['repeat']):
                 pmu_obj = data_manager.PMU()
                 
-                output_file = "{}/pmu_result_{}".format(options['output_path'], timestamp)
                 self.setup_metadata(pmu_obj, options)
 
                 options['output_file'] = output_file
@@ -88,9 +87,6 @@ class spa:
     
                 pmu_obj.info['counter'] = options['counter_info']
     
-                options['output_file'] = output_file 
-                subprocess.call("rm result_links/pmu_result_latest", shell=True) 
-                subprocess.call("ln -s ../{} result_links/pmu_result_latest".format(output_file), shell=True) 
                 options['log'] = self.log 
                 options['current_path'] = "result_links/csv_result_stat_latest"
                 options['analysis_name'] = "stat_analysis"

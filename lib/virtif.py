@@ -127,9 +127,6 @@ def parse_config():
         stat_obj = stat(options)
         spa_obj.stat(stat_obj)
         if not options['type'] == 'Run':
-            if options['type'] == 'TD' or options['type'] == 'TDA':
-                analyze_td(spa_obj, options)
-            else:
                 analyze_stat(spa_obj, options)
         jobs['stat'] += 1
     
@@ -202,10 +199,10 @@ def analyze_ebpf(spa_obj, options):
 
 def analyze_sar(spa_obj, options):
 
-    #sar_data = spa_obj.sar_stat.dg_analyzed
+#    sar_data = spa_obj.sar_stat.dg_analyzed
         
     #sar_data.to_csv("../output/ebpf_data.csv", index = False)
-    #print(sar_data)
+    print(sar)
 
 
 def analyze_rec(spa_obj, options):
@@ -272,26 +269,6 @@ def analyze_stat(spa_obj, options):
         print('NO DATA FOUND')
         exit()
 
-
-def analyze_td(spa_obj, options):
-
-   stat_data = spa_obj.pmu_stat.data.dg
-   tmp = stat_data.sort_values(by = ['Events', 'Runs'])
-   dump_output(tmp, "stat_data")
-   size = len(pd.unique(tmp['Runs']))
-   tmp = tmp.dropna()
-   tmp = tmp.reset_index(drop=True)
-   if options['compare'] == 'All' and size > 1:
-       print(tmp[['Events', 'Alias', 'Runs', 'Names', 'Values', 'Mean', 'AbsVariation%', 'Dev', 'Command']])
-   elif options['compare'] == 'Runs' and size > 1:
-        print(tmp[['Events', 'Alias', 'Runs', 'Names', 'Values', 'BAbsVariation%', 'BVariation%']])
-   elif options['compare'] == 'Custom' and size > 1:
-        print(tmp[['Events', 'Alias', 'Runs', 'Names', 'Values', 'RelVar%']])
-   elif size == 1:
-        print(stat_data[['Runs', 'Events', 'Names', 'Alias', 'Values']])
-   else:
-        print('NO DATA FOUND')
-        exit()
 
 
 def ebpf_analyzer(symbol_re, options):

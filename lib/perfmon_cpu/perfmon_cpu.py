@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Author: Jumana Mundichipparakkal
+# Author: Jumana Mundichipparakkal, Tushar Singh Chouhan
 
 
 from abc import ABCMeta, abstractmethod
@@ -26,19 +26,12 @@ class PerfmonCpu(metaclass=ABCMeta):
     """
     Base class for all CPUs whose perfmon counters are used for analysis.
 
-    :raw_df: Dataframe with perfmon counters and derived metrics for the core.
+    pmu_obj: data_manager object with all the pmus 
 
     """
-    metric_list = []  # List of metrics supported by CPU perfmon counters
-    # Dictionary of tuples of metric plot data for a m
-    # Key: metric
-    # Value: (list of metric labels, plot type(str), title for the plot (str))
-    metric_plot_data = {}
 
-    def __init__(self, df):
-        self.raw_df = df
-        # Set metric details for the CPU
-        self._set_metrics()
+    def __init__(self, pmu_obj):
+        self.pmu_obj = pmu_obj
 
     @abstractmethod
     def derive_perfmon_metrics(self):
@@ -47,49 +40,19 @@ class PerfmonCpu(metaclass=ABCMeta):
         """
         raise NotImplementedError()
 
-    @abstractmethod
-    def _set_metrics(self):
-        """
-        Registers a list of all derived metrics available for the cpu.
-        """
-        raise NotImplementedError()
 
-    def _check_div(self, df, numerator, denominator, nscale=1, dscale=1):
-        '''
-        Helper function to safely divide one column by another, only if both exist
 
-        Args:
-            df (pandas.DataFrame): Input df to perform the divide on
-            numerator (str): The column label to check whether it exists and use it
-                             as the numerator in the divide
-            denominator (str): The column label to check whether it exists and use
-                               it as the denominator in the divide
-            nscale (int): The numerator scale value. Defaults to 1
-            dscale (int): The denominator scale value. Defaults to 1
+    def _check_div(self, pmu_obj, numerator, denominator, nscale=1, dscale=1):
+       '''
+       Divides the numerator with denominator and return the array
+       '''
+       return numpy.divide(pmu_obj.info['counter'][numerator]['Value'], 
+                pmu_obj.info['counter'][denominator]['Value'])*dscale
+   
 
-        Return:
-            (pandas.Series or numpy.nan): If checks pass, will return the result of
-                                          the divide (with optional scaling being
-                                          applied beforehand), Otherwise numpy.nan
-        '''
-        if all(x in df.columns for x in [numerator, denominator]):
-            return (df[numerator]['Values']/df[denominator]['Values'])*dscale
-        nan_data = numpy.array([numpy.nan]*len(df))
-        return pandas.Series(nan_data)
-    
-        # return df[numerator].div(nscale).div(df[denominator].div(dscale))
 
     def _convert_to_percent(self, x):
         """ Converts the passed value to percentage data and round to zero converting to integer.
         """
-        if numpy.isnan(x):
-            return x
-        if numpy.isinf(x) or numpy.isneginf(x):
-            return numpy.nan
-        return int(x * 100)
+        return (x * 100)
 
-    def _get_metrics(self):
-        """
-        Returns a list of all derived metrics for the cpu.
-        """
-        return self.metric_list
