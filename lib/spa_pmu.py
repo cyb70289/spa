@@ -50,6 +50,7 @@ class spa_pmu:
         else:
             self.iterative_style(pmu_obj, options)
         
+        #if 'interval' in options.keys():
         for k in pmu_obj.info['counter'].keys():
             v = pmu_obj.info['counter'][k]['Value']
             pmu_obj.info['counter'][k]['Value'] = v[1:] 
@@ -182,6 +183,14 @@ class spa_pmu:
 
                 if 'interval' in options.keys():
                     pmu_obj.info['counter'][match.group(key)]['Timestamp'].append(float(match.group(2)))
+            else:
+                if not match:
+                    not_counted_regex = re.compile("^( *)([0-9.]+)( +)(<not counted>)( +)([0-9A-Za-z.]+)( *)")
+                    match_nc = not_counted_regex.search(i)
+                    if match_nc:
+                        key = 6
+                        if match_nc.group(key) in pmu_obj.info['counter'].keys():
+                            del pmu_obj.info['counter'][match_nc.group(key)]
         
         
     def normal_style(self, pmu_obj, options):    
@@ -281,14 +290,20 @@ class spa_pmu:
                 event_names.append(pmu_obj.info['counter'][i]['EventName'])
                 event_codes.append(pmu_obj.info['counter'][i]['EventCode'])
                 values_list.append(pmu_obj.info['counter'][i]['Value'])
-                values.append(mean(pmu_obj.info['counter'][i]['Value']))
+                if len(pmu_obj.info['counter'][i]['Value']) > 1:
+                    values.append(mean(pmu_obj.info['counter'][i]['Value']))
+                else:
+                    values.append(pmu_obj.info['counter'][i]['Value'])
                 alias.append(pmu_obj.info['counter'][i]['Alias'])
             else:
                 event_names.append(i)
                 event_codes.append("N/A")
                 alias.append("N/A")
                 values_list.append(pmu_obj.info['counter'][i])
-                values.append(mean(pmu_obj.info['counter'][i]))
+                if len(pmu_obj.info['counter'][i]) > 1:
+                    values.append(mean(pmu_obj.info['counter'][i]))
+                else:
+                    values.append(pmu_obj.info['counter'][i])
             timestamps.append(pmu_obj.info['metadata']['timestamp'])
             names.append(pmu_obj.info['metadata']['name'])
             code.append(pmu_obj.info['metadata']['code'])
@@ -349,15 +364,28 @@ class spa_pmu:
 
     def process_TD(self, pmu_obj, options):
 
-        pmu_obj_new = data_manager.PMU()
-
-        for v in pmu_obj.info['counter'].keys():
-            name = pmu_obj.info['counter'][v]['EventName']
-            pmu_obj_new.info['counter'][name] = pmu_obj.info['counter'][v]
-
+        pmu_obj_new = self.recreate_pmu_obj(pmu_obj, options)
         pmu_obj_new.info['metadata'] = pmu_obj.info['metadata'] 
         core_obj = self.topdown(pmu_obj_new, options)
         final_obj =  core_obj.derive_perfmon_metrics()
         return final_obj
+
+
+    def recreate_pmu_obj(self, pmu_obj, options):
+
+        min_size = 65536
+        pmu_obj_new = data_manager.PMU()
+        for event in pmu_obj.info['counter'].keys():
+            size = len(pmu_obj.info['counter'][event]['Value'])
+            if (size < min_size) and (size != 0):
+                min_size = size
+
+        for event in pmu_obj.info['counter'].keys():
+            name = pmu_obj.info['counter'][event]['EventName']
+            pmu_obj_new.info['counter'][name] = pmu_obj.info['counter'][event]
+            pmu_obj_new.info['counter'][name]['Value'] = (pmu_obj.info['counter'][event]['Value'])[0:min_size]
+        return pmu_obj_new
+
+
 
 
