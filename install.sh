@@ -12,3 +12,4 @@ python3 lib/start.py
 apt install -y sysstat
 echo "ENABLED=true" > /etc/default/sysstat
 systemctl restart sysstat
+perf config stat.big-num=false
