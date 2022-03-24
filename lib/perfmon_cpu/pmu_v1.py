@@ -156,11 +156,11 @@ class v1(PerfmonCpu):
         tmp['invSL'] = 1 - (tmp['STALL/CYCLES']*(1/8))
 
         tmp['RETL1'] = tmp['RET/SPEC'] * tmp['invSL']*100
-        tmp['BADSPECL1'] = ((tmp['invOP'] * tmp['invSL']) + tmp['BR/CYC']) * 100
+        tmp['BADSPECL1'] = numpy.add((tmp['invOP'] * tmp['invSL']) , tmp['BR/CYC']) * 100
         
         obj_out['Retiring'] = tmp['RETL1']
         obj_out['Bad Speculation'] = tmp['BADSPECL1']
-        obj_out['Frontend Bound'] = 100 * (tmp['STALLF/CYCLES']*(1/8) - tmp['BR/CYC'])
+        obj_out['Frontend Bound'] = 100 * numpy.subtract((tmp['STALLF/CYCLES']*(1/8)), tmp['BR/CYC'])
         obj_out['Backend Bound'] = 100 * (tmp['STALLB/CYCLES']*(1/8))
 
         return obj_out
