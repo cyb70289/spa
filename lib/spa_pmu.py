@@ -293,7 +293,7 @@ class spa_pmu:
                 if len(pmu_obj.info['counter'][i]['Value']) > 1:
                     values.append(mean(pmu_obj.info['counter'][i]['Value']))
                 else:
-                    values.append(pmu_obj.info['counter'][i]['Value'])
+                    values.append(pmu_obj.info['counter'][i]['Value'][0])
                 alias.append(pmu_obj.info['counter'][i]['Alias'])
             else:
                 event_names.append(i)
@@ -303,7 +303,7 @@ class spa_pmu:
                 if len(pmu_obj.info['counter'][i]) > 1:
                     values.append(mean(pmu_obj.info['counter'][i]))
                 else:
-                    values.append(pmu_obj.info['counter'][i])
+                    values.append(pmu_obj.info['counter'][i][0])
             timestamps.append(pmu_obj.info['metadata']['timestamp'])
             names.append(pmu_obj.info['metadata']['name'])
             code.append(pmu_obj.info['metadata']['code'])
